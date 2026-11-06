@@ -1944,6 +1944,8 @@ const store = {
 };
 const ic = (n, cls) => (IC[n] ? `<svg class="ic${cls ? ' ' + cls : ''}" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true">${IC[n]}</svg>` : '');
 const TICON = { I: 'leaf', W: 'knife', C: 'shield' };
+// codes typed on an Arabic keyboard come as ٠-٩ (or Persian ۰-۹): read them as 0-9
+const latinDigits = (s) => String(s == null ? '' : s).replace(/[٠-٩]/g, (d) => String(d.charCodeAt(0) - 0x660)).replace(/[۰-۹]/g, (d) => String(d.charCodeAt(0) - 0x6f0));
 const cleanNick = (s) => String(s || '').replace(/[\u0000-\u001f​-‏‪-‮]/g, '').replace(/\s+/g, ' ').trim().slice(0, 16);
 
 /* ================= state ================= */
@@ -2173,10 +2175,13 @@ async function handleAct(msg) {
 async function hostCreate() {
   if (!S.nick) return toast('اكتب اسمك أول');
   if (!NET.room) return toast('اللعب الجماعي مو متوفر هنا');
+  if (S.ui.connecting) return;
+  S.ui.connecting = true; toast('نجهز الغرفة…');
   await C.init();
   let code = String(1000 + Math.floor(Math.random() * 9000));
-  if (typeof NET.room.code === 'function') { code = await NET.room.code(); if (!code) return toast('ما قدرت أوصل لسيرفر الغرف، تأكد من النت وجرّب مرة ثانية'); }
-  try { NET.R = await NET.room.join('lail-' + code); } catch (e) { return toast('ما قدرت أفتح غرفة، جرّب مرة ثانية'); }
+  if (typeof NET.room.code === 'function') { code = await NET.room.code(); if (!code) { S.ui.connecting = false; return toast('ما قدرت أوصل لسيرفر الغرف، تأكد من النت وجرّب مرة ثانية'); } }
+  try { NET.R = await NET.room.join('lail-' + code); } catch (e) { S.ui.connecting = false; return toast('ما قدرت أفتح غرفة، جرّب مرة ثانية'); }
+  S.ui.connecting = false;
   S.role = 'host'; S.code = code; S.mode = 'lobby';
   H.G = null; H.keys = {}; H.conn = {}; H.lastAid = {}; H.errs = {}; H.epoch = rid();
   H.lobby = [{ nick: S.nick, bot: false, cid: S.cid, host: true }];
@@ -2190,11 +2195,15 @@ async function hostCreate() {
 
 /* ================= client ================= */
 async function clientJoin(code) {
+  code = latinDigits(code).replace(/\D/g, '');
   if (!S.nick) return toast('اكتب اسمك أول');
   if (!/^\d{4}$/.test(code)) return toast('الرمز ٤ أرقام');
   if (!NET.room) return toast('اللعب الجماعي مو متوفر هنا');
+  if (S.ui.connecting) return;
+  S.ui.connecting = true; toast('ندخل الغرفة…');
   await C.init();
-  try { NET.R = await NET.room.join('lail-' + code); } catch (e) { return toast('ما قدرت أدخل الغرفة'); }
+  try { NET.R = await NET.room.join('lail-' + code); } catch (e) { S.ui.connecting = false; return toast('ما قدرت أوصل للغرفة، تأكد من النت وجرّب مرة ثانية'); }
+  S.ui.connecting = false;
   S.role = 'client'; S.code = code; S.mode = 'lobby'; S.pub = null; S.priv = null;
   NET.epoch = null; NET.seq = -1; NET.pvSeq = -1; NET.buf = {}; NET.out = []; NET.hostPeer = null; NET.hostKey = null; NET.hostPk = null;
   NET.R.presence({ nk: S.nick, pk: C.pub || '', cid: S.cid }).catch(() => {});
@@ -3583,7 +3592,7 @@ function onClick(e) {
   const pub = S.pub, me = meId();
   switch (act) {
     case 'host': saveNick(); hostCreate(); break;
-    case 'join': saveNick(); S.ui.joinCode = (document.getElementById('joinCode') || {}).value || ''; clientJoin(S.ui.joinCode.trim()); break;
+    case 'join': saveNick(); S.ui.joinCode = latinDigits((document.getElementById('joinCode') || {}).value).replace(/\D/g, '').slice(0, 4); clientJoin(S.ui.joinCode); break;
     case 'solo': saveNick(); startSolo(); break;
     case 'bots-': S.ui.bots = Math.max(3, S.ui.bots - 1); render(); break;
     case 'bots+': S.ui.bots = Math.min(11, S.ui.bots + 1); render(); break;
@@ -3683,7 +3692,7 @@ function onSubmit(e) {
 }
 function onInput(e) {
   if (e.target.id === 'nick') { S.nick = cleanNick(e.target.value); store.set('lail.nick', S.nick); }
-  if (e.target.id === 'joinCode') S.ui.joinCode = e.target.value.replace(/\D/g, '').slice(0, 4);
+  if (e.target.id === 'joinCode') S.ui.joinCode = latinDigits(e.target.value).replace(/\D/g, '').slice(0, 4);
 }
 function onChange(e) { if (e.target.id === 'timer') { H.opts.timer = +e.target.value; hostChanged(); } }
 
