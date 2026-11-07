@@ -1,13 +1,16 @@
-// الصبح الأسود on Cloudflare: the game page from static assets, and one Durable Object per room
-// that relays messages between the phones over WebSockets. The game encrypts private data itself.
+// الصبح الأسود on Cloudflare, at not-sal.com/alsobh/: the game page from static assets, and one
+// Durable Object per room that relays messages between the phones over WebSockets.
+// The game encrypts private data itself; the server only passes it along.
+const PREFIX = '/alsobh';
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
-    const m = url.pathname.match(/^\/ws\/([\w-]{1,40})$/);
+    if (url.pathname === PREFIX || url.pathname === '/') return Response.redirect(url.origin + PREFIX + '/' + url.search, 301);
+    const m = url.pathname.match(/\/ws\/([\w-]{1,40})$/);
     if (m) {
       if (request.headers.get('Upgrade') !== 'websocket') return new Response('expected a websocket', { status: 426 });
-      const id = env.ROOMS.idFromName(m[1]);
-      return env.ROOMS.get(id).fetch(request);
+      return env.ROOMS.get(env.ROOMS.idFromName(m[1])).fetch(request);
     }
     return env.ASSETS.fetch(request);
   },
