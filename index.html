@@ -890,6 +890,46 @@ button.rvc:active{transform:scale(.96)}
 .gscore>.ic{font-size:22px;color:var(--gold)}
 .wordmark .qm{color:var(--gold)}
 
+
+/* ---------- the big "who is playing and what they did" show ---------- */
+#act{position:fixed;inset:0;z-index:70;pointer-events:none}
+#act:empty{display:none}
+.as{position:absolute;inset:0;display:grid;place-items:center;padding:20px;background:rgba(5,4,16,.62);animation:asin .22s ease both}
+.as.out{animation:asout .26s ease forwards}
+.as-in{width:min(420px,100%);display:flex;flex-direction:column;align-items:center;gap:10px;text-align:center;padding:18px 16px 16px;border-radius:24px;color:var(--text);
+  background:linear-gradient(180deg,#24216a,#15134a);box-shadow:0 0 0 2px rgba(244,191,82,.55),0 24px 60px rgba(0,0,0,.6);animation:aspop .38s cubic-bezier(.3,1.35,.5,1) both}
+.as-in h2{margin:0;font-family:var(--f-mark);font-size:clamp(40px,12vw,56px);line-height:1.1;color:#fff6e2}
+.as-in h3{margin:2px 0 0;font-size:20px;line-height:1.45}
+.as-k{margin:0;color:var(--muted);font-weight:700;font-size:14px}
+.as-s{margin:0;color:var(--gold);font-weight:800;font-size:15px;line-height:1.5}
+.as-row{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:nowrap;max-width:100%}
+.as-p{display:flex;flex-direction:column;align-items:center;gap:4px;min-width:0}
+.as-p b{font-size:13px;max-width:84px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.as-p .ccard{--ccw:64px}
+.as-arr{font-size:24px;font-weight:800;color:var(--gold);animation:asarr .9s ease-in-out infinite}
+.as-card .card{--cardw:92px;--cardh:128px;animation:asfly .55s cubic-bezier(.3,1.3,.5,1) .12s both}
+.as-card.big .card{--cardw:110px;--cardh:154px}
+.as.red .as-in{box-shadow:0 0 0 2px #ff5a4f,0 0 40px rgba(255,90,79,.35),0 24px 60px rgba(0,0,0,.6)}
+.as.red .as-s{color:#ff9d92}
+.as.t-green .as-s{color:#9be3b6}
+.as.t-blue .as-s{color:#a9cdfb}
+.as.turn .as-in{flex-direction:row;gap:16px;text-align:start;padding:16px 18px}
+.as.turn .ccard{--ccw:96px}
+.as-t{display:flex;flex-direction:column;gap:2px;min-width:0}
+.as.turn.mine .as-in{background:linear-gradient(180deg,#ffd36d,#e7a13a);color:var(--gold-ink);box-shadow:0 0 0 3px #fff2c4,0 0 60px rgba(244,191,82,.7),0 24px 60px rgba(0,0,0,.5)}
+.as.turn.mine h2{color:var(--gold-ink);text-shadow:none}
+.as.turn.mine .as-k,.as.turn.mine .as-s{color:#5a3d10}
+.as-backs{position:relative;width:96px;height:96px}
+.as-back{position:absolute;top:10px;left:50%;width:46px;height:64px;margin-left:-23px;border-radius:8px;background:radial-gradient(circle at 50% 40%,#413c9c,#1a1852 80%);box-shadow:inset 0 0 0 2px rgba(244,191,82,.75),0 6px 14px rgba(0,0,0,.45);animation:asdeal .5s cubic-bezier(.3,1.2,.5,1) calc(.1s + var(--k) * .14s) both}
+.as-back:nth-child(2){transform:translateX(14px) rotate(8deg)}.as-back:nth-child(3){transform:translateX(-14px) rotate(-8deg)}
+@keyframes asin{from{opacity:0}to{opacity:1}}
+@keyframes asout{to{opacity:0}}
+@keyframes aspop{from{opacity:0;transform:scale(.8) translateY(14px)}to{opacity:1;transform:none}}
+@keyframes asfly{from{opacity:0;transform:translateX(60px) rotate(12deg) scale(.6)}to{opacity:1;transform:none}}
+@keyframes asdeal{from{opacity:0;translate:60px -30px}to{opacity:1;translate:0 0}}
+@keyframes asarr{50%{transform:translateX(-4px)}}
+@media (max-width:370px){.as-p .ccard{--ccw:54px}.as-card .card{--cardw:80px;--cardh:112px}.as-in h3{font-size:18px}}
+
 /* ---------- effects layer ---------- */
 #fx{position:fixed;inset:0;pointer-events:none;z-index:45;overflow:hidden}
 .flyer{position:absolute;transform:translate(-50%,-50%)}
@@ -961,6 +1001,7 @@ button.rvc:active{transform:scale(.96)}
 <div id="sheet" dir="rtl" lang="ar"></div>
 <div id="modal" dir="rtl" lang="ar"></div>
 <div id="fx" aria-hidden="true"></div>
+<div id="act" dir="rtl" lang="ar"></div>
 <div id="cdraw" dir="rtl" lang="ar"></div>
 <div id="rvl" dir="rtl" lang="ar"></div>
 <div id="toasts" class="toasts" dir="rtl" lang="ar" aria-live="polite"></div>
@@ -1667,7 +1708,7 @@ button.rvc:active{transform:scale(.96)}
     const isOver = G.phase === 'over';
     const N = G.night;
     return {
-      v: G.v, ph: G.phase, turn: G.turn, tm: G.tmode, dk: G.deck.length, ds: G.disc.length, nn: G.nightN, wt: G.wt, cg: G.catGone ? 1 : 0,
+      v: G.v, ph: G.phase, turn: G.turn, tn: G.turnN, tm: G.tmode, dk: G.deck.length, ds: G.disc.length, nn: G.nightN, wt: G.wt, cg: G.catGone ? 1 : 0,
       pd: G.pending ? { k: G.pending.k, w: G.pending.who, tg: G.pending.target, y: G.pending.why } : null,
       pl: G.players.map((p) => ({
         n: p.nick, b: p.bot ? 1 : 0, c: p.ch, a: p.alive ? 1 : 0, cid: p.cid,
@@ -2044,8 +2085,9 @@ function delayFor(G, P) {
     return lead + (G.sec.k === 'c' ? 1800 + Math.random() * 3600 : 1600 + Math.random() * 3400);
   }
   if (G.phase === 'night_confess') return 1300 + Math.random() * 2600;
-  if (G.pending) return 1200;
-  return G.tmode === 'choose' ? 1500 : 1100;
+  // slow enough to follow: a bot thinks a couple of seconds before each move
+  if (G.pending) return 2200 + Math.random() * 800;
+  return G.tmode === 'choose' ? 2000 + Math.random() * 1400 : 1900 + Math.random() * 900;
 }
 function tick() {
   const G = H.G;
@@ -2054,6 +2096,15 @@ function tick() {
   // a revealed trial card plays a big flip on every screen: bots wait for it to finish
   const nr = G.fx.filter((f) => f.k === 'reveal' && f.i > (H.lastRev || 0));
   if (nr.length) { H.lastRev = nr[nr.length - 1].i; if (!H.noHold) H.hold = Math.max(H.hold || 0, now0) + (nr.length === 1 ? 5200 : Math.min(14000, nr.length * 3100)); }
+  // bots also wait for the big "what happened" shows and the turn banner to finish
+  const ns = G.fx.filter((f) => f.i > (H.lastShow || 0));
+  if (ns.length) {
+    H.lastShow = ns[ns.length - 1].i;
+    let add = 0, drew = false;
+    for (const f of ns) { if (f.k === 'play') add += 2800; else if (f.k === 'black') add += 2400; else if (f.k === 'peek') add += 2000; else if (f.k === 'draw' && !drew) { add += 1700; drew = true; } }
+    if (add && !H.noHold) H.hold = Math.max(H.hold || 0, now0) + add;
+  }
+  if (G.turnN !== H.lastTn) { if (H.lastTn != null && G.phase === 'turn' && !H.noHold) H.hold = Math.max(H.hold || 0, now0) + 1700; H.lastTn = G.turnN; }
   if (now0 < (H.hold || 0)) return;
   if (G.sec && LE.expire(G)) { H.awSig = ''; hostChanged(); return; }
   const aw = LE.awaiting(G);
@@ -2080,7 +2131,7 @@ function startHostedGame() {
   const lob = H.lobby.map((x) => ({ nick: x.nick, bot: x.bot, cid: x.cid }));
   if (lob.length < 4 || lob.length > 12) return toast('تحتاجون من ٤ إلى ١٢ لاعب');
   H.G = LE.newGame(lob, {});
-  H.awSig = ''; H.lastRev = 0; H.hold = 0;
+  H.awSig = ''; H.lastRev = 0; H.hold = 0; H.lastShow = 0; H.lastTn = null;
   S.mode = 'game';
   S.ui.seenEv = -1; S.ui.seenNote = -1; S.ui.seenChat = -1; S.ui.seenFx = -1; S.ui.roleOpen = false; S.ui.sheet = null; S.ui.tg = null;
   wake();
@@ -3530,7 +3581,6 @@ function animate(f) {
       break;
     }
     case 'draw': fly(document.getElementById('deck'), f.a === me ? (document.querySelector('.hand') || tokEl(f.a)) : tokEl(f.a), '<span class="mini t-back fly"></span>', { ms: 520, nopop: true }); break;
-    case 'black': bigFlash(f.t); break;
     case 'cat': fly(document.getElementById('deck'), matEl(f.b), cardMini('CAT', 'fly')); break;
     case 'peek': fly(tokEl(f.a), matEl(f.b), `<span class="mini t-peek fly">${ic('eye')}</span>`, { ms: 640 }); break;
     case 'reveal': break;
@@ -3538,18 +3588,88 @@ function animate(f) {
     case 'consp': { document.querySelectorAll('.pb,.mybox').forEach((m) => m.animate([{ transform: 'rotate(0)' }, { transform: 'rotate(1.5deg) scale(1.02)' }, { transform: 'rotate(-1.5deg)' }, { transform: 'rotate(0)' }], { duration: 800 })); break; }
   }
 }
+/* ---- big "who is playing and what they did" shows on every screen, one after another ---- */
+const AQ = [];
+let aqBusy = false;
+function queueShow(s) {
+  if (!s) return;
+  AQ.push(s);
+  if (AQ.length > 8) AQ.splice(0, AQ.length - 8);
+  if (!aqBusy) nextShow();
+}
+function nextShow() {
+  const box = document.getElementById('act');
+  if (!box) return;
+  aqBusy = true;
+  if (rvBusy) { setTimeout(nextShow, 350); return; }
+  const s = AQ.shift();
+  if (!s) { aqBusy = false; box.innerHTML = ''; return; }
+  box.innerHTML = s.html;
+  if (s.buzz) { try { if (navigator.vibrate) navigator.vibrate(90); } catch (e) { /* not allowed */ } }
+  const el = box.firstElementChild;
+  setTimeout(() => { if (el) el.classList.add('out'); }, s.ms);
+  setTimeout(nextShow, s.ms + 260);
+}
+const asWrap = (cls, inner) => `<div class="as ${cls}" aria-live="polite"><div class="as-in">${inner}</div></div>`;
+const whoIs = (i) => (i === meId() ? 'أنت' : nk(i));
+function turnShow(i) {
+  const p = pl(i), me = meId();
+  if (!p) return null;
+  const mine = i === me, ch = p.c ? LE.CHARS[p.c] : null;
+  return { ms: mine ? 1700 : 1500, buzz: mine, html: asWrap('turn' + (mine ? ' mine' : ''), `${ccard(i, { cls: 'lg' })}<div class="as-t"><p class="as-k">${mine ? 'جا دورك' : 'الدور على'}</p><h2>${mine ? 'دورك!' : esc(p.n)}</h2><p class="as-s">${mine ? 'اسحب ورقتين، أو العب ورقة على لاعب' : ch ? `${ch.n} · ${ch.t}` : ''}</p></div>`) };
+}
+function playShow(f) {
+  const T = LE.T[f.t], me = meId();
+  if (!T) return null;
+  const mineA = f.a === me;
+  const on = (i) => (i === me ? 'عليك' : 'على ' + nk(i));
+  const tp = pl(f.b);
+  let head = `${whoIs(f.a)} ${mineA ? 'لعبت' : 'لعب'} «${T.n}» ${on(f.b)}`;
+  let sub = SD[f.t] || '';
+  if (f.t === 'ROB' && f.c != null) { head = `${whoIs(f.a)} ${mineA ? 'سرقت' : 'سرق'} ${f.b === me ? 'يدك' : 'يد ' + nk(f.b)}`; sub = `وعطاها ${f.c === me ? 'لك' : nk(f.c)}`; }
+  else if (f.t === 'SCA' && f.c != null) { head = `${whoIs(f.a)} ${mineA ? 'نقلت' : 'نقل'} اللي ${f.b === me ? 'قدامك' : 'قدام ' + nk(f.b)}`; sub = `إلى ${f.c === me ? 'قدامك' : 'قدام ' + nk(f.c)}`; }
+  if (tp && LE.RED[f.t]) sub = tp.a ? `صار ${f.b === me ? 'عليك' : 'عليه'} ${AR(tp.rs)} من ${AR(tp.th)} اتهامات` : 'وانكشفت أوراقه';
+  else if (tp && f.t === 'ALI') sub = `باقي ${f.b === me ? 'عليك' : 'عليه'} ${AR(tp.rs)} من ${AR(tp.th)}`;
+  const tgt = (i) => `<span class="as-p">${ccard(i, { cls: 'md' })}<b>${whoIs(i)}</b></span>`;
+  const row = `${tgt(f.a)}<span class="as-arr" aria-hidden="true">←</span><span class="as-card">${cardBig(0, f.t, 'static')}</span><span class="as-arr" aria-hidden="true">←</span>${tgt(f.b)}${f.c != null ? `<span class="as-arr" aria-hidden="true">←</span>${tgt(f.c)}` : ''}`;
+  return { ms: mineA ? 1500 : 2600, html: asWrap('play t-' + T.c + (LE.RED[f.t] ? ' red' : ''), `<div class="as-row">${row}</div><h3>${head}</h3>${sub ? `<p class="as-s">${sub}</p>` : ''}`) };
+}
+function drawShow(a, n) {
+  const p = pl(a), me = meId();
+  if (!p) return null;
+  const mine = a === me;
+  const cnt = n === 1 ? 'ورقة' : n === 2 ? 'ورقتين' : `${AR(n)} أوراق`;
+  const backs = Array.from({ length: Math.min(n, 3) }, (_, k) => `<span class="as-back" style="--k:${k}"></span>`).join('');
+  return { ms: mine ? 1100 : 1600, html: asWrap('draw', `<div class="as-row">${ccard(a, { cls: 'md' })}<span class="as-backs">${backs}</span></div><h3>${mine ? 'سحبت' : esc(p.n) + ' سحب'} ${cnt}</h3><p class="as-s">${mine ? 'وخلص دورك' : 'وخلّص دوره'}</p>`) };
+}
+function blackShow(f) {
+  const T = LE.T[f.t];
+  return { ms: 2200, html: asWrap('black', `<div class="as-row"><span class="as-p">${ccard(f.a, { cls: 'md' })}<b>${whoIs(f.a)}</b></span><span class="as-card big">${cardBig(0, f.t, 'static')}</span></div><h3>${whoIs(f.a)} ${f.a === meId() ? 'سحبت' : 'سحب'} «${T.n}»</h3><p class="as-s">${f.t === 'NIG' ? 'ينزل الليل…' : 'صاحب القطة السوداء تنكشف له ورقة، والكل يتبادل ورقة'}</p>`) };
+}
+function peekShow(f) {
+  return { ms: 1800, html: asWrap('peek', `<div class="as-row"><span class="as-p">${ccard(f.a, { cls: 'md' })}<b>${whoIs(f.a)}</b></span><span class="as-arr">${ic('eye')}</span><span class="as-p">${ccard(f.b, { cls: 'md' })}<b>${whoIs(f.b)}</b></span></div><h3>${whoIs(f.a)} ${f.a === meId() ? 'طالعت' : 'طالع'} ورقة من ${f.b === meId() ? 'أوراقك' : 'أوراق ' + nk(f.b)}</h3><p class="as-s">عين الصقر: محد يدري وش شاف</p>`) };
+}
 function runFx() {
-  const fx = S.pub && S.pub.fx;
+  const pub = S.pub, fx = pub && pub.fx;
   if (!fx || S.mode !== 'game') return;
   const mx = fx.reduce((m, f) => Math.max(m, f.i), 0);
-  if (S.ui.seenFx == null || S.ui.seenFx < 0 || mx < S.ui.seenFx) { S.ui.seenFx = mx; return; }
+  if (S.ui.seenFx == null || S.ui.seenFx < 0 || mx < S.ui.seenFx) { S.ui.seenFx = mx; S.ui.lastTn = pub.tn; return; }
   const news = fx.filter((f) => f.i > S.ui.seenFx);
   S.ui.seenFx = mx;
   for (const f of news) if (f.k === 'reveal') queueReveal(f);
+  // what happened, big on every screen: plays, draws (grouped), black cards, peeks; then whose turn it is
+  for (let k = 0; k < news.length; k++) {
+    const f = news[k];
+    if (f.k === 'play') queueShow(playShow(f));
+    else if (f.k === 'black') queueShow(blackShow(f));
+    else if (f.k === 'peek') queueShow(peekShow(f));
+    else if (f.k === 'draw') { let n = 1; while (news[k + 1] && news[k + 1].k === 'draw' && news[k + 1].a === f.a) { n++; k++; } queueShow(drawShow(f.a, n)); }
+  }
+  if (pub.ph === 'turn' && pub.tn != null && S.ui.lastTn != null && pub.tn > S.ui.lastTn) queueShow(turnShow(pub.turn));
+  if (pub.tn != null) S.ui.lastTn = pub.tn;
   if (reduced() || !news.length) return;
   news.slice(-5).forEach((f, k) => setTimeout(() => { try { animate(f); } catch (e) { /* element gone */ } }, k * 200));
 }
-
 /* ================= events ================= */
 function seatTap(pid) {
   const pub = S.pub;
