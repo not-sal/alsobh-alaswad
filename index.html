@@ -1086,18 +1086,18 @@ button.rvc:active{transform:scale(.96)}
   const BLUE = { PIE: 1, ASY: 1, MAT: 1 };
 
   const CHARS = {
-    saleh: { n: 'صالح', t: 'المحقق', d: 'مرة وحدة باللعبة، في دوره يختار لاعب ويشوف كل أوراق محاكمته المقلوبة. محد يدري وش شاف.' },
+    saleh: { n: 'صالح', t: 'المحقق', d: 'مرة وحدة باللعبة، في دوره يختار لاعب ويشوف ورقتين عشوائية من أوراق محاكمته المقلوبة. محد يدري وش شاف.' },
     khaled: { n: 'خالد', t: 'الحرامي', d: 'مرة وحدة باللعبة، في دوره ينشل ورقتين عشوائية من يد أي لاعب لنفسه، والدور يكمل عادي.' },
-    nawaf: { n: 'نواف', t: 'الجدار', d: 'أول مرة توصل اتهاماته للحد، تنحرق كلها وما تنكشف له ولا ورقة.' },
-    abdullah: { n: 'عبدالله', t: 'أبو سبعة أرواح', d: 'أول مرة يغتالونه الخونة بالليل يقوم حي، والكل يدري إنه نجا.' },
-    ali: { n: 'علي', t: 'الفتنة', d: 'مرة وحدة باللعبة، في دوره ينقل كل الاتهامات اللي على لاعب ويرميها على لاعب ثاني. وإذا وصلت للحد، علي اللي يكشف.' },
-    abuazouz: { n: 'أبو عزوز', t: 'الوصية', d: 'إذا مات يكتب وصيته: يختار لاعب، ويشوف أوراقه، ويختار بنفسه أي ورقة تنكشف للكل.' },
+    nawaf: { n: 'نواف', t: 'الصلب', d: 'إذا تجمعت عليه الاتهامات، هو اللي يختار أي ورقة تنكشف من أوراقه، مو اللي اتهمه.' },
+    abdullah: { n: 'عبدالله', t: 'أبو سبعة أرواح', d: 'أول مرة يغتالونه الخونة بالليل يقوم حي، بس تنكشف منه ورقة عشوائية للكل.' },
+    ali: { n: 'علي', t: 'المستعجل', d: 'مرة وحدة باللعبة، في دوره يقول «ما أصبر»: إذا خلّص دوره ياخذ دور ثاني على طول.' },
+    abuazouz: { n: 'أبو عزوز', t: 'الوصية', d: 'إذا مات يكتب وصيته: يختار لاعب، وتنفتح له ورقتين عشوائية من أوراقه، ويختار وحدة منها تنكشف للكل.' },
     noura: { n: 'نورة', t: 'الطبيبة', d: 'مرة وحدة باللعبة، بالليل تختار لاعب (غيرها) وتعالجه بالسر: إذا اغتالوه الخونة يقوم حي.' },
-    azouz: { n: 'عزوز', t: 'العين الصغيرة', d: 'مرة وحدة باللعبة، بالليل يطل من الشباك ويشوف مين اختاروا الخونة ضحية.' },
-    hamad: { n: 'العم حمد', t: 'كبير الديرة', d: 'مرة وحدة باللعبة، في دوره يعلن العفو العام: كل الاتهامات اللي على الكل تنحرق.' },
+    azouz: { n: 'عزوز', t: 'الشقي', d: 'مرة وحدة باللعبة، في دوره ياخذ القطة السوداء من قدام صاحبها ويحطها قدام أي لاعب يبيه.' },
+    hamad: { n: 'العم حمد', t: 'كبير المجلس', d: 'مرة وحدة باللعبة، في دوره يقول «دوّروا»: كل لاعب يعطي كل الأوراق اللي بيده للي على يساره.' },
   };
   // abilities you press yourself, and when
-  const ACTIVE = { saleh: 'turn', khaled: 'turn', ali: 'turn', hamad: 'turn', noura: 'night', azouz: 'night', abuazouz: 'death' };
+  const ACTIVE = { saleh: 'turn', khaled: 'turn', ali: 'turn', hamad: 'turn', noura: 'night', azouz: 'turn', abuazouz: 'death' };
   const CHAR_IDS = Object.keys(CHARS);
   const TRIAL = { 4: [18, 1], 5: [23, 1], 6: [27, 2], 7: [32, 2], 8: [29, 2], 9: [33, 2], 10: [27, 2], 11: [30, 2], 12: [33, 2] };
   const TN = { I: 'مسالم', W: 'خائن', C: 'شايب' };
@@ -1172,7 +1172,7 @@ button.rvc:active{transform:scale(.96)}
     };
     seats.forEach((s, i) => G.players.push({
       id: i, nick: s.nick, bot: !!s.bot, cid: s.cid || null, ch: null, alive: true, trial: [], hand: [], front: [],
-      witch: false, knows: false, peek: null, used: false, spy: null, notes: [], auto: false, lastWords: false, lastSay: 0,
+      witch: false, knows: false, peek: null, used: false, notes: [], auto: false, lastWords: false, lastSay: 0,
     }));
     for (const p of G.players) {
       p.trial = trial.splice(0, per).map((t) => ({ t, r: false }));
@@ -1261,13 +1261,13 @@ button.rvc:active{transform:scale(.96)}
     if (!c || c.r) return false;
     c.r = true; c.rb = by; c.rw = why;
     fx(G, { k: 'reveal', a: i, x: idx, t: c.t, b: by, w: why });
-    const src = { acc: 'بسبب الاتهامات', consp: 'بسبب المؤامرة', confess: 'اعتراف', will: 'وصية أبو عزوز' }[why] || '';
+    const src = { acc: 'بسبب الاتهامات', consp: 'بسبب المؤامرة', confess: 'اعتراف', will: 'وصية أبو عزوز', life: 'قام من موته' }[why] || '';
     log(G, ` انكشفت ورقة من ${p.nick} (${src}): ${TN[c.t]}`);
     if (c.t === 'W') { kill(G, i, 'witch'); }
     else if (p.trial.every((x) => x.r)) { kill(G, i, 'allrev'); }
     else {
       if (c.t === 'C') { log(G, ' انكشفت ورقة الشايب… ما عاد فيه شايب يحمي بالليل.'); ev(G, 'info', 'انكشف الشايب', `${p.nick} كان الشايب. ما عاد فيه أحد يحمي بالليل.`); }
-      if (why !== 'confess') botSay(G, i, SAY.innocent, 0.5);
+      if (why !== 'confess' && why !== 'life') botSay(G, i, SAY.innocent, 0.5);
     }
     if (c.t === 'W') { for (const q of G.players) if (q.alive && q.id !== i) { botSay(G, q.id, SAY.witch, 0.5); break; } }
     checkWin(G);
@@ -1281,11 +1281,10 @@ button.rvc:active{transform:scale(.96)}
       const keep = [];
       for (const id of p.front) { if (RED[G.cards[id]]) { delete G.dbl[id]; G.disc.push(id); } else keep.push(id); }
       p.front = keep;
-      if (p.ch === 'nawaf' && !p.used) {
-        p.used = true;
+      if (p.ch === 'nawaf') {
         fx(G, { k: 'ab', c: 'nawaf', a: t });
-        log(G, ` تجمعت ${thresh(p)} اتهامات على ${p.nick}… بس نواف جدار: انحرقت كلها وما انكشف شي!`);
-        ev(G, 'info', 'نواف الجدار', `الاتهامات اللي على ${p.nick} انكسرت على الجدار وانحرقت كلها.`);
+        log(G, ` تجمعت ${thresh(p)} اتهامات على ${p.nick}… بس نواف صلب: هو اللي يختار ورقته.`);
+        G.pq.push({ k: 'reveal', who: t, target: t, why: 'acc' });
         return;
       }
       log(G, ` تجمعت ${thresh(p)} اتهامات على ${p.nick}. ${nm(G, by)} يكشف له ورقة.`);
@@ -1391,6 +1390,7 @@ button.rvc:active{transform:scale(.96)}
       else { res = 'dead'; kill(G, k, 'night'); }
     }
     N.res = res;
+    if (res === 'life' && G.players[k].alive && unrev(G.players[k]).length) reveal(G, k, pick(unrev(G.players[k])), k, 'life');
     G.nh.push({ n: G.nightN, k, res, pr: N.prot, cf: confessed.slice() });
     const kn = k != null ? nm(G, k) : '';
     const rtxt = {
@@ -1401,7 +1401,7 @@ button.rvc:active{transform:scale(.96)}
       conf: `الخونة حاولوا يغتالون ${kn}… بس اعترف ونجا`,
       already: `الخونة اختاروا ${kn}… بس مات قبل لا يوصلونه`,
       heal: `الخونة اغتالوا ${kn}… بس نورة الطبيبة كانت معالجته بالسر وقام حي!`,
-      life: `الخونة اغتالوا ${kn}… بس عبدالله أبو سبعة أرواح، قام من موته!`,
+      life: `الخونة اغتالوا ${kn}… بس عبدالله أبو سبعة أرواح قام من موته، وانكشفت منه ورقة!`,
     }[res];
     let body = rtxt;
     if (confessed.length) body += '\nاعترفوا: ' + confessed.map((i) => nm(G, i)).join('، ');
@@ -1458,7 +1458,7 @@ button.rvc:active{transform:scale(.96)}
         note(G, P.id, `سحبت: ${T[t].n}`);
         return;
       }
-      case 'end': beginTurn(G, leftOf(G, G.turn)); return;
+      case 'end': if (G.again === G.turn && G.players[G.turn].alive) { G.again = null; log(G, ` ${P.nick} ياخذ دوره الثاني`); beginTurn(G, G.turn); return; } if (G.again === G.turn) G.again = null; beginTurn(G, leftOf(G, G.turn)); return;
       case 'cReveal': { const h = catHolder(G); if (h != null && G.players[h].alive) G.pq.push({ k: 'reveal', who: G.turn, target: h, why: 'consp' }); return; }
       case 'cSwap': conspSwap(G); return;
       case 'nightEnd': {
@@ -1643,8 +1643,8 @@ button.rvc:active{transform:scale(.96)}
       G.steps.push({ s: 'end' });
       return ok();
     }
-    if (a.t === 'peek' || a.t === 'steal' || a.t === 'fitna' || a.t === 'amnesty') {
-      const need = { peek: 'saleh', steal: 'khaled', fitna: 'ali', amnesty: 'hamad' }[a.t];
+    if (a.t === 'peek' || a.t === 'steal' || a.t === 'rush' || a.t === 'majlis' || a.t === 'cat') {
+      const need = { peek: 'saleh', steal: 'khaled', rush: 'ali', majlis: 'hamad', cat: 'azouz' }[a.t];
       if (P.ch !== need || P.used) return err('ما عندك هالقدرة');
       if (G.tmode !== 'choose' && G.tmode !== 'play') return err('مو وقته');
       const tp = G.players[a.target];
@@ -1652,10 +1652,10 @@ button.rvc:active{transform:scale(.96)}
       if (a.t === 'peek') {
         if (!okT || !unrev(tp).length) return err('اختر لاعب غيرك');
         P.used = true;
-        P.peek = { target: a.target, ts: unrev(tp).map((i) => tp.trial[i].t) };
+        P.peek = { target: a.target, ts: shuffle(unrev(tp)).slice(0, 2).map((i) => tp.trial[i].t) };
         fx(G, { k: 'ab', c: 'saleh', a: pid, b: a.target });
-        note(G, pid, ` المحقق: أوراق ${tp.nick} المقلوبة: ${P.peek.ts.map((x) => TN[x]).join('، ')}`);
-        log(G, ` ${P.nick} المحقق فتّش أوراق ${tp.nick} كلها`);
+        note(G, pid, ` المحقق: شفت من أوراق ${tp.nick}: ${P.peek.ts.map((x) => TN[x]).join('، ')}`);
+        log(G, ` ${P.nick} المحقق طالع ورقتين من أوراق ${tp.nick}`);
       } else if (a.t === 'steal') {
         if (!okT) return err('اختر لاعب غيرك');
         if (!tp.hand.length) return err('يده فاضية');
@@ -1667,32 +1667,31 @@ button.rvc:active{transform:scale(.96)}
         note(G, pid, ` نشلت من ${tp.nick}: ${got.map((x) => T[G.cards[x]].n).join('، ')}`);
         note(G, a.target, ` خالد الحرامي نشل منك: ${got.map((x) => T[G.cards[x]].n).join('، ')}`);
         log(G, ` ${P.nick} الحرامي نشل ${got.length === 1 ? 'ورقة' : 'ورقتين'} من يد ${tp.nick}`);
-      } else if (a.t === 'fitna') {
-        const dp = G.players[a.target2];
-        if (!tp || !tp.alive) return err('اختر اللي تشيل الاتهامات من عليه');
-        const reds = tp.front.filter((x) => RED[G.cards[x]]);
-        if (!reds.length) return err('ما عليه اتهامات');
-        if (!dp || !dp.alive || a.target2 === pid || a.target2 === a.target) return err('اختر لاعب ثاني ترميها عليه');
-        if (hasF(G, dp, 'PIE')) return err('عنده حصن');
+      } else if (a.t === 'rush') {
+        if (G.again === pid) return err('استخدمتها');
+        P.used = true; G.again = pid;
+        fx(G, { k: 'ab', c: 'ali', a: pid });
+        log(G, ` ${P.nick} المستعجل: له دور ثاني بعد هالدور`);
+      } else if (a.t === 'majlis') {
+        const al = G.players.filter((q) => q.alive);
+        if (al.filter((q) => q.hand.length).length < 1 || al.length < 2) return err('ما بيد أحد أوراق');
         P.used = true;
-        let v = 0;
-        for (const x of reds) { tp.front.splice(tp.front.indexOf(x), 1); dp.front.push(x); G.mv[x] = pid; v += cardVal(G, x); }
-        fx(G, { k: 'ab', c: 'ali', a: pid, b: a.target, d: a.target2, n: v });
-        log(G, ` ${P.nick} أشعل الفتنة: نقل ${v} اتهامات من ${tp.nick} إلى ${dp.nick} — صار عليه ${redSum(G, dp)}/${thresh(dp)}`);
-        if (dp.bot) botSay(G, a.target2, SAY.accused, 0.5, { a: P.nick });
-        checkAcc(G, a.target2, pid);
+        const hands = al.map((q) => q.hand);
+        al.forEach((q, k) => { const to = G.players[leftOf(G, q.id)]; to.newHand = hands[k]; });
+        for (const q of al) { q.hand = q.newHand || []; delete q.newHand; }
+        for (const q of al) { const from = al.find((x) => leftOf(G, x.id) === q.id); note(G, q.id, ` دوّروا! جتك ${q.hand.length} أوراق من يد ${from ? from.nick : ''}.`); }
+        fx(G, { k: 'ab', c: 'hamad', a: pid });
+        log(G, ` ${P.nick} كبير المجلس قال «دوّروا»: كل لاعب عطى يده للي على يساره`);
+        ev(G, 'info', 'دوّروا!', 'كل لاعب عطى كل الأوراق اللي بيده للي على يساره.');
       } else {
-        let n = 0;
-        for (const q of G.players) {
-          const keep = [];
-          for (const x of q.front) { if (RED[G.cards[x]]) { n += cardVal(G, x); delete G.dbl[x]; G.disc.push(x); } else keep.push(x); }
-          q.front = keep;
-        }
-        if (!n) return err('ما فيه اتهامات على أحد');
+        const h = catHolder(G);
+        if (h == null) return err('القطة مو قدام أحد');
+        if (!tp || !tp.alive || a.target === h) return err('اختر لاعب ثاني');
         P.used = true;
-        fx(G, { k: 'ab', c: 'hamad', a: pid, n });
-        log(G, ` ${P.nick} كبير الديرة أعلن العفو العام: انحرقت ${n} ${n > 10 ? 'اتهام' : 'اتهامات'} من على الكل`);
-        ev(G, 'info', 'العفو العام', `العم حمد عفا عن الكل: ${n} ${n > 10 ? 'اتهام انحرق' : 'اتهامات انحرقت'}.`);
+        const hp = G.players[h];
+        hp.front.splice(hp.front.indexOf(0), 1); tp.front.push(0); G.mv[0] = pid;
+        fx(G, { k: 'ab', c: 'azouz', a: pid, b: h, d: a.target });
+        log(G, ` ${P.nick} الشقي أخذ القطة السوداء من قدام ${hp.nick} وحطها قدام ${tp.nick}`);
       }
       return ok();
     }
@@ -1748,19 +1747,15 @@ button.rvc:active{transform:scale(.96)}
         sc.guess[pid] = { t: a.target, f: a.fix ? 1 : 0 };
         r = ok();
       } else return err('مو وقته');
-    } else if (G.phase === 'night_confess' && (a.t === 'heal' || a.t === 'spy')) {
+    } else if (G.phase === 'night_confess' && a.t === 'heal') {
       const N = G.night;
       if (!N.elig.includes(pid) || N.conf[pid] != null) return err('مو وقته');
-      if (a.t === 'heal') {
+      {
         if (P.ch !== 'noura' || P.used) return err('ما عندك هالقدرة');
         const tp = G.players[a.target];
         if (!tp || !tp.alive || a.target === pid) return err('اختر مين تعالج (غيرك)');
         P.used = true; N.heal = a.target;
         note(G, pid, ` عالجتي ${tp.nick} الليلة بالسر.`);
-      } else {
-        if (P.ch !== 'azouz' || P.used) return err('ما عندك هالقدرة');
-        P.used = true; P.spy = { n: G.nightN, t: N.kill };
-        note(G, pid, N.kill != null ? ` طليت من الشباك: الخونة اختاروا ${nm(G, N.kill)}!` : ' طليت من الشباك: الخونة ما اختاروا أحد.');
       }
       r = ok();
     } else if (G.phase === 'night_confess' && a.t === 'confess') {
@@ -1786,14 +1781,15 @@ button.rvc:active{transform:scale(.96)}
           if (pd.target == null || !G.players[pd.target].alive) {
             const tp0 = G.players[a.target];
             if (!tp0 || !tp0.alive || a.target === pid || !unrev(tp0).length) return err('اختر لاعب عايش');
-            pd.target = a.target;
+            pd.target = a.target; pd.opts = shuffle(unrev(tp0)).slice(0, 2);
             log(G, ` أبو عزوز فتح وصيته على ${tp0.nick}…`);
             if (a.idx == null) { G.v++; return ok(); }
           }
           a.target = pd.target;
           const tp = G.players[a.target];
           const u = unrev(tp);
-          const idx = u.includes(a.idx) ? a.idx : pick(u);
+          const ops = (pd.opts || u).filter((x) => u.includes(x));
+          const idx = ops.includes(a.idx) ? a.idx : pick(ops.length ? ops : u);
           G.pq.shift(); G.pending = null;
           P.used = true;
           log(G, ` وصية أبو عزوز: ${P.nick} اختار ورقة تنكشف من ${tp.nick}`);
@@ -1856,7 +1852,7 @@ button.rvc:active{transform:scale(.96)}
     const v = {
       me: pid, tr: P.trial.map((c) => c.t + (c.r ? '+' : '')), hd: P.hand.map((id) => [id, G.cards[id]]),
       w: P.witch ? 1 : 0, k: P.knows ? 1 : 0, tm: P.witch && P.knows ? G.teamSnap : [], cn: isCon(P) ? 1 : 0,
-      pk: P.peek, sp: P.spy && G.night && P.spy.n === G.nightN ? P.spy : null, nt: P.notes.slice(-4), lw: P.lastWords ? 1 : 0, au: P.auto ? 1 : 0,
+      pk: P.peek, nt: P.notes.slice(-4), lw: P.lastWords ? 1 : 0, au: P.auto ? 1 : 0,
     };
     const sc = G.sec;
     if (sc) {
@@ -1875,7 +1871,7 @@ button.rvc:active{transform:scale(.96)}
       v.gw = [gw.filter((x) => x.ok).length, gw.length]; v.gcs = [gc.filter((x) => x.ok).length, gc.length];
     }
  const willing = G.pq.some((x) => x.k === 'will' && x.who === pid);
-    if (G.pending && G.pending.k === 'will' && G.pending.who === pid && G.pending.target != null) v.wc = G.players[G.pending.target].trial.map((c) => c.t);
+    if (G.pending && G.pending.k === 'will' && G.pending.who === pid && G.pending.target != null) v.wc = G.players[G.pending.target].trial.map((c, i) => ((G.pending.opts || []).includes(i) ? c.t : '?'));
     if ((!P.alive && !willing) || G.phase === 'over') v.all = G.players.map((p) => ({ tr: p.trial.map((c) => c.t), w: p.witch ? 1 : 0 }));
     return v;
   }
@@ -1892,11 +1888,10 @@ button.rvc:active{transform:scale(.96)}
     const un = unrev(Tp).length, ri = Tp.trial.filter((c) => c.r && c.t !== 'W').length;
     if (P.witch) {
       let th = 0; for (const x of m.concat([me])) th += G.acc[t][x] || 0;
-      return s + th * 0.12 + (Tp.ch === 'saleh' && !Tp.used ? 0.25 : 0) + (Tp.ch === 'abdullah' && !Tp.used ? -0.5 : 0) + (isConGuess(G, t) ? 0.2 : 0) - ri * 0.05;
+      return s + th * 0.12 + (Tp.ch === 'saleh' && !Tp.used ? 0.25 : 0) + (Tp.ch === 'abdullah' && !Tp.used ? -0.25 : 0) + (isConGuess(G, t) ? 0.2 : 0) - ri * 0.05;
     }
     s += un * 0.12 - ri * 0.1 + (G.acc[t][me] || 0) * 0.07;
     if (P.peek && P.peek.target === t && G.players[t].alive) s += P.peek.ts.includes('W') && G.players[t].trial.some((c) => c.t === 'W' && !c.r) ? 5 : -0.6;
-    if (P.spy && P.spy.t === t) s -= 0.8;
     return s;
   }
   function isConGuess() { return false; }
@@ -2018,11 +2013,6 @@ button.rvc:active{transform:scale(.96)}
           if (t != null) return { t: 'heal', target: t };
         }
       }
-      if (P.ch === 'azouz' && !P.used && !P.witch && !N.botSpy) { N.botSpy = 1; if (Math.random() < 0.45) return { t: 'spy' }; }
-      if (P.spy && P.spy.n === G.nightN && P.spy.t === me && G.night.prot !== me && !hasF(G, P, 'ASY') && N.heal !== me) {
-        const u0 = unrev(P), si = ownRevealPick(P, ['I', 'C']);
-        if (u0.length > 1 && P.trial[si].t !== 'W') return { t: 'confess', idx: si };
-      }
       if (G.night.prot === me || hasF(G, P, 'ASY')) return { t: 'confess', idx: -1 };
       const u = unrev(P);
       const hasI = u.some((i) => P.trial[i].t === 'I');
@@ -2057,7 +2047,7 @@ button.rvc:active{transform:scale(.96)}
           return { t: 'will', target: t != null ? t : (live[0] || { id: 0 }).id };
         }
         let best = null;
-        for (const q of live.filter((x) => x.id === pd.target)) for (const i of unrev(q)) {
+        for (const q of live.filter((x) => x.id === pd.target)) for (const i of unrev(q).filter((x) => !pd.opts || pd.opts.includes(x))) {
           const ty = q.trial[i].t;
           let sc = Math.random() * 0.1;
           if (P.witch) sc += team.includes(q.id) ? -5 : ty === 'C' ? 2 : ty === 'I' ? 1 : -5;
@@ -2097,23 +2087,22 @@ button.rvc:active{transform:scale(.96)}
       const v = live.filter((q) => q.hand.length >= 3 && foe(q)).sort((a, b) => b.hand.length - a.hand.length)[0];
       if (v) return { t: 'steal', target: v.id };
     }
-    if (P.ch === 'ali') {
-      const ally = (q) => (P.witch ? m.includes(q.id) || q.id === me : q.id === me || sus(G, me, q.id) < 0.4);
-      const src = G.players.filter((q) => q.alive && ally(q) && redSum(G, q) >= 4).sort((a, b) => redSum(G, b) - redSum(G, a))[0];
-      if (src) {
-        const d = topSus(G, me, (q) => q.id !== src.id && foe(q) && !hasF(G, q, 'PIE') && (!P.witch || !m.includes(q.id)));
-        if (d != null && Math.random() < 0.7) return { t: 'fitna', target: src.id, target2: d };
-      }
-      const rich = live.filter((q) => foe(q) && redSum(G, q) >= 2).sort((a, b) => redSum(G, b) - redSum(G, a))[0];
-      if (rich) {
-        const d = topSus(G, me, (q) => q.id !== rich.id && foe(q) && !hasF(G, q, 'PIE') && redSum(G, q) + redSum(G, rich) >= 7);
-        if (d != null && Math.random() < 0.5) return { t: 'fitna', target: rich.id, target2: d };
-      }
+    if (P.ch === 'ali' && P.hand.length >= 3 && Math.random() < 0.4) {
+      const o = botOptions(G, me);
+      if (o.length >= 2 && o[1].s > 0.5) return { t: 'rush' };
     }
     if (P.ch === 'hamad') {
-      const ally = (q) => (P.witch ? m.includes(q.id) || q.id === me : q.id === me || sus(G, me, q.id) < 0.35);
-      const hot = G.players.filter((q) => q.alive && ally(q) && redSum(G, q) >= 5);
-      if (hot.length && Math.random() < 0.7) return { t: 'amnesty' };
+      const L = G.players[leftOf(G, me)];
+      const right = G.players.find((q) => q.alive && leftOf(G, q.id) === me);
+      const goodTrade = right && right.hand.length >= P.hand.length + 2;
+      if (goodTrade && Math.random() < 0.5 && L && L.id !== me) return { t: 'majlis' };
+    }
+    if (P.ch === 'azouz') {
+      const h = catHolder(G);
+      if (h != null) {
+        const mine = P.witch ? m.includes(h) || h === me : h === me || sus(G, me, h) < 0.4;
+        if (mine && Math.random() < 0.6) { const t = topSus(G, me, (q) => q.id !== h && foe(q)); if (t != null) return { t: 'cat', target: t }; }
+      }
     }
     return null;
   }
@@ -2811,7 +2800,7 @@ const TAG = {
   STO: 'يفوّت دوره', CUR: 'تحرق ورقة زرقاء', ARS: 'تحرق يده كاملة', PIE: 'ضد الأوراق الحمراء', ASY: 'ما ينقتل بالليل', MAT: 'يموتون سوا',
   CAT: 'تنكشف بالمؤامرة', NIG: 'ينزل الليل', CON: 'كشف وتبادل',
 };
-const WHY = { acc: 'بسبب الاتهامات', consp: 'بسبب المؤامرة', confess: 'اعتراف بالليل', will: 'بوصية أبو عزوز', death: 'لما مات' };
+const WHY = { acc: 'بسبب الاتهامات', consp: 'بسبب المؤامرة', confess: 'اعتراف بالليل', will: 'بوصية أبو عزوز', death: 'لما مات', life: 'لما قام من موته' };
 const ARs = (s) => AR(esc(s));
 const reduced = () => { try { return window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) { return false; } };
 function portrait(i, cls) { const p = pl(i); return PORTRAITS.draw(p && p.c, { cls, letter: p ? p.n : '؟', label: p ? p.n : '' }); }
@@ -2929,11 +2918,7 @@ function tokTargetable(m, i) {
   if (m.k === 'peek') return p.a && i !== me && p.tr.includes('?') ? '' : 'لا';
   if (m.k === 'steal') return !p.a || i === me ? 'لا' : p.h > 0 ? '' : 'يده فاضية';
   if (m.k === 'heal') return p.a && i !== me ? '' : 'لا';
-  if (m.k === 'fitna') {
-    if (!p.a) return 'لا';
-    if (m.step === 1) return i === me || i === m.t1 ? 'لا' : p.fr.some((f) => base(f) === 'PIE') ? 'عنده حصن' : '';
-    return p.rs > 0 ? '' : 'ما عليه اتهامات';
-  }
+  if (m.k === 'cat') return !p.a ? 'لا' : p.fr.includes('CAT') ? 'القطة قدامه' : '';
   if (m.k === 'card') return targetCheck(m.t, i, m.step, m.t1);
   return null;
 }
@@ -3101,7 +3086,7 @@ function roleCard() {
 
 const CHAR_COLOR = { saleh: '#1b5a61', khaled: '#8a5414', nawaf: '#2a3d78', abdullah: '#2f6c3c', ali: '#8f1f33', abuazouz: '#4b2c66', noura: '#8a2f63', azouz: '#1f6a96', hamad: '#6a4628' };
 /* ---- character cards: the portrait sits in a card with the character's name ---- */
-const ABW = { saleh: 'مرة وحدة باللعبة، في دوره', khaled: 'مرة وحدة باللعبة، في دوره', ali: 'مرة وحدة باللعبة، في دوره', hamad: 'مرة وحدة باللعبة، في دوره', noura: 'مرة وحدة باللعبة، بالليل وقت الاعتراف', azouz: 'مرة وحدة باللعبة، بالليل وقت الاعتراف', abuazouz: 'تشتغل لحالها إذا مات' };
+const ABW = { saleh: 'مرة وحدة باللعبة، في دوره', khaled: 'مرة وحدة باللعبة، في دوره', ali: 'مرة وحدة باللعبة، في دوره', hamad: 'مرة وحدة باللعبة، في دوره', noura: 'مرة وحدة باللعبة، بالليل وقت الاعتراف', azouz: 'مرة وحدة باللعبة، في دوره', abuazouz: 'تشتغل لحالها إذا مات' };
 const pkList = (pk) => (pk.ts || []).map((t) => `«${LE.TN[t]}»`).join(' ');
 function abReady() {
   const pub = S.pub, pv = S.priv, me = meId();
@@ -3113,8 +3098,9 @@ function abReady() {
   if (LE.ACTIVE[P.c] === 'turn') {
     if (!(pub.ph === 'turn' && !pub.pd && pub.turn === me && (pub.tm === 'choose' || pub.tm === 'play'))) return false;
     if (P.c === 'khaled') return others.some((q) => q.h > 0);
-    if (P.c === 'ali') return pub.pl.some((q) => q.a && q.rs > 0) && others.length >= 2;
-    if (P.c === 'hamad') return pub.pl.some((q) => q.a && q.rs > 0);
+    if (P.c === 'ali') return true;
+    if (P.c === 'hamad') return others.length >= 1 && (pub.pl.some((q) => q.a && q.h > 0) || (pv.hd || []).length > 0);
+    if (P.c === 'azouz') return pub.pl.some((q) => q.a && q.fr.includes('CAT'));
     return others.some((q) => q.tr.includes('?'));
   }
   if (LE.ACTIVE[P.c] === 'night') return !!(pub.ph === 'night_confess' && ((pub.ng || {}).el || []).includes(me) && pv.cf == null);
@@ -3127,10 +3113,9 @@ function useAbility() {
   S.ui.ovMin = false;
   if (P.c === 'saleh') S.ui.tg = { k: 'peek' };
   else if (P.c === 'khaled') S.ui.tg = { k: 'steal' };
-  else if (P.c === 'ali') S.ui.tg = { k: 'fitna', step: 0, t1: null };
   else if (P.c === 'noura') S.ui.tg = { k: 'heal' };
-  else if (P.c === 'azouz') doAct({ t: 'spy' });
-  else if (P.c === 'hamad') S.ui.sheet = { k: 'amnesty' };
+  else if (P.c === 'azouz') S.ui.tg = { k: 'cat' };
+  else if (P.c === 'ali' || P.c === 'hamad') S.ui.sheet = { k: 'abok', c: P.c };
 }
 function ccardC(cid, o) {
   o = o || {};
@@ -3329,7 +3314,7 @@ function actionHTML() {
   if (S.ui.tg) {
     const tg = S.ui.tg;
     const T = tg.k === 'card' ? LE.T[tg.t] : null;
-    const AQS = { peek: 'المحقق: اختر لاعب تفتّش أوراقه', steal: 'الحرامي: اختر لاعب تنشل من يده', heal: 'الطبيبة: اختر مين تعالج الليلة', fitna: tg.step === 1 ? 'الفتنة: على مين ترميها؟' : 'الفتنة: من على مين تشيل الاتهامات؟' };
+    const AQS = { peek: 'المحقق: اختر لاعب تطالع ورقتين من أوراقه', steal: 'الحرامي: اختر لاعب تنشل من يده', heal: 'الطبيبة: اختر مين تعالج الليلة', cat: 'الشقي: القطة السوداء تروح قدام مين؟' };
     const q = AQS[tg.k] ? AQS[tg.k] : tg.step === 1 ? (tg.t === 'ROB' ? 'اختر اللي تعطيه الأوراق' : 'اختر اللي تنقلها له') : (tg.t === 'ROB' ? 'اختر اللي تسرقه' : tg.t === 'SCA' ? 'اختر اللي تنقل من قدامه' : `اختر لاعب تلعب عليه «${T.n}»`);
     return `<div class="tray-bar hint"><div class="hint-t"><b>${q}</b>${T ? `<small>${SD[tg.t]}</small>` : ''}</div>${S.ui.ovMin ? `<button class="btn sm gold" data-act="ovmin">اختر</button>` : ''}<button class="btn sm ghost" data-act="cancel">إلغاء</button></div>`;
   }
@@ -3479,7 +3464,6 @@ function ovKey() {
   const pub = S.pub, m = tableMode();
   if (!pub || !m) return '';
   if (m.k === 'card') return `c${m.id}.${m.step}`;
-  if (m.k === 'fitna') return `f${m.step}`;
   if (m.k === 'will') return `w${pub.pd.tg}`;
   if (m.k === 'reveal') return `r${pub.pd.tg}:${pub.pl[pub.pd.tg].tr.join('')}`;
   return m.k;
@@ -3504,7 +3488,7 @@ function tileHTML(p, i, why, m) {
 }
 function chooserHTML() {
   const m = tableMode();
-  if (!m || S.ui.intro || !['card', 'peek', 'will', 'steal', 'fitna', 'heal'].includes(m.k)) return '';
+  if (!m || S.ui.intro || !['card', 'peek', 'will', 'steal', 'cat', 'heal'].includes(m.k)) return '';
   if (S.ui.ovMin) return ovReopen('ارجع للاختيار');
   const pub = S.pub, me = meId();
   let title, sub, head;
@@ -3514,12 +3498,11 @@ function chooserHTML() {
     sub = SD[m.t];
     head = cardBig(0, m.t, 'static');
   } else if (m.k === 'peek') {
-    title = 'المحقق: أوراق مين تفتّش؟'; sub = 'تشوف كل أوراق محاكمته المقلوبة، ومحد يدري وش شفت.'; head = ccard(me, { cls: 'md' });
+    title = 'المحقق: أوراق مين تطالع؟'; sub = 'تشوف ورقتين عشوائية من أوراق محاكمته المقلوبة، ومحد يدري وش شفت.'; head = ccard(me, { cls: 'md' });
   } else if (m.k === 'steal') {
     title = 'الحرامي: من يد مين تنشل؟'; sub = 'تاخذ ورقتين عشوائية من يده لك، وتكمل دورك.'; head = ccard(me, { cls: 'md' });
-  } else if (m.k === 'fitna') {
-    title = m.step === 1 ? `اتهامات ${m.t1 === me ? 'اللي عليك' : nk(m.t1)} ترميها على مين؟` : 'الفتنة: من على مين تشيل الاتهامات؟';
-    sub = m.step === 1 ? 'تنتقل كلها له، وإذا وصلت ٧ أنت اللي تكشف له ورقة.' : 'كل الاتهامات اللي عليه تنشال، وبعدين تختار على مين ترميها.'; head = ccard(me, { cls: 'md' });
+  } else if (m.k === 'cat') {
+    title = 'الشقي: القطة تروح قدام مين؟'; sub = 'تاخذها من قدام صاحبها وتحطها قدام اللي تختاره. إذا انسحبت المؤامرة، هو اللي تنكشف له ورقة.'; head = cardBig(0, 'CAT', 'static');
   } else if (m.k === 'heal') {
     title = 'الطبيبة: مين تعالج الليلة؟'; sub = 'إذا اغتالوه الخونة الليلة يقوم حي. محد يدري غيرك.'; head = ccard(me, { cls: 'md' });
   } else if (pub.pd && pub.pd.tg != null && pl(pub.pd.tg) && pl(pub.pd.tg).a) {
@@ -3527,21 +3510,21 @@ function chooserHTML() {
     const cards = tp.tr.map((x, k) => {
       if (x !== '?') return `<span class="rvc done">${trialFace(x)}<small>${LE.TN[x]}</small><em>مكشوفة</em></span>`;
       const f = wc ? wc[k] : '?';
-      return `<button class="rvc" data-act="willcard" data-i="${k}">${trialFace(f, true)}<small>${LE.TN[f] || 'الورقة ' + AR(k + 1)}</small><em>${f === 'W' ? 'خائن! اكشفه' : 'اكشفها'}</em></button>`;
+      if (f === '?') return `<span class="rvc done">${trialFace('?')}<small>ما تشوفها</small><em>مقلوبة</em></span>`;
+      return `<button class="rvc" data-act="willcard" data-i="${k}">${trialFace(f, true)}<small>${LE.TN[f]}</small><em>${f === 'W' ? 'خائن! اكشفه' : 'اكشفها'}</em></button>`;
     }).join('');
     return `<div class="ov revealer" role="dialog" aria-label="وصيتك"><div class="ov-in">
     <p class="rv-k">${ic('scales')} وصية أبو عزوز</p>
     <div class="rv-big" style="--pc:${tp.c ? CHAR_COLOR[tp.c] : '#6b625a'}">${ccard(t, { cls: 'xl' })}<div class="rv-id">${nameplate(tp, t, { cls: 'lg' })}${abChip(tp)}</div></div>
-    <h3>شفت أوراق ${nk(t)}. أي وحدة تنكشف للكل؟</h3>
+    <h3>انفتحت لك ورقتين من أوراق ${nk(t)}. أي وحدة تنكشف للكل؟</h3>
     <div class="rv-row">${cards}</div>
     <div class="ov-bar"><button class="btn ghost" data-act="ovmin">${ic('eye')} شوف الطاولة</button></div>
   </div></div>`;
   } else {
-    title = 'وصية أبو عزوز'; sub = 'اختر لاعب واحد: تنفتح لك أوراقه كلها، وأنت تختار أي ورقة تنكشف للكل.'; head = ccard(me, { cls: 'md' });
+    title = 'وصية أبو عزوز'; sub = 'اختر لاعب واحد: تنفتح لك ورقتين عشوائية من أوراقه، وأنت تختار وحدة منها تنكشف للكل.'; head = ccard(me, { cls: 'md' });
   }
   const tiles = pub.pl.map((p, i) => {
-    if (!p.a || (i === me && !(m.k === 'fitna' && m.step === 0))) return '';
-    if (m.k === 'fitna' && m.step === 1 && i === m.t1) return '';
+    if (!p.a || (i === me && m.k !== 'cat')) return '';
     if (m.k === 'card' && m.step === 1 && i === m.t1) return '';
     return tileHTML(p, i, tokTargetable(m, i), m);
   }).join('');
@@ -3557,7 +3540,7 @@ function revealerHTML() {
   if (S.ui.ovMin) return ovReopen('ارجع واختر الورقة');
   const pub = S.pub, pv = S.priv, me = meId();
   const pd = pub.pd, tp = pl(pd.tg), own = pd.tg === me;
-  const why = pd.y === 'consp' ? 'المؤامرة! تنكشف ورقة من صاحب القطة السوداء' : pd.y === 'acc' ? `وصلت الاتهامات على ${own ? 'نفسك' : nk(pd.tg)} للحد` : 'تنكشف ورقة';
+  const why = pd.y === 'consp' ? 'المؤامرة! تنكشف ورقة من صاحب القطة السوداء' : pd.y === 'acc' ? `وصلت الاتهامات على ${own ? 'نفسك' : nk(pd.tg)} للحد${own && pd.w === me && tp.c === 'nawaf' ? '، وأنت صلب: اختر ورقتك بنفسك' : ''}` : 'تنكشف ورقة';
   const cards = tp.tr.map((t, k) => {
     if (t !== '?') return `<span class="rvc done">${trialFace(t)}<small>${LE.TN[t]}</small><em>مكشوفة</em></span>`;
     const face = own ? pv.tr[k][0] : '?';
@@ -3585,8 +3568,8 @@ function confessHTML() {
   const left = pv.tr.filter((x) => !x.includes('+')).length;
   const cards = pv.tr.map((t, i) => (t.includes('+') ? '' : `<button class="rvc" data-act="confess" data-i="${i}">${trialFace(t[0], true)}<small>اكشف «${LE.TN[t[0]]}»</small>${t[0] === 'W' ? '<em class="bad">تموت</em>' : left === 1 ? '<em class="bad">آخر ورقة، تموت</em>' : safe ? '<em>تنكشف للكل</em>' : '<em>تنجو</em>'}</button>`)).join('');
   let hide = '';
-  if (abReady()) hide = `<button class="btn gold big" data-act="useab">${ic('sparkle')} ${P.c === 'noura' ? 'الطبيبة: عالج لاعب بالسر' : 'العين الصغيرة: طل من الشباك'}</button>`;
-  const abInfo = pv.sp ? `<p class="cf-guess ${pv.sp.t === me ? '' : 'ok'}">${ic('eye')} طليت من الشباك: ${pv.sp.t == null ? 'الخونة ما اختاروا أحد' : pv.sp.t === me ? '<b>الخونة اختاروك أنت!</b>' : `الخونة اختاروا <b>${nk(pv.sp.t)}</b>`}</p>` : pv.hl != null ? `<p class="cf-guess ok">${ic('shield')} عالجتي <b>${nk(pv.hl)}</b> الليلة بالسر</p>` : '';
+  if (abReady()) hide = `<button class="btn gold big" data-act="useab">${ic('sparkle')} الطبيبة: عالج لاعب بالسر</button>`;
+  const abInfo = pv.hl != null ? `<p class="cf-guess ok">${ic('shield')} عالجتي <b>${nk(pv.hl)}</b> الليلة بالسر</p>` : '';
   const prot = Nn.pr != null ? `الشايب حط الدرع قدام <b>${nk(Nn.pr)}</b>.` : 'ما فيه درع الليلة.';
   const gc = pv.gc ? `<p class="cf-guess ${pv.gc.ok ? 'ok' : ''}">${ic(pv.gc.ok ? 'check' : 'x')} ${pv.gc.ok ? 'تخمينك للدرع صح!' : `تخمينك للدرع ما صاب: خمّنت ${pv.gc.t === me ? 'نفسك' : nk(pv.gc.t)}`}</p>` : '';
   return `<div class="ov confess" role="dialog" aria-label="تعترف ولا تخاطر"><div class="ov-in">
@@ -3694,7 +3677,7 @@ function summaryHTML() {
   const tg = top(given), tr = top(recv);
   const stat = (lbl, i, val) => `<div class="sm-st">${ccard(i, { cls: 'sm' })}<span><small>${lbl}</small><b>${who(i)}</b><em class="num">${val}</em></span></div>`;
   const stats = [tg && stat('أكثر واحد اتهم', tg.i, `${AR(tg.v)} اتهام`), tr && stat('أكثر واحد انتهم', tr.i, `${AR(tr.v)} اتهام`), pair && pair.i !== (tg && tg.i) ? stat(`أكثر واحد اتهم ${who(pair.t)}`, pair.i, `${AR(pair.v)} مرة`) : ''].filter(Boolean).join('');
-  const RES = { dead: 'ومات', prot: 'ونجا بالدرع', asy: 'ونجا بالسلاح', conf: 'واعترف ونجا', already: 'وكان ميت', heal: 'ونورة عالجته', life: 'وقام من موته (سبعة أرواح)', none: '' };
+  const RES = { dead: 'ومات', prot: 'ونجا بالدرع', asy: 'ونجا بالسلاح', conf: 'واعترف ونجا', already: 'وكان ميت', heal: 'ونورة عالجته', life: 'وقام من موته وانكشفت منه ورقة', none: '' };
   const nights = (sum.nh || []).map((x) => `<li><b>الليلة ${AR(x.n)}</b><span>${x.k != null ? `اختاروا ${who(x.k)} ${RES[x.res] || ''}` : 'ما اختاروا أحد'}${x.pr != null ? ` · الدرع ${x.pr === me ? 'قدامك' : 'قدام ' + nk(x.pr)}` : ''}${x.cf && x.cf.length ? ` · اعترفوا: ${x.cf.map(who).join('، ')}` : ''}</span></li>`).join('');
   const CAUSE = { witch: 'انكشفت ورقة خيانته', allrev: 'انكشفت كل أوراقه', night: 'اغتالوه بالليل', link: 'كان مربوط مع اللي مات' };
   const deaths = (sum.dh || []).map((d) => `<li><b>${who(d.p)}</b><span>${CAUSE[d.c] || 'مات'}${d.c === 'night' && d.n ? ` (الليلة ${AR(d.n)})` : ''}</span></li>`).join('');
@@ -3738,11 +3721,10 @@ function sheetHTML() {
       ${pv.cn ? '<p class="ability">معك ورقة الشايب: كل ليلة تحمي واحد غيرك بالدرع، لين تنكشف الورقة.</p>' : ''}
       <h3>أوراقي</h3><ul class="ilist">${lines}</ul>${pv.pk ? `<p class="ability">المحقق: فتّشت أوراق ${nk(pv.pk.target)} المقلوبة: ${pkList(pv.pk)}.</p>` : ''}`);
   }
-  if (sh.k === 'amnesty') {
-    const hot = pub ? pub.pl.map((p, i) => ({ p, i })).filter((x) => x.p.a && x.p.rs > 0) : [];
-    return wrap(`<div class="who">${ccard(meId(), { cls: 'lg' })}<div><h2>العفو العام</h2><p>كل الاتهامات اللي على الكل تنحرق الحين. مرة وحدة باللعبة.</p></div></div>
-      <ul class="ilist">${hot.map((x) => `<li>${ccard(x.i, { cls: 'sm' })}<span><b>${esc(x.p.n)}</b> · ${AR(x.p.rs)} اتهامات تنشال</span></li>`).join('')}</ul>
-      <div class="ov-bar col"><button class="btn gold big" data-act="amnesty">${ic('sparkle')} أعلن العفو</button><button class="btn ghost" data-act="close">مو الحين</button></div>`, 'small');
+  if (sh.k === 'abok') {
+    const T2 = { ali: ['ما أصبر!', 'إذا خلّصت دورك هذا، تاخذ دور ثاني على طول. مرة وحدة باللعبة.', 'أبي دور ثاني'], hamad: ['دوّروا!', 'كل لاعب يعطي كل الأوراق اللي بيده للي على يساره، وأنت معهم. مرة وحدة باللعبة.', 'دوّروا الأوراق'] }[sh.c];
+    return wrap(`<div class="who">${ccard(meId(), { cls: 'lg' })}<div><h2>${T2[0]}</h2><p>${T2[1]}</p></div></div>
+      <div class="ov-bar col"><button class="btn gold big" data-act="abok">${ic('sparkle')} ${T2[2]}</button><button class="btn ghost" data-act="close">مو الحين</button></div>`, 'small');
   }
   if (sh.k === 'curpick') {
     const p = pl(sh.t1);
@@ -4168,9 +4150,9 @@ function animate(f) {
     case 'peek': fly(tokEl(f.a), matEl(f.b), `<span class="mini t-peek fly">${ic('eye')}</span>`, { ms: 640 }); break;
     case 'ab': {
       if (f.c === 'khaled' && f.b != null) fly(tokEl(f.b), tokEl(f.a), '<span class="mini t-back fly"></span>', { ms: 620 });
-      if (f.c === 'ali' && f.d != null) fly(matEl(f.b), matEl(f.d), cardMini('ACC', 'fly'), { ms: 700 });
+      if (f.c === 'azouz' && f.d != null) fly(matEl(f.b), matEl(f.d), cardMini('CAT', 'fly'), { ms: 700 });
       if (f.c === 'saleh') fly(tokEl(f.a), matEl(f.b), `<span class="mini t-peek fly">${ic('eye')}</span>`, { ms: 640 });
-      if (f.c === 'hamad') document.querySelectorAll('.pb,.mybox').forEach((m) => m.animate([{ filter: 'brightness(1)' }, { filter: 'brightness(1.5)' }, { filter: 'brightness(1)' }], { duration: 900 }));
+      if (f.c === 'hamad') document.querySelectorAll('.pb,.mybox').forEach((m) => m.animate([{ transform: 'rotate(0)' }, { transform: 'rotate(2deg) scale(1.02)' }, { transform: 'rotate(-2deg)' }, { transform: 'rotate(0)' }], { duration: 900 }));
       break;
     }
     case 'reveal': break;
@@ -4252,13 +4234,14 @@ function abShow(f) {
   const of = (i) => (i === me ? 'منك' : 'من ' + nk(i));
   let row = '', head = '', sub = '', snd = 'flip';
   switch (f.c) {
-    case 'saleh': row = P(f.a) + arr(ic('eye')) + P(f.b); head = `${whoIs(f.a)} ${mineA ? 'فتّشت' : 'فتّش'} كل أوراق ${f.b === me ? 'محاكمتك' : nk(f.b)}`; sub = mineA && pv.pk ? 'شفت: ' + pkList(pv.pk) : 'محد يدري وش شاف…'; break;
+    case 'saleh': row = P(f.a) + arr(ic('eye')) + P(f.b); head = `${whoIs(f.a)} ${mineA ? 'طالعت' : 'طالع'} ورقتين من أوراق ${f.b === me ? 'محاكمتك' : nk(f.b)}`; sub = mineA && pv.pk ? 'شفت: ' + pkList(pv.pk) : 'محد يدري وش شاف…'; break;
     case 'khaled': row = P(f.a) + arr(ic('hands')) + P(f.b); head = `${whoIs(f.a)} ${mineA ? 'نشلت' : 'نشل'} ${f.n === 1 ? 'ورقة' : 'ورقتين'} ${of(f.b)}`; sub = 'الحرامي ما يطلع إيده فاضية'; snd = 'draw'; break;
-    case 'ali': row = P(f.b) + arr() + `<span class="as-card">${cardBig(0, 'ACC', 'static')}</span>` + arr() + P(f.d); head = `${whoIs(f.a)} ${mineA ? 'أشعلت' : 'أشعل'} الفتنة!`; sub = `${accN(f.n)} ${f.n > 10 ? 'انتقل' : 'انتقلت'} من ${f.b === me ? 'عليك' : 'على ' + nk(f.b)} إلى ${f.d === me ? 'عليك' : nk(f.d)}`; snd = 'acc'; break;
-    case 'hamad': row = P(f.a); head = 'العفو العام!'; sub = `${mineA ? 'عفيت' : 'العم حمد عفا'} عن الكل: ${accN(f.n)} ${f.n > 10 || f.n === 1 ? 'انحرق' : 'انحرقت'}`; snd = 'good'; break;
-    case 'nawaf': row = P(f.a); head = `${f.a === me ? 'أنت جدار' : nk(f.a) + ' جدار'}!`; sub = 'وصلت الاتهامات للحد وانكسرت عليه: انحرقت كلها وما انكشف شي'; snd = 'shield'; break;
+    case 'ali': row = P(f.a); head = mineA ? 'ما تصبر!' : `${nk(f.a)} ما يصبر!`; sub = `${mineA ? 'لك' : 'له'} دور ثاني على طول بعد هالدور`; snd = 'myturn'; break;
+    case 'hamad': row = P(f.a); head = 'دوّروا!'; sub = 'كل لاعب عطى كل الأوراق اللي بيده للي على يساره'; snd = 'shuffle'; break;
+    case 'azouz': row = P(f.b) + arr() + `<span class="as-card">${cardBig(0, 'CAT', 'static')}</span>` + arr() + P(f.d); head = `${whoIs(f.a)} ${mineA ? 'أخذت' : 'أخذ'} القطة السوداء!`; sub = `من ${f.b === me ? 'قدامك' : 'قدام ' + nk(f.b)} وحطها ${f.d === me ? 'قدامك' : 'قدام ' + nk(f.d)}`; snd = 'witch'; break;
+    case 'nawaf': row = P(f.a); head = `${f.a === me ? 'أنت صلب' : nk(f.a) + ' صلب'}!`; sub = `تجمعت عليه الاتهامات، بس ${f.a === me ? 'أنت اللي تختار' : 'هو اللي يختار'} أي ورقة تنكشف`; snd = 'shield'; break;
     case 'noura': row = (f.a >= 0 ? P(f.a) + arr(ic('plus')) : '') + P(f.b); head = `نورة الطبيبة ${f.b === me ? 'أنقذتك' : 'أنقذت ' + nk(f.b)}!`; sub = 'الخونة اغتالوه… بس كانت معالجته بالسر'; snd = 'good'; break;
-    case 'abdullah': row = P(f.a); head = `${f.a === me ? 'قمت' : nk(f.a) + ' قام'} من الموت!`; sub = 'أبو سبعة أرواح: الخونة اغتالوه وما مات'; snd = 'shield'; break;
+    case 'abdullah': row = P(f.a); head = `${f.a === me ? 'قمت' : nk(f.a) + ' قام'} من الموت!`; sub = 'أبو سبعة أرواح: اغتالوه وما مات… بس انكشفت منه ورقة'; snd = 'shield'; break;
     default: return null;
   }
   return { ms: 2600, snd, buzz: f.b === me || f.d === me, html: asWrap('ab', `<p class="as-k" style="--cc:${CHAR_COLOR[f.c]}">${ic('sparkle')} ${c.n} · ${c.t}</p><div class="as-row">${row}</div><h3>${head}</h3><p class="as-s">${sub}</p>`) };
@@ -4292,10 +4275,7 @@ function seatTap(pid) {
   if (m && tokTargetable(m, pid) === '') {
     if (m.k === 'will') { if (S.pub.pd && S.pub.pd.tg == null) doAct({ t: 'will', target: pid }); return render(); }
     if (m.k === 'steal' || m.k === 'heal') { doAct({ t: m.k, target: pid }); S.ui.tg = null; return render(); }
-    if (m.k === 'fitna') {
-      if (m.step === 0) { S.ui.tg = { k: 'fitna', step: 1, t1: pid }; return render(); }
-      doAct({ t: 'fitna', target: m.t1, target2: pid }); S.ui.tg = null; return render();
-    }
+    if (m.k === 'cat') { doAct({ t: 'cat', target: pid }); S.ui.tg = null; return render(); }
     if (m.k === 'dpick') return doAct({ t: 'dpick', target: pid });
     if (m.k === 'npick') {
       const pv = S.priv;
@@ -4385,7 +4365,7 @@ function onClick(e) {
     case 'install': installApp(); break;
     case 'introok': cdClose(); S.ui.intro = false; if (S.pub && S.pub.sg && S.pub.sg.k === 'ready') doAct({ t: 'ready' }); render(); break;
     case 'char': {
-      if (pid != null) { const m = tableMode(); if (m && ['card', 'peek', 'will', 'dpick', 'npick', 'steal', 'fitna', 'heal'].includes(m.k) && (pid !== me || (m.k === 'fitna' && m.step === 0))) { seatTap(pid); break; } S.ui.sheet = { k: 'char', pid }; }
+      if (pid != null) { const m = tableMode(); if (m && ['card', 'peek', 'will', 'dpick', 'npick', 'steal', 'cat', 'heal'].includes(m.k) && (pid !== me || m.k === 'cat')) { seatTap(pid); break; } S.ui.sheet = { k: 'char', pid }; }
       else S.ui.sheet = { k: 'char', c: el.dataset.c };
       render(); break;
     }
@@ -4416,7 +4396,7 @@ function onClick(e) {
     }
     case 'cancel': S.ui.tg = null; render(); break;
     case 'willcard': if (pub.pd && pub.pd.tg != null) doAct({ t: 'will', target: pub.pd.tg, idx: +el.dataset.i }); break;
-    case 'amnesty': S.ui.sheet = null; doAct({ t: 'amnesty' }); render(); break;
+    case 'abok': { const c = S.ui.sheet && S.ui.sheet.c; S.ui.sheet = null; if (c) doAct({ t: c === 'ali' ? 'rush' : 'majlis' }); render(); break; }
     case 'curpick': { const sh = S.ui.sheet; doAct({ t: 'play', card: sh.id, target: sh.t1, c2i: +el.dataset.k }); S.ui.sheet = null; render(); break; }
     case 'draw': doAct({ t: 'draw' }); break;
     case 'end': doAct({ t: 'end' }); break;
