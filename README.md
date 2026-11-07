@@ -4,12 +4,12 @@
 
 العب هنا: **https://not-sal.com/alsobh/** (على Cloudflare، الغرف على سيرفرنا)
 
-- نسخة احتياطية على GitHub Pages (الغرف عبر سيرفرات MQTT عامة): https://not-sal.github.io/alsobh-alaswad/
+- رابط GitHub Pages القديم يحوّل لحاله على not-sal.com/alsobh
 
 ## Cloudflare
 
 `wrangler.jsonc` يشغّل Worker واحد:
 - يعرض اللعبة من مجلد `site/alsobh/`
-- يفتح غرفة لكل رمز على `/alsobh/ws/<الرمز>` (Durable Object لكل غرفة، WebSocket لكل جوال)
+- يشغّل اللعبة نفسها في غرفة لكل رمز على `/alsobh/ws/<الرمز>` (Durable Object): الأوراق والبوتات والوقت على السيرفر، وكل جوال يوصله اللي يخصه بس (Durable Object لكل غرفة، WebSocket لكل جوال)
 
 النشر: الريبو مربوط بـ Workers Builds في Cloudflare، وأي push على `main` ينشر لحاله على not-sal.com/alsobh.

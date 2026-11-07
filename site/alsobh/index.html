@@ -4,6 +4,8 @@
 (() => {
   // the room server lives next to the page: not-sal.com/alsobh/ → wss://not-sal.com/alsobh/ws/<code>
   const BASE = window.LAIL_WS || ((location.protocol === 'https:' ? 'wss://' : 'ws://') + location.host + location.pathname.replace(/[^/]*$/, '') + 'ws/');
+  // the game itself runs on this server (see core.js: room server mode)
+  window.LAIL_SERVER = BASE;
   const rnd = () => Math.random().toString(36).slice(2, 10);
   function makeRoom(name) {
     const me = rnd() + Date.now().toString(36).slice(-3);
@@ -270,7 +272,7 @@ button.ccard:hover{transform:translateY(-2px) rotate(-1deg)}
 .back.b2{transform:translate(2px,-2px)}.back.b3{transform:translate(4px,-4px)}
 .slot{border:2px dashed rgba(255,255,255,.28)}
 .pile .mini.top{width:100%;height:100%}
-.pile b{position:absolute;bottom:-9px;left:50%;transform:translateX(-50%);background:#0b0a1e;color:#fff;font-size:11.5px;border-radius:999px;padding:0 7px;min-width:22px;box-shadow:0 0 0 1px var(--line)}
+.pile b{position:absolute;z-index:3;bottom:-9px;left:50%;transform:translateX(-50%);background:#0b0a1e;color:#fff;font-size:11.5px;border-radius:999px;padding:0 7px;min-width:22px;box-shadow:0 0 0 1px var(--line)}
 .tracks{flex:1;min-width:0;display:flex;flex-direction:column;gap:7px}
 .trk{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:13.5px;line-height:1.35}
 .trk-l{display:flex;align-items:center;gap:6px;min-width:0;color:var(--muted);font-weight:700}
@@ -665,7 +667,7 @@ button.rvc:active{transform:scale(.96)}
 
 /* ---------- the big flip everyone sees: the card fights to get out, then bursts open ---------- */
 @property --amp{syntax:'<number>';inherits:true;initial-value:.6}
-#rvl{position:fixed;inset:0;z-index:80;pointer-events:none}
+#rvl{position:fixed;inset:0;z-index:74;pointer-events:none}
 #rvl:empty{display:none}
 .rvs{position:absolute;inset:0;pointer-events:auto;display:grid;place-items:center;padding:20px;overflow:hidden;
   background:radial-gradient(circle at 50% 45%,rgba(34,30,84,.94),rgba(5,4,16,.97));animation:rvin .3s ease both;--rc:#f4bf52}
@@ -799,7 +801,7 @@ button.rvc:active{transform:scale(.96)}
 .pick-reopen .sgt{background:rgba(0,0,0,.2);border-radius:999px;padding:0 8px;min-width:28px;text-align:center}
 @media (max-width:400px){.sg-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.sgc{padding-inline:4px}.sgc .ccard{--ccw:56px}.sg-head h2{font-size:34px}}
 /* the darkness coming down */
-.dusk{position:fixed;inset:0;z-index:79;pointer-events:none;display:grid;place-items:center;overflow:hidden;animation:dkout .5s ease 2.25s forwards}
+.dusk{position:fixed;inset:0;z-index:74;pointer-events:none;display:grid;place-items:center;overflow:hidden;animation:dkout .5s ease 2.25s forwards}
 .dusk.c{animation:dkout .4s ease 1.45s forwards}
 .dk-sky{position:absolute;inset:-12% 0 0;background:linear-gradient(180deg,#000 0%,#05041a 78%,rgba(5,4,26,.92) 100%);transform:translateY(-105%);animation:dkfall .95s cubic-bezier(.55,0,.2,1) forwards}
 .dusk.c .dk-sky{inset:0;background:rgba(4,3,16,.84);transform:none;animation:rvin .25s ease both}
@@ -1138,7 +1140,26 @@ button.rvc:active{transform:scale(.96)}
 
 /* shows never cover the top bar: the exit button stays reachable */
 .is-game ~ #act .as, #act .as{top:calc(env(safe-area-inset-top,0px) + 64px)}
-.top{position:relative;z-index:75}
+header.top{position:relative;z-index:75}
+
+/* no sideways scroll, ever (flying cards and bubbles near the edge) */
+body{overflow-x:clip}
+/* the piles keep their counters visible at every size */
+@media (min-width:1024px){.piles{--cw:52px;--ch:72px}}
+/* turn order on a phone: one line you can swipe */
+@media (max-width:699px){
+  .torder{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding-block:6px}
+  .torder::-webkit-scrollbar{display:none}
+  .to{flex:none;padding:2px 8px 2px 4px;font-size:12.5px}
+  .to .pt{width:22px;height:22px}
+  .to-arr{flex:none}
+}
+/* small laptops and tablets on their side: the table gets the room, the log and chat go under it */
+@media (min-width:1024px) and (max-width:1279px){
+  .game{grid-template-columns:clamp(290px,30vw,350px) minmax(0,1fr);grid-template-areas:"me main" "me side"}
+  .side{position:static;height:auto;flex-direction:row;align-items:stretch}
+  .side .sbox{flex:1 1 50%;max-height:340px}
+}
 
 </style>
 <div id="app" dir="rtl" lang="ar"><div id="screen"></div></div>
@@ -1243,13 +1264,24 @@ button.rvc:active{transform:scale(.96)}
     last: ['دمي برقابكم', 'سامحتكم', 'انتبهوا من {x}', '{x} هو الخاين', 'قلت لكم من قبل'],
   };
 
+  // quick games: move the night card from the bottom to somewhere in the middle of the pile
+  function midNight(G) {
+    const k = G.deck.indexOf(G.nigId);
+    if (k < 0) return;
+    G.deck.splice(k, 1);
+    const n = G.deck.length;
+    G.deck.splice(Math.floor(n * (0.3 + Math.random() * 0.25)), 0, G.nigId);
+  }
   // ---------- setup ----------
   function newGame(lob, opts) {
     const n = lob.length;
     if (!TRIAL[n]) throw new Error('players 4-12');
     const seats = shuffle(lob.map((x) => Object.assign({}, x)));
-    const [ni, nw] = TRIAL[n];
-    const per = n <= 7 ? 5 : n <= 9 ? 4 : 3;
+    const fast = !!(opts && opts.speed === 'fast');
+    const nw = TRIAL[n][1];
+    // a quick game: one trial card fewer each, and the night card sits mid-deck instead of at the bottom
+    const per = (n <= 7 ? 5 : n <= 9 ? 4 : 3) - (fast ? 1 : 0);
+    const ni = fast ? n * per - nw - 1 : TRIAL[n][0];
     const trial = [];
     for (let i = 0; i < ni; i++) trial.push('I');
     for (let i = 0; i < nw; i++) trial.push('W');
@@ -1281,6 +1313,7 @@ button.rvc:active{transform:scale(.96)}
     ids.splice(rnd(ids.length + 1), 0, G.conId);
     ids.unshift(G.nigId); // bottom of deck (draw = pop)
     G.deck = ids;
+    if (fast) midNight(G);
     const witches = G.players.filter((p) => p.witch);
     for (const w of witches) w.knows = true;
     G.teamSnap = witches.map((w) => w.id);
@@ -1558,6 +1591,7 @@ button.rvc:active{transform:scale(.96)}
         const d = shuffle(G.disc.splice(0));
         while (G.aside.length) d.unshift(G.aside.pop());
         G.deck = d.concat(G.deck);
+        if (G.opts && G.opts.speed === 'fast') midNight(G);
         G.night = null;
         log(G, 'خبصنا الأوراق المحروقة ورجعناها للسحب، والليل تحت.');
         return;
@@ -2308,7 +2342,10 @@ const S = {
   ui: { tab: 'hand', sheet: null, modalQ: [], seenEv: -1, seenNote: -1, seenChat: -1, unread: 0, roleOpen: false, bots: 5, joinCode: '', sel2: {}, recv: 0, tl: null },
 };
 store.set('lail.cid', S.cid, 1);
-const H = { G: null, lobby: [], opts: { timer: 40, diff: 'normal' }, miss: {}, tKey: '', tAt: 0, keys: {}, acks: {}, errs: {}, lastAid: {}, seq: 0, epoch: rid(), awSig: '', awAt: 0, botAt: {}, conn: {}, queue: Promise.resolve() };
+// a private key for this player: the server only gives your seat back to the phone that knows it
+S.sec = store.get('lail.sec', 1) || rid() + rid();
+store.set('lail.sec', S.sec, 1);
+const H = { G: null, lobby: [], opts: { timer: 40, diff: 'normal', speed: 'normal' }, miss: {}, tKey: '', tAt: 0, keys: {}, acks: {}, errs: {}, lastAid: {}, seq: 0, epoch: rid(), awSig: '', awAt: 0, botAt: {}, conn: {}, queue: Promise.resolve() };
 const NET = { room: null, R: null, hostPeer: null, hostPk: null, hostKey: null, buf: {}, epoch: null, seq: -1, pvSeq: -1, out: [], aid: 0, lastErr: 0, hb: null, rs: null, joinTimer: null };
 
 /* ================= crypto (private views & actions) ================= */
@@ -2467,7 +2504,7 @@ setInterval(tick, 200);
 function startHostedGame() {
   const lob = H.lobby.map((x) => ({ nick: x.nick, bot: x.bot, cid: x.cid }));
   if (lob.length < 4 || lob.length > 12) return toast('تحتاجون من 4 إلى 12 لاعب');
-  H.G = LE.newGame(lob, { diff: H.opts.diff || 'normal' });
+  H.G = LE.newGame(lob, { diff: H.opts.diff || 'normal', speed: H.opts.speed || 'normal' });
   H.awSig = ''; H.lastRev = 0; H.hold = 0; H.lastShow = 0; H.lastTn = null; H.miss = {}; H.tKey = ''; H.tAt = Date.now();
   S.mode = 'game';
   S.ui.seenEv = -1; S.ui.seenNote = -1; S.ui.seenChat = -1; S.ui.seenFx = -1; S.ui.roleOpen = false; S.ui.sheet = null; S.ui.tg = null;
@@ -2566,6 +2603,7 @@ async function handleAct(msg) {
 }
 async function hostCreate() {
   if (!S.nick) return toast('اكتب اسمك أول');
+  if (NET.srv) return srvCreate();
   if (!NET.room) return toast('اللعب الجماعي مو متوفر هنا');
   if (S.ui.connecting) return;
   S.ui.connecting = true; toast('نجهز الغرفة…');
@@ -2587,7 +2625,7 @@ function deputies() {
 }
 const trimG = (G) => Object.assign({}, G, { log: G.log.slice(-30), chat: G.chat.slice(-20), evs: G.evs.slice(-6), fx: G.fx.slice(-8) });
 const SESS = {
-  save(role) { const v = JSON.stringify({ code: S.code, role, cid: S.cid, nick: S.nick, at: Date.now() }); store.set('lail.sess', v, 1); store.set('lail.last', v); },
+  save(role) { const v = JSON.stringify({ code: S.code, role, cid: S.cid, sec: S.sec, nick: S.nick, at: Date.now() }); store.set('lail.sess', v, 1); store.set('lail.last', v); },
   read(s) { try { const v = JSON.parse(store.get(s ? 'lail.sess' : 'lail.last', s) || 'null'); return v && v.code !== undefined && Date.now() - v.at < 6 * 3600e3 ? v : null; } catch (e) { return null; } },
   clear() { store.set('lail.sess', '', 1); store.set('lail.last', ''); store.set('lail.hostG', ''); },
 };
@@ -2709,6 +2747,8 @@ function becomeClient() {
 async function resumeSession(v) {
   if (!v || S.mode !== 'home') return;
   if (v.cid) { S.cid = v.cid; store.set('lail.cid', S.cid, 1); }
+  if (v.sec) { S.sec = v.sec; store.set('lail.sec', S.sec, 1); }
+  if (NET.srv && v.role !== 'solo' && v.code) { if (v.nick) S.nick = v.nick; return srvOpen(v.code, 'join'); }
   if (v.nick) S.nick = v.nick;
   let saved = null;
   try { saved = JSON.parse(store.get('lail.hostG') || 'null'); } catch (e) { saved = null; }
@@ -2738,6 +2778,7 @@ async function clientJoin(code) {
   code = latinDigits(code).replace(/\D/g, '');
   if (!S.nick) return toast('اكتب اسمك أول');
   if (!/^\d{4}$/.test(code)) return toast('الرمز 4 أرقام');
+  if (NET.srv) return srvOpen(code, 'join');
   if (!NET.room) return toast('اللعب الجماعي مو متوفر هنا');
   if (S.ui.connecting) return;
   S.ui.connecting = true; toast('ندخل الغرفة…');
@@ -2821,6 +2862,8 @@ async function flushOut(now) {
   render();
 }
 function leaveRoom() {
+  SRV.left = true;
+  srvClose();
   try { if (NET.R) NET.R.leave(); } catch (e) { /* already gone */ }
   NET.R = null; clearInterval(NET.hb); clearInterval(NET.rs); clearTimeout(NET.joinTimer); clearTimeout(NET.foTimer); NET.foTimer = null; NET.backup = null;
   SESS.clear();
@@ -2836,12 +2879,112 @@ function doAct(a) {
     if (pid < 0) return;
     hostApply(pid, a);
     hostChanged();
-  } else if (S.role === 'client') { sendAct(a); }
+  } else if (S.role === 'client' && NET.srv) { srvAct(a); }
+  else if (S.role === 'client') { sendAct(a); }
 }
 let wakeLock = null;
 function wake() { try { if (navigator.wakeLock && !wakeLock) navigator.wakeLock.request('screen').then((w) => { wakeLock = w; w.addEventListener('release', () => { wakeLock = null; }); }).catch(() => {}); } catch (e) { /* not allowed */ } }
 document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible' && S.mode === 'game') wake(); });
 
+/* lobby buttons: on the room server they are requests the server checks; otherwise the host does them here */
+const amHost = () => S.role === 'host' || S.role === 'solo' || (!!NET.srv && S.role === 'client' && !!S.pub && S.pub.hc === S.cid);
+function lobbyDo(op, extra) {
+  if (NET.srv && S.role === 'client') { srvSend(Object.assign({ t: 'lb', op }, extra || {})); return true; }
+  return false;
+}
+
+/* ================= the room server (Cloudflare): it runs the game, phones only show it ================= */
+NET.srv = typeof window !== 'undefined' && window.LAIL_SERVER ? String(window.LAIL_SERVER) : null;
+const SRV = { ws: null, code: '', closed: true, ping: null };
+function srvSend(o) { if (SRV.ws && SRV.ws.readyState === 1) { SRV.ws.send(JSON.stringify(o)); return true; } return false; }
+async function srvCreate() {
+  if (S.ui.connecting) return;
+  S.ui.connecting = true; toast('نجهز الغرفة…');
+  let r = 'down';
+  for (let k = 0; k < 6; k++) {
+    const code = String(1 + Math.floor(Math.random() * 9)) + String(Math.floor(Math.random() * 1000)).padStart(3, '0');
+    r = await srvOpen(code, 'create', true);
+    if (r !== 'exists') break;
+  }
+  S.ui.connecting = false;
+  if (r !== 'ok') toast('ما قدرت أفتح غرفة، تأكد من النت وجرّب مرة ثانية');
+}
+function srvOpen(code, mode, quiet) {
+  srvClose();
+  if (!quiet) { if (S.ui.connecting) return Promise.resolve('busy'); S.ui.connecting = true; toast('ندخل الغرفة…'); }
+  return new Promise((resolve) => {
+    let ws, done = false;
+    const finish = (r) => { if (done) return; done = true; if (!quiet) S.ui.connecting = false; resolve(r); };
+    try { ws = new WebSocket(NET.srv + 'lail-' + code); } catch (e) { finish('down'); return; }
+    const to = setTimeout(() => { try { ws.close(); } catch (e) { /* closing */ } if (!quiet) toast('ما قدرت أوصل للغرفة، تأكد من النت وجرّب مرة ثانية'); finish('down'); }, 9000);
+    ws.onopen = () => ws.send(JSON.stringify({ t: mode, code, cid: S.cid, sec: S.sec, nick: S.nick }));
+    ws.onmessage = (ev) => {
+      if (ev.data === 'pong') return;
+      let m;
+      try { m = JSON.parse(ev.data); } catch (e) { return; }
+      if (m.t === 'nope') {
+        clearTimeout(to); try { ws.close(); } catch (e) { /* closing */ }
+        if (!quiet) toast(m.why === 'missing' ? 'ما لقيت غرفة بهالرمز. تأكد منه وجرّب مرة ثانية' : m.why === 'full' ? 'الغرفة مليانة' : m.why === 'taken' ? 'هالمكان محجوز لجوال ثاني' : 'ما قدرت أدخل الغرفة');
+        if (!quiet && m.why === 'missing') SESS.clear();
+        finish(m.why); return;
+      }
+      if (m.t === 'ok') {
+        clearTimeout(to);
+        SRV.ws = ws; SRV.code = code; SRV.closed = false; SRV.left = false;
+        S.code = code; S.role = 'client';
+        if (S.mode === 'home') S.mode = 'lobby';
+        SESS.save('client');
+        clearInterval(SRV.ping); SRV.ping = setInterval(() => { if (SRV.ws && SRV.ws.readyState === 1) SRV.ws.send('ping'); }, 20000);
+        NET.out.forEach((o) => srvSend({ t: 'act', aid: o.aid, a: o.a }));
+        finish('ok'); render(); return;
+      }
+      if (m.t === 'v') srvView(m);
+      else if (m.t === 'err') { if (m.m) toast(m.m); if (m.aid) NET.out = NET.out.filter((o) => o.aid !== m.aid); render(); }
+    };
+    ws.onclose = () => {
+      clearTimeout(to);
+      if (!done) { finish('down'); return; }
+      if (SRV.ws === ws) { SRV.ws = null; srvRetry(); }
+    };
+  });
+}
+async function srvRetry() {
+  if (SRV.closed) return;
+  S.ui.hostGone = true; render();
+  const code = SRV.code;
+  for (let k = 0; k < 20; k++) {
+    await new Promise((r) => setTimeout(r, Math.min(6000, 800 * (k + 1))));
+    if (SRV.left) return;
+    const r = await srvOpen(code, 'join', true);
+    if (r === 'ok') { S.ui.hostGone = false; render(); return; }
+    if (r === 'missing' || r === 'taken') break;
+  }
+  if (!SRV.left) { toast('انقطع الاتصال بالغرفة'); leaveRoom(); }
+}
+function srvClose() {
+  SRV.closed = true; clearInterval(SRV.ping);
+  const ws = SRV.ws; SRV.ws = null;
+  if (ws) { try { ws.close(1000, 'bye'); } catch (e) { /* gone */ } }
+}
+function srvView(m) {
+  const pub = m.pub, pv = m.priv || {};
+  if (!pub) return;
+  S.pub = pub; S.ui.recv = Date.now();
+  S.priv = pv.spec || typeof pv.me !== 'number' ? null : pv;
+  NET.out = NET.out.filter((o) => o.aid > (pv.ack || 0));
+  S.mode = pub.ph === 'lobby' ? 'lobby' : 'game';
+  if (pub.ph !== 'lobby' && !S.ui.woke) { S.ui.woke = 1; wake(); }
+  if (pub.ph === 'lobby') { S.ui.woke = 0; S.ui.seenEv = -1; S.ui.seenNote = -1; S.ui.seenChat = -1; S.ui.seenFx = -1; }
+  S.ui.hostGone = false;
+  onViews();
+  render();
+}
+function srvAct(a) {
+  NET.aid = Math.max(NET.aid + 1, Date.now());
+  NET.out.push({ aid: NET.aid, a, tries: 1, at: Date.now() });
+  srvSend({ t: 'act', aid: NET.aid, a });
+  render();
+}
 
 /* Sounds, made on the fly with Web Audio: no files to load. A mute button turns them off and the choice is remembered. */
 const SND = (() => {
@@ -3173,7 +3316,7 @@ function homeHTML() {
     </section>
     <section class="panel"><h2>العب مع البوتات</h2>
       <div class="row between"><span>عدد البوتات</span><div class="stepper"><button class="btn sm" data-act="bots-" aria-label="أقل">${ic('minus')}</button><b class="num">${AR(S.ui.bots)}</b><button class="btn sm" data-act="bots+" aria-label="أكثر">${ic('plus')}</button></div></div>
-      ${diffHTML()}
+      ${diffHTML()}${speedHTML()}
       <button class="btn gold" data-act="solo">ابدأ لعبة من ${AR(S.ui.bots + 1)} لاعبين</button>
     </section>
     <section class="panel"><h2>أول مرة تلعب؟</h2><p class="note">جولة مع 4 بوتات، تطلع لك فيها نصائح خطوة بخطوة، والبوتات توقف لين تقرأ.</p><button class="btn" data-act="learn">${ic('school')} تعلّم اللعب</button></section>
@@ -3181,27 +3324,36 @@ function homeHTML() {
     <div class="row between"><button class="linkbtn" data-act="rules">طريقة اللعب والأوراق</button><button class="linkbtn" data-act="snd">${ic(SND.on ? 'snd' : 'mute')} ${SND.on ? 'الصوت شغال' : 'الصوت مقفل'}</button></div>
   </div></div>`;
 }
+const curOpts = () => (NET.srv && S.role === 'client' && S.pub && S.pub.op ? S.pub.op : H.opts);
+/* game length: normal, or quick (one trial card fewer each, and the night comes sooner) */
+function speedHTML(ro) {
+  const cur = curOpts().speed || 'normal';
+  const note = '<p class="note sm">السريع: كل لاعب ياخذ ورقة محاكمة أقل، وورقة الليل تنخلط بنص الكومة بدل ما تكون آخرها، فالليل يجي أبدر. اللعبة تخلص أسرع بالثلث تقريباً.</p>';
+  if (ro) return `<p class="note">طول اللعبة: ${cur === 'fast' ? 'سريعة' : 'عادية'}</p>`;
+  return `<div class="row between nowrap"><span>طول اللعبة</span><div class="seg" role="radiogroup" aria-label="طول اللعبة">${[['normal', 'عادية'], ['fast', 'سريعة']].map(([v, l]) => `<button class="segb ${cur === v ? 'on' : ''}" data-act="speed" data-v="${v}" role="radio" aria-checked="${cur === v}">${l}</button>`).join('')}</div></div>${note}`;
+}
 function diffHTML(ro) {
-  const cur = H.opts.diff || 'normal';
+  const cur = curOpts().diff || 'normal';
   const L = [['easy', 'سهل'], ['normal', 'عادي'], ['hard', 'صعب']];
   if (ro) { const op = (S.pub && S.pub.op) || {}; const l = L.find((x) => x[0] === (op.diff || 'normal')); return `<p class="note">صعوبة البوتات: ${l ? l[1] : 'عادي'}</p>`; }
   return `<div class="row between nowrap"><span>صعوبة البوتات</span><div class="seg" role="radiogroup" aria-label="صعوبة البوتات">${L.map(([v, l]) => `<button class="segb ${cur === v ? 'on' : ''}" data-act="diff" data-v="${v}" role="radio" aria-checked="${cur === v}">${l}</button>`).join('')}</div></div>`;
 }
 function lobbyHTML() {
   const pub = S.pub;
-  const host = S.role === 'host';
+  const host = amHost();
+  const op = NET.srv ? ((pub && pub.op) || {}) : H.opts;
   if (!pub) return `<div class="home"><header class="hero"><div class="sadu"></div><h1 class="wordmark sm">ندوّر الغرفة…</h1><p class="tag">رمز ${AR(S.code)}</p></header><button class="btn" data-act="leave">ارجع</button></div>`;
   const lb = pub.lb || [];
   const items = lb.map((x) => `<div class="lob-item"><span class="pt sm">${PORTRAITS.draw(null, { letter: x.n })}</span><span class="ln">${esc(x.n)}${x.h ? '<small> · المضيف</small>' : ''}${x.cid === S.cid ? '<small> · أنت</small>' : ''}</span>${x.b ? `<span class="bot">${ic('robot')}</span>` : ''}${host && x.b ? `<button class="x" data-act="rmbot" data-cid="${esc(x.cid)}" aria-label="شيل ${esc(x.n)}">${ic('x')}</button>` : ''}</div>`).join('');
   const n = lb.length;
-  const tsel = host ? `<div class="row between nowrap"><label for="timer">مهلة كل دور</label><select id="timer">${[[40, '40 ثانية'], [60, 'دقيقة'], [90, 'دقيقة ونص'], [0, 'بدون مهلة']].map(([v, l]) => `<option value="${v}" ${H.opts.timer === v ? 'selected' : ''}>${l}</option>`).join('')}</select></div>` : (pub.op && pub.op.timer ? `<p class="note">مهلة كل دور: ${AR(pub.op.timer)} ثانية</p>` : '');
+  const tsel = host ? `<div class="row between nowrap"><label for="timer">مهلة كل دور</label><select id="timer">${[[40, '40 ثانية'], [60, 'دقيقة'], [90, 'دقيقة ونص'], [0, 'بدون مهلة']].map(([v, l]) => `<option value="${v}" ${op.timer === v ? 'selected' : ''}>${l}</option>`).join('')}</select></div>` : (pub.op && pub.op.timer ? `<p class="note">مهلة كل دور: ${AR(pub.op.timer)} ثانية</p>` : '');
   return `<div class="home">
   <header class="hero"><div class="sadu"></div><p class="tag">رمز الغرفة</p><h1 class="code num">${esc(pub.code || S.code)}</h1>${host ? `<button class="btn sm" data-act="copy">${ic('copy')} انسخ الرمز</button>` : ''}</header>
   <div class="home-grid">
     <section class="panel"><div class="row between"><h2>اللاعبين</h2><span class="num muted">${AR(n)} من 12</span></div><div class="lob-list">${items}</div>
-      ${host ? `<div class="row"><button class="btn sm" data-act="addbot" ${n >= 12 ? 'disabled' : ''}>${ic('plus')} بوت</button><span class="muted sm">البوتات تكمّل العدد</span></div>` : ''}${tsel}${diffHTML(!host)}</section>
+      ${host ? `<div class="row"><button class="btn sm" data-act="addbot" ${n >= 12 ? 'disabled' : ''}>${ic('plus')} بوت</button><span class="muted sm">البوتات تكمّل العدد</span></div>` : ''}${tsel}${diffHTML(!host)}${speedHTML(!host)}</section>
     ${host ? `<button class="btn pri" data-act="start" ${n < 4 ? 'disabled' : ''}>${n < 4 ? `تحتاجون ${AR(4 - n)} زيادة عشان تبدون` : `ابدأ اللعبة بـ${AR(n)} لاعبين`}</button>` : `<p class="note">${S.ui.hostGone ? 'المضيف طلع من الغرفة…' : 'ننتظر المضيف يبدأ اللعبة.'}</p>`}
-    <p class="note">ربعك يفتحون نفس الصفحة، يكتبون أسماءهم، ويدخلون الرمز. اللي سوّى الغرفة يخلي الصفحة مفتوحة لين تخلص اللعبة.${n > 9 ? ' عندنا 9 شخصيات، فاللي فوق 9 يلعبون بدون قدرة.' : ''}</p>
+    <p class="note">ربعك يفتحون نفس الصفحة، يكتبون أسماءهم، ويدخلون الرمز. ${NET.srv ? 'اللعبة تشتغل على السيرفر، فلو أحد طلع أو انقطع نته ترجع له مكانه.' : 'اللي سوّى الغرفة يخلي الصفحة مفتوحة لين تخلص اللعبة.'}${n > 9 ? ' عندنا 9 شخصيات، فاللي فوق 9 يلعبون بدون قدرة.' : ''}</p>
     <button class="btn ghost" data-act="leave">اطلع من الغرفة</button>
   </div></div>`;
 }
@@ -3227,7 +3379,7 @@ function statusHTML() {
     t = pub.ph === 'dawn' ? 'الفجر' : `الليل ${AR(pub.nn)}`;
     sm = k === 'ready' ? 'ننتظر الكل يشوف شخصيته' : k === 'c' ? 'الشايب يحط الدرع… والباقين يخمّنون' : pub.ph === 'dawn' ? 'الخونة يختارون وين القطة السوداء' : 'الخونة يختارون ضحيتهم';
   } else if (pub.ph === 'night_confess') { t = `الليل ${AR(pub.nn)}: وقت الاعتراف`; sm = 'كل واحد يقرر: يعترف ولا يخاطر'; }
-  if (S.role === 'client' && S.ui.hostGone) { t = 'المضيف طلع من الغرفة…'; sm = 'إذا ما رجع، تنتقل اللعبة لجوال لاعب ثاني وتكمل'; mine = false; }
+  if (S.role === 'client' && S.ui.hostGone) { t = NET.srv ? 'انقطع الاتصال…' : 'المضيف طلع من الغرفة…'; sm = NET.srv ? 'نحاول نرجعك للغرفة' : 'إذا ما رجع، تنتقل اللعبة لجوال لاعب ثاني وتكمل'; mine = false; }
   let tl = '';
   if (pub.tl != null) tl = `<span class="timer num" aria-label="الوقت الباقي"></span>`;
   else if (pub.sg && pub.sg.k !== 'ready') tl = `<span class="timer num sgt" aria-label="الوقت الباقي"></span>`;
@@ -3987,12 +4139,12 @@ function overHTML() {
   const town = pub.win === 'town';
   const iWon = me != null && pl(me) && ((pl(me).wi ? 'witch' : 'town') === pub.win);
   const rows = pub.pl.map((p, i) => { const ch = p.c ? LE.CHARS[p.c] : null; return `<div class="orow ${p.wi ? 'w' : ''}">${ccard(i, { cls: 'sm' })}<span class="o-id">${nameplate(p, i)}<small>${ch ? ch.n + ' · ' + ch.t : 'بدون شخصية'}</small><span class="rc-cards">${p.tr.map((t) => trialFace(t.replace('*', ''))).join('')}</span></span><span class="role">${p.wi ? 'خائن' : 'مسالم'}${p.a ? '' : ' ' + ic('skull')}</span></div>`; }).join('');
-  const host = S.role === 'host' || S.role === 'solo';
+  const host = amHost();
   const gw = pv && pv.gw, gcs = pv && pv.gcs;
   const score = gw && (gw[1] || (gcs && gcs[1])) ? `<div class="gscore">${ic('sparkle')}<span>${gw[1] ? `«مين الخاين؟» صابت <b class="num">${AR(gw[0])} من ${AR(gw[1])}</b>` : ''}${gw[1] && gcs[1] ? '<br>' : ''}${gcs[1] ? `«وين الدرع؟» صابت <b class="num">${AR(gcs[0])} من ${AR(gcs[1])}</b>` : ''}</span></div>` : '';
   return `<div class="home over"><header class="hero"><div class="sadu"></div><p class="tag">${me != null ? (iWon ? 'فزت' : 'خسرت') : 'انتهت اللعبة'}</p><h1 class="wordmark">${town ? 'فاز المسالمين' : 'فاز الخونة'}</h1><p class="muted">${town ? 'طاحوا الخونة كلهم.' : 'مات كل المسالمين.'} ${pub.nn ? `لعبتوا ${pub.nn === 1 ? 'ليلة وحدة' : pub.nn === 2 ? 'ليلتين' : AR(pub.nn) + ' ليالي'}.` : 'خلصت قبل أول ليلة.'}</p></header>
     <div class="home-grid">${score}${summaryHTML()}<h2 class="o-h">اللاعبين</h2><div class="olist">${rows}</div>
-    ${host ? `<button class="btn pri" data-act="again">${S.role === 'solo' ? 'جولة ثانية' : 'جولة ثانية بنفس الربع'}</button>` : '<p class="note">ننتظر المضيف يبدأ جولة ثانية.</p>'}
+    ${host && !(NET.srv && S.role === 'client' && S.ui.againSent) ? `<button class="btn pri" data-act="again">${S.role === 'solo' ? 'جولة ثانية' : 'جولة ثانية بنفس الربع'}</button>` : '<p class="note">ننتظر المضيف يبدأ جولة ثانية.</p>'}
     <button class="btn ghost" data-act="leave">الصفحة الرئيسية</button></div></div>`;
 }
 function modalHTML(e) {
@@ -4024,7 +4176,7 @@ function sheetHTML() {
       <div class="ov-bar col"><button class="btn gold big" data-act="abok">${ic('sparkle')} ${T2[2]}</button><button class="btn ghost" data-act="close">مو الحين</button></div>`, 'small');
   }
   if (sh.k === 'leaveq') {
-    return wrap(`<h2>تطلع من اللعبة؟</h2><p class="muted">${S.role === 'host' ? 'إذا طلعت، التحكم ينتقل لجوال لاعب ثاني واللعبة تكمل. وتقدر ترجع بنفس الرمز.' : 'تقدر ترجع بنفس الرمز، ومكانك محفوظ. وإذا طوّلت يلعب عنك البوت.'}</p>
+    return wrap(`<h2>تطلع من اللعبة؟</h2><p class="muted">${S.role === 'host' ? 'إذا طلعت، التحكم ينتقل لجوال لاعب ثاني واللعبة تكمل. وتقدر ترجع بنفس الرمز.' : 'اللعبة تكمل بدونك، والبوت يلعب عنك. تقدر ترجع بنفس الرمز ومكانك محفوظ.'}</p>
       <div class="ov-bar col"><button class="btn big dark" data-act="leave">${ic('x')} اطلع</button><button class="btn big ghost" data-act="close">خلني ألعب</button></div>`, 'small');
   }
   if (sh.k === 'curpick') {
@@ -4648,11 +4800,12 @@ function onClick(e) {
     case 'rules': S.ui.sheet = { k: 'rules' }; render(); break;
     case 'close': S.ui.sheet = null; render(); break;
     case 'copy': copyText(S.code); break;
-    case 'addbot': if (H.lobby.length < 12) { H.lobby.push({ nick: botName(), bot: true, cid: 'bot' + rid() }); hostChanged(); } break;
-    case 'rmbot': H.lobby = H.lobby.filter((x) => x.cid !== el.dataset.cid); hostChanged(); break;
-    case 'start': startHostedGame(); break;
+    case 'addbot': if (lobbyDo('addbot')) break; if (H.lobby.length < 12) { H.lobby.push({ nick: botName(), bot: true, cid: 'bot' + rid() }); hostChanged(); } break;
+    case 'rmbot': if (lobbyDo('rmbot', { cid: el.dataset.cid })) break; H.lobby = H.lobby.filter((x) => x.cid !== el.dataset.cid); hostChanged(); break;
+    case 'start': if (lobbyDo('start')) break; startHostedGame(); break;
     case 'leave': leaveRoom(); break;
     case 'again':
+      if (lobbyDo('again')) break;
       if (S.role === 'solo') { H.lobby = H.G.players.map((p) => ({ nick: p.nick, bot: p.bot, cid: p.cid, host: p.cid === S.cid })); startHostedGame(); }
       else { H.G = null; S.mode = 'lobby'; H.lobby = H.lobby.filter((x) => x.bot || x.host || H.conn[x.cid] !== false); hostChanged(); }
       break;
@@ -4738,7 +4891,8 @@ function onClick(e) {
     case 'modalok': S.ui.modalQ.shift(); render(); break;
     case 'back': doAct({ t: 'back' }); toast('رجعت تلعب بنفسك'); break;
     case 'mgstar': mgHit(+el.dataset.id); break;
-    case 'diff': H.opts.diff = el.dataset.v; S.ui.diff = el.dataset.v; try { store.set('lail.diff', el.dataset.v); } catch (e2) { /* blocked */ } if (S.mode === 'lobby') hostChanged(); else render(); break;
+    case 'diff': if (S.mode === 'lobby' && lobbyDo('opts', { opts: { diff: el.dataset.v } })) break; H.opts.diff = el.dataset.v; try { store.set('lail.diff', el.dataset.v); } catch (e2) { /* blocked */ } if (S.mode === 'lobby') hostChanged(); else render(); break;
+    case 'speed': if (S.mode === 'lobby' && lobbyDo('opts', { opts: { speed: el.dataset.v } })) break; H.opts.speed = el.dataset.v; try { store.set('lail.speed', el.dataset.v); } catch (e2) { /* blocked */ } if (S.mode === 'lobby') hostChanged(); else render(); break;
   }
 }
 function saveNick() { const el = document.getElementById('nick'); if (el) { S.nick = cleanNick(el.value); store.set('lail.nick', S.nick); } }
@@ -4757,7 +4911,7 @@ function onInput(e) {
   if (e.target.id === 'nick') { S.nick = cleanNick(e.target.value); store.set('lail.nick', S.nick); }
   if (e.target.id === 'joinCode') S.ui.joinCode = latinDigits(e.target.value).replace(/\D/g, '').slice(0, 4);
 }
-function onChange(e) { if (e.target.id === 'timer') { H.opts.timer = +e.target.value; hostChanged(); } }
+function onChange(e) { if (e.target.id === 'timer') { if (lobbyDo('opts', { opts: { timer: +e.target.value } })) return; H.opts.timer = +e.target.value; hostChanged(); } }
 
 /* ================= boot ================= */
 /* drag a hand card with the mouse and drop it on a player's mat */
@@ -4823,7 +4977,7 @@ function bindDrag() {
   document.addEventListener('pointercancel', (e) => dragEnd(e.clientX, e.clientY, true));
 }
 function boot() {
-  try { const d = store.get('lail.diff'); if (d === 'easy' || d === 'normal' || d === 'hard') H.opts.diff = d; } catch (e) { /* blocked */ }
+  try { const d = store.get('lail.diff'); if (d === 'easy' || d === 'normal' || d === 'hard') H.opts.diff = d; const sp = store.get('lail.speed'); if (sp === 'fast' || sp === 'normal') H.opts.speed = sp; } catch (e) { /* blocked */ }
   root = document.getElementById('app');
   toastBox = document.getElementById('toasts');
   document.body.insertAdjacentHTML('afterbegin', PORTRAITS.defs);
