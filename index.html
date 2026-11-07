@@ -1217,6 +1217,10 @@ button.rvc:active{transform:scale(.96)}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 
+/* shows never cover the top bar: the exit button stays reachable */
+.is-game ~ #act .as, #act .as{top:calc(env(safe-area-inset-top,0px) + 64px)}
+.top{position:relative;z-index:75}
+
 </style>
 <div id="app" dir="rtl" lang="ar"><div id="screen"></div></div>
 <div id="ovl" dir="rtl" lang="ar"></div>
@@ -3068,7 +3072,7 @@ function onViews() {
   if (sk !== S.ui.sgKey) {
     const prev = S.ui.sgKey;
     S.ui.sgKey = sk; S.ui.sgp = null; S.ui.sgg = null; S.ui.sgsel = null; S.ui.sgc = null; S.ui.pickMin = false;
-    if (sk && prev !== undefined && pub.sg.k === 'w') duskFx(pub.ph === 'dawn' ? 'الفجر' : `الليل ${AR(pub.nn)}`, pub.ph === 'dawn' ? 'الكل يغمض… الخونة يصحون' : 'نزل الليل… الكل يغمض', 'w');
+    if (sk && prev !== undefined && pub.sg.k === 'w' && !(pub.ph === 'dawn' && S.ui.dawnShown === pub.pl.map((p) => p.n).join('|'))) duskFx(pub.ph === 'dawn' ? 'الفجر' : `الليل ${AR(pub.nn)}`, pub.ph === 'dawn' ? 'الكل يغمض… الخونة يصحون' : 'نزل الليل… الكل يغمض', 'w');
     else if (sk && prev !== undefined && pub.sg.k === 'c') duskFx('دور الشايب', 'عشر ثواني يحط الدرع… والباقين يخمّنون', 'c');
   }
   if (pub.ph === 'over' && S.ui.lastPh && S.ui.lastPh !== 'over') { const P = pl(meId()); SND.play(P && ((P.wi ? 'witch' : 'town') === pub.win) ? 'win' : 'lose'); S.ui.learn = false; }
@@ -3710,9 +3714,9 @@ function stageHTML() {
   const T = {
     wait: ['ننتظر الباقين', `كل واحد يشوف شخصيته وأوراقه… ${sg.rd ? `(${AR(sg.rd[0])} من ${AR(sg.rd[1])} جاهزين)` : ''}`],
     witch: [dawn ? 'وين تحطون القطة السوداء؟' : 'مين تغتالون الليلة؟', dawn ? 'اضغط على لاعب تقترحه، وربعك يشوفون اقتراحك. إذا قررت اضغطه مرة ثانية وأكّد. اللي قدامه القطة يبدأ الدور.' : 'اضغط على لاعب تقترحه، وربعك يشوفون اقتراحك. إذا قررت اضغطه مرة ثانية وأكّد.'],
-    guessW: ['مين الخاين؟', 'خمّن واحد من الخونة: اضغط عليه، وإذا متأكد اضغطه مرة ثانية وثبّت. بآخر اللعبة تعرف كم صابت.'],
+    guessW: [dawn ? 'الخونة يحطون القطة السوداء' : 'الخونة يختارون ضحيتهم', 'غمّض عيونك… وتسلّى بالنجوم لين يخلصون.'],
     con: ['مين تحمي الليلة؟', 'أنت الشايب. اضغط على لاعب غيرك، وإذا قررت اضغطه مرة ثانية وأكّد. اللي تحميه ما ينقتل الليلة.'],
-    guessC: ['وين بيحط الشايب الدرع؟', 'خمّن مين بيحميه الشايب: اضغط عليه، وإذا متأكد اضغطه مرة ثانية وثبّت. تعرف الجواب وقت الاعتراف.'],
+    guessC: ['الشايب يحط الدرع', 'غمّض عيونك… وتسلّى بالنجوم لين يخلص.'],
     dead: ['أنت ميت وتتفرج', 'الكل يختار الحين… انتظر.'],
     spect: ['الكل يختار', 'انتظر شوي.'],
   }[mode];
@@ -3721,14 +3725,11 @@ function stageHTML() {
     const lines = mates.length ? mates.map((x) => { const p = pl(x); const v = tv[x]; return `<span class="sg-li">${nameplate(p, x)}<small>${p && !p.a ? 'مات' : v != null ? 'يقترح ' + who(v) : 'لسه يفكر'}</small></span>`; }).join('') : '<span class="sg-li"><small>أنت الخاين الوحيد، القرار لك.</small></span>';
     box = `<div class="sg-box"><h4>${ic('users')} ${mates.length ? 'ربعك' : 'لحالك'}</h4>${lines}</div>`;
     status = myProp != null ? `اقتراحك: <b>${who(myProp)}</b>. اضغطه مرة ثانية إذا قررت.` : 'ما اقترحت أحد للحين.';
-  } else if (mode === 'guessW' || mode === 'guessC') {
-    box = `<div class="sg-box"><h4>${ic('users')} تخمينك</h4><span class="sg-li"><small>${myGuess != null ? `${fixed ? 'ثبّت' : 'مبدئياً'}: <b>${who(myGuess)}</b>` : 'ما خمّنت للحين'}</small></span></div>`;
-    status = myGuess != null ? (fixed ? 'ثبّت تخمينك. انتظر الباقين.' : 'اضغطه مرة ثانية تثبّت.') : 'اضغط على لاعب.';
   } else if (mode === 'con') {
     box = `<div class="sg-box"><h4>${ic('users')} اختيارك</h4><span class="sg-li"><small>${S.ui.sgsel != null ? `مبدئياً: <b>${who(S.ui.sgsel)}</b>` : 'ما اخترت أحد للحين'}</small></span></div>`;
     status = S.ui.sgsel != null ? 'اضغطه مرة ثانية وأكّد.' : 'اضغط على لاعب غيرك.';
   }
-  const play = mode === 'witch' || mode === 'con' || mode === 'guessW' || mode === 'guessC';
+  const play = mode === 'witch' || mode === 'con';
   const cells = play ? pub.pl.map((p, i) => {
     if (!p.a) return '';
     const blocked = i === me && (mode === 'guessW' || mode === 'con');
@@ -3751,11 +3752,11 @@ function stageHTML() {
     cf = `<div class="sg-cf" role="alertdialog" aria-label="${q}"><div class="sg-cf-in">${ccard(t, { cls: 'lg' })}${nameplate(pl(t), t, { cls: 'lg' })}<h3>${q}</h3><p>${s2}</p><div class="ov-bar"><button class="btn ghost" data-act="sgno">تراجع</button><button class="btn gold big" data-act="sgok">${mode.startsWith('guess') ? 'ثبّت' : 'أكّد'}</button></div></div></div>`;
   }
   const time = sg.k === 'ready' ? '<span class="sg-time wait"><span class="sg-dots"><i></i><i></i><i></i></span></span>' : `<span class="sg-time num" aria-label="الوقت الباقي"><b></b></span>`;
-  const mg = mode === 'wait' || mode === 'dead' || mode === 'spect' ? `<div class="mgwrap"><div class="mg-head"><b>${ic('sparkle')} اصطد النجوم قبل لا يطلع الصبح</b><span class="mg-sc num" id="mgsc"></span></div><div class="mg" id="mg" aria-label="لعبة النجوم"></div><p class="mg-note">لعبة جانبية لين يجهز الكل. اضغط كل نجمة تلمع قبل لا تختفي، والقمر الذهبي عليه 3 نقاط.</p></div>` : '';
+  const mg = mode === 'wait' || mode === 'dead' || mode === 'spect' || mode === 'guessW' || mode === 'guessC' ? `<div class="mgwrap"><div class="mg-head"><b>${ic('sparkle')} اصطد النجوم قبل لا يطلع الصبح</b><span class="mg-sc num" id="mgsc"></span></div><div class="mg" id="mg" aria-label="لعبة النجوم"></div><p class="mg-note">لعبة جانبية لين يجهز الكل. اضغط كل نجمة تلمع قبل لا تختفي، والقمر الذهبي عليه 3 نقاط.</p></div>` : '';
   return `<div class="stage${dawn ? ' dawn' : ''}" role="dialog" aria-label="${title}"><div class="sg-in">
     <header class="sg-head"><span class="moon"></span><div class="sg-ht"><h2>${title}</h2><p>الكل يختار… محد يدري مين صاحي</p></div>${time}</header>
     <section class="sg-main${mg ? ' has-mg' : ''}"><div class="sg-mt"><h3>${T[0]}</h3><p class="sg-sub">${T[1]}</p></div>${mg}${mg && mode === 'wait' && pl(me) && pl(me).c ? `<div class="sg-me"><p class="sg-mek">شخصيتك</p>${bcardHTML(pl(me).c, { mine: true, letter: pl(me).n })}</div>` : ''}${box}${cells ? `<div class="sg-grid">${cells}</div>` : ''}${status ? `<p class="sg-st">${status}</p>` : ''}</section>
-    <button class="btn ghost sm sg-min" data-act="pickmin">${ic('eye')} شوف الطاولة</button>
+    ${dawn ? "" : `<button class="btn ghost sm sg-min" data-act="pickmin">${ic("eye")} شوف الطاولة</button>`}
   </div>${cf}</div>`;
 }
 /* the screen goes dark when dawn or night comes, and a short card when it's the constable's turn */
@@ -3814,6 +3815,8 @@ function gameHTML() {
   const pub = S.pub;
   if (!pub || !pub.pl) return '<div class="home"><header class="hero"><p class="tag">نحمّل…</p></header></div>';
   if (pub.ph === 'over') return overHTML();
+  // at dawn nobody sees the table yet: only the night screen
+  if (pub.ph === 'dawn') return '<div class="game dawnwait"></div>';
   return `<div class="game"><div class="main">${topHTML()}${statusHTML()}${tableHTML()}</div>${myBoxHTML()}${asideHTML()}</div>`;
 }
 /* ---- popups for the big choices ---- */
@@ -4426,6 +4429,8 @@ function cdFinish() {
   if (!CD.on) return;
   cdClose();
   S.ui.intro = false;
+  // the dawn falls the moment you've seen your card, not later
+  if (S.pub && S.pub.ph === 'dawn') { S.ui.dawnShown = S.pub.pl.map((p) => p.n).join('|'); duskFx('الفجر', 'الكل يغمض… الخونة يصحون', 'w'); }
   if (S.pub && S.pub.ph === 'dawn' && S.pub.sg && S.pub.sg.k === 'ready') doAct({ t: 'ready' });
   render();
   const t = document.querySelector(`.mybox [data-tok="${meId()}"]`);
@@ -4433,7 +4438,7 @@ function cdFinish() {
 }
 /* ---- tips while playing (and a guided game from the home screen) ---- */
 const TIPS = [
-  ['start', (pub) => pub.ph === 'dawn' && pub.sg && pub.sg.k !== 'ready', 'الفجر', (pv) => (pv.w ? 'أنت خائن: اختار مع ربعك وين تحطون القطة السوداء. ضغطة على لاعب = اقتراح يشوفه ربعك، وضغطة ثانية عليه = قرار.' : 'أنت مسالم: الخونة يختارون الحين. وأنت العب «مين الخاين؟»: خمّن واحد من الخونة، وبآخر اللعبة تعرف كم صابت.')],
+  ['start', (pub) => pub.ph === 'dawn' && pub.sg && pub.sg.k !== 'ready', 'الفجر', (pv) => (pv.w ? 'أنت خائن: اختار مع ربعك وين تحطون القطة السوداء. ضغطة على لاعب = اقتراح يشوفه ربعك، وضغطة ثانية عليه = قرار.' : 'أنت مسالم: الخونة يختارون الحين. اصطد النجوم لين يخلصون.')],
   ['board', (pub, pv, me) => pub.ph === 'turn' && !pub.pd && pub.turn !== me, 'الطاولة', 'كل لاعب له لوحة: اسمه، وبطاقة شخصيته على الجنب، وأوراقه المقلوبة، وكم اتهام عليه. اضغط أي لوحة وتشوف تفاصيلها.'],
   ['myturn', (pub, pv, me) => pub.ph === 'turn' && !pub.pd && pub.turn === me && pub.tm === 'choose', 'دورك', 'يا تسحب ورقتين وينتهي دورك، يا تضغط ورقة من يدك وتلعبها على لاعب. الأوراق الحمراء اتهامات: إذا وصلت 7 على واحد تنكشف له ورقة.'],
   ['played', (pub, pv, me) => pub.ph === 'turn' && !pub.pd && pub.turn === me && pub.tm === 'play', 'لعبت ورقة', 'تقدر تلعب ورقة ثانية، أو اضغط «خلّصت دوري». بعد ما تلعب ما تقدر تسحب بنفس الدور.'],
