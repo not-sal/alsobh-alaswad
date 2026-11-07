@@ -188,7 +188,7 @@ button{font:inherit;color:inherit}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.row.nowrap{flex-wrap:nowrap}.row.between{justify-content:space-between}
 :focus-visible{outline:2px solid var(--gold);outline-offset:2px}
-.sadu{height:12px;background:var(--sadu) repeat-x;border-radius:3px}
+.sadu{display:none}
 
 /* ---------- buttons & fields ---------- */
 .btn{appearance:none;border:0;border-radius:14px;padding:10px 16px;font-weight:800;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;
@@ -341,7 +341,7 @@ button.ccard:hover{transform:translateY(-2px) rotate(-1deg)}
 /* ---------- the board ---------- */
 .board{position:relative;display:flex;flex-direction:column;gap:12px;padding:16px 12px 12px;border-radius:24px;
   background:linear-gradient(180deg,rgba(46,42,108,.88),rgba(26,24,70,.92));box-shadow:inset 0 0 0 1.5px rgba(244,191,82,.32),inset 0 0 0 7px rgba(11,10,30,.35),0 14px 30px rgba(0,0,0,.35)}
-.board::before{content:"";position:absolute;top:-5px;inset-inline:22px;height:10px;background:var(--sadu) repeat-x;border-radius:3px;box-shadow:0 3px 8px rgba(0,0,0,.35)}
+
 .bcenter{display:flex;align-items:center;gap:14px;padding:10px 12px;border-radius:16px;background:rgba(11,10,30,.42);box-shadow:inset 0 0 0 1px var(--line)}
 .piles{display:flex;gap:14px;flex:none;--cw:42px;--ch:58px}
 .pile{position:relative;width:var(--cw);height:var(--ch);border:0;background:none;padding:0;cursor:pointer}
@@ -951,6 +951,51 @@ button.rvc:active{transform:scale(.96)}
 @media (max-width:370px){.as-p .ccard{--ccw:54px}.as-card .card{--cardw:80px;--cardh:112px}.as-in h3{font-size:18px}}
 
 
+/* turn order strip */
+.torder{display:flex;align-items:center;gap:4px;flex-wrap:wrap;background:var(--panel);border-radius:14px;padding:7px 12px;box-shadow:inset 0 0 0 1px var(--line)}
+.torder>.ic{width:16px;height:16px;color:var(--muted);flex:none}
+.to{display:inline-flex;align-items:center;gap:6px;border:0;background:var(--panel2);color:var(--text);border-radius:999px;padding:3px 10px 3px 5px;cursor:pointer;font-weight:800;font-size:13px}
+.to .pt{width:24px;height:24px;border-radius:50%;overflow:hidden;flex:none}
+.to em{font-style:normal;font-size:11px;color:var(--muted)}
+.to.me b{color:var(--gold)}
+.to.now{background:var(--gold);color:var(--gold-ink);box-shadow:0 0 14px rgba(244,191,82,.45)}
+.to.now em{color:#5a3d10;font-weight:800}
+.to-arr{color:var(--muted);font-weight:800;font-size:13px}
+/* last-night badge: confessed and safe, or took the risk */
+.lnb{display:inline-flex;align-items:center;gap:3px;font-size:11px;font-weight:800;border-radius:999px;padding:1px 8px;line-height:1.6;white-space:nowrap}
+.lnb .ic{width:11px;height:11px}
+.lnb.c{background:#dcefdf;color:#1f6b3e}
+.lnb.r{background:#f6e2c8;color:#8a5414}
+.chip.ln-c{background:#1f6b3e;color:#dff3e4}
+.chip.ln-r{background:#8a5414;color:#ffe9c9}
+/* conspiracy show rows */
+.csp{display:flex;flex-direction:column;gap:6px;max-height:46vh;overflow:auto;width:100%}
+.csp-row{margin:0;display:flex;align-items:center;justify-content:center;gap:6px;font-size:14.5px;background:rgba(255,255,255,.06);border-radius:10px;padding:5px 10px}
+.csp-row .pt{width:26px;height:26px;border-radius:50%;overflow:hidden;flex:none}
+/* throw several accusations together */
+.addreds{background:rgba(255,255,255,.05);border-radius:14px;padding:8px 12px}
+.addreds p{margin:0 0 6px;font-size:13px;font-weight:800;color:var(--gold);display:flex;align-items:center;gap:4px}
+.addreds p .ic{width:14px;height:14px}
+.ar-row{display:flex;gap:8px;flex-wrap:wrap}
+.arb{display:inline-flex;align-items:center;gap:6px;border:0;border-radius:10px;padding:5px 10px 5px 6px;background:var(--panel2);color:var(--text);cursor:pointer;font-weight:800;box-shadow:inset 0 0 0 1px var(--line)}
+.arb.on{background:var(--red);color:#fff;box-shadow:0 0 0 2px #ffb4ad}
+.arb small{font-size:12.5px}
+.multihead{display:inline-flex;align-items:center}
+.multihead .card{--cardw:62px;--cardh:88px;margin-inline-start:-40px}
+.multihead :first-child .card,.multihead .card:first-child{margin-inline-start:0}
+.as-stack{position:relative;display:inline-flex}
+.as-stack .as-card{margin-inline-start:-56px}
+.as-stack .as-card:first-child{margin-inline-start:0}
+.as-stack .st1{rotate:4deg}.as-stack .st2{rotate:-5deg}.as-stack .st3{rotate:8deg}
+/* dragging a card with the mouse */
+.dragghost{position:fixed;z-index:95;pointer-events:none;transform:translate(-50%,-60%) rotate(-6deg) scale(1.4);filter:drop-shadow(0 14px 22px rgba(0,0,0,.5))}
+.pb.dropover,.mybox.dropover{box-shadow:0 0 0 4px #ffd36b,0 0 30px rgba(255,211,107,.6)!important;transform:scale(1.02)}
+.hand .card{touch-action:manipulation}
+@media (pointer:fine){.hand .card{cursor:grab}}
+.iconbtn.exit{background:#3a1420;box-shadow:inset 0 0 0 1px #7c2733;color:#ff9d92}
+.iconbtn.exit:hover{background:#4d1a29}
+.qr.wrap{flex-wrap:wrap;overflow:visible}
+
 /* quick replies */
 .qr{display:flex;gap:6px;overflow-x:auto;padding:2px 0 4px;scrollbar-width:none}
 .qr::-webkit-scrollbar{display:none}
@@ -1031,7 +1076,7 @@ button.rvc:active{transform:scale(.96)}
   .pips i{width:9px;height:9px}
 }
 @media (min-width:1024px){
-  .game{max-width:none;display:grid;grid-template-columns:clamp(300px,25vw,370px) minmax(0,1fr) clamp(260px,21vw,330px);grid-template-areas:"me main side";align-items:start;column-gap:18px;padding:12px 0 18px}
+  .game{max-width:none;display:grid;grid-template-columns:clamp(320px,26vw,430px) minmax(0,1fr) clamp(280px,21vw,350px);grid-template-areas:"me main side";align-items:start;column-gap:22px;padding:14px 4px 20px}
   .main{grid-area:main}
   .mybox{grid-area:me;position:sticky;top:12px;max-height:calc(100vh - 24px);overflow-y:auto;scrollbar-width:thin;--ccw:100px}
   .mybox .hand{grid-template-columns:repeat(auto-fill,minmax(88px,1fr));gap:10px}
@@ -1043,10 +1088,51 @@ button.rvc:active{transform:scale(.96)}
   .side .sbox:last-child{flex:1 1 55%}
   .narrow-only{display:none}
   .top{padding-top:0}
-  .pgrid{grid-template-columns:repeat(auto-fill,minmax(310px,1fr))}
+  .pgrid{grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:14px}
+  .main{min-height:calc(100vh - 34px)}
+  .board{flex:1;display:flex;flex-direction:column}
+  .board .pgrid{flex:1;align-content:start}
+  .pb{--ccw:104px;--tmw:32px;--tmh:45px;--mw:26px;--mh:36px;padding:14px 16px;row-gap:7px;border-radius:22px}
+  .pb .plate b{font-size:17px}
+  .pb .cc-name{font-size:15px}
+  .hc{font-size:14px}
+  .ord{font-size:13px;min-width:26px}
+  .lnb{font-size:12.5px}
+  .abl{font-size:13px}
+  .pb-acc b,.cht-acc b{font-size:14px}
+  .pips i{width:10px;height:10px}
+  .tg{font-size:12.5px}
+  .fm small{font-size:12.5px}
+  .status{min-height:64px;border-radius:18px}
+  .status b{font-size:19px}
+  .status small{font-size:14px}
+  .timer{font-size:22px}
+  .ticker{font-size:15px;min-height:24px}
+  .torder{padding:9px 14px;gap:6px}
+  .to{font-size:14.5px}
+  .to .pt{width:28px;height:28px}
+  .bcenter .pile .back,.bcenter .pile .slot{width:52px;height:72px}
+  .trk-l{font-size:14px}
+  .wslot{width:26px;height:26px}
+  .loglist p{font-size:14px}
+  .msg p{font-size:14px}
+  .sbox h2{font-size:17px}
+  .as-in{width:min(520px,100%)}
   .scrim{align-items:center;padding:20px}
   .sheet{max-height:86vh}
   .pick-reopen{bottom:24px}
+}
+@media (min-width:1360px){
+  .game{grid-template-columns:clamp(340px,27vw,470px) minmax(0,1fr) clamp(300px,21vw,380px);column-gap:26px}
+  .pgrid{grid-template-columns:repeat(auto-fill,minmax(380px,1fr));gap:16px}
+  .pb{--ccw:118px;--tmw:36px;--tmh:50px}
+  .pb .plate b{font-size:18.5px}
+  .mybox{--ccw:112px}
+  .mybox .hand{grid-template-columns:repeat(auto-fill,minmax(102px,1fr));gap:12px}
+  .mt .tface{width:58px;height:82px}
+  .status b{font-size:21px}
+  .as-in{width:min(580px,100%)}
+  .as-in h3{font-size:23px}
 }
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 
@@ -1076,7 +1162,7 @@ button.rvc:active{transform:scale(.96)}
     CUR: { n: 'إعفاء', c: 'green', q: 1, d: 'تحرق ورقة زرقاء من قدام لاعب، حتى القطة السوداء.' },
     ARS: { n: 'حريقة', c: 'green', q: 1, d: 'تحرق كل الأوراق اللي بيد لاعب.' },
     PIE: { n: 'حصن', c: 'blue', q: 1, d: 'ما ينلعب على صاحبه أي ورقة حمراء. (الناقة تقدر تنقل له اتهامات.)' },
-    ASY: { n: 'السلاح', c: 'blue', q: 2, d: 'صاحبه ما ينقتل بالليل.' },
+    ASY: { n: 'السلاح', c: 'blue', q: 1, d: 'صاحبه ما ينقتل بالليل. وحدة بس في اللعبة كلها.' },
     MAT: { n: 'ارتباط', c: 'blue', q: 2, d: 'إذا انلعبت الورقتين على لاعبين، صاروا مربوطين: إذا مات واحد يموت الثاني. إذا تجمعت الثنتين على نفس اللاعب تنحرقان.' },
     NIG: { n: 'الليل', c: 'black', q: 0, d: 'ينزل الليل: الخونة يختارون ضحية، والشايب يحمي واحد، وبعدها كل واحد يقرر يعترف أو يخاطر.' },
     CON: { n: 'المؤامرة', c: 'black', q: 0, d: 'اللي قدامه القطة السوداء تنكشف له ورقة، وبعدين كل لاعب ياخذ ورقة محاكمة من اللي على يساره.' },
@@ -1143,13 +1229,13 @@ button.rvc:active{transform:scale(.96)}
     chat(G, pid, s, 0);
   }
   const SAY = {
-    accused: ['ليه أنا؟! والله ماني خاين', 'خلك مني يا {a}', '{a} يبي يبعد الشبهة عن نفسه', 'طيب يا {a}… أذكرها لك', 'هذي من وين طلعت؟!', 'يا {a} أنا ولد ديرتك!'],
+    accused: ['ليه أنا؟! أنا ماني خاين', 'خلك مني يا {a}', '{a} يبي يبعد الشبهة عن نفسه', 'طيب يا {a}… أذكرها لك', 'هذي من وين طلعت؟!', 'يا {a} أنا ولد ديرتك!'],
     accuse: ['{t} حركاته ما تطمّن', 'أنا شاك في {t} من أول', '{t}، اعترف وريّحنا', 'شوفوا {t} كيف ساكت', 'لا تصدقونه، {t} خاين'],
     innocent: ['شفتوا؟ قلت لكم مسالم', 'ظلمتوني يا جماعة', 'ارتحتوا الحين؟'],
-    witch: ['كنت حاس فيه!', 'الحمدلله انكشف', 'واحد طاح، باقي غيره', 'ما خاب ظني'],
-    night: ['الله يستر من الليلة', 'محد ينام قبلي', 'أحس الدور علي الليلة', 'سكّروا الأبواب'],
-    morning: ['صباح الخير يا ديرة', 'الحمدلله على السلامة', 'الحين بنعرف مين الخاين', 'الليل هذا ما يتنسى'],
-    last: ['دمي برقابكم', 'الله يسامحكم', 'انتبهوا من {x}', '{x} هو الخاين', 'قلت لكم والله'],
+    witch: ['كنت حاس فيه!', 'أخيراً انكشف', 'واحد طاح، باقي غيره', 'ما خاب ظني'],
+    night: ['الليلة تخوّف', 'محد ينام قبلي', 'أحس الدور علي الليلة', 'سكّروا الأبواب'],
+    morning: ['صباح الخير يا ديرة', 'سلامات يا ديرة', 'الحين بنعرف مين الخاين', 'الليل هذا ما يتنسى'],
+    last: ['دمي برقابكم', 'سامحتكم', 'انتبهوا من {x}', '{x} هو الخاين', 'قلت لكم من قبل'],
   };
 
   // ---------- setup ----------
@@ -1193,7 +1279,7 @@ button.rvc:active{transform:scale(.96)}
     const witches = G.players.filter((p) => p.witch);
     for (const w of witches) w.knows = true;
     G.teamSnap = witches.map((w) => w.id);
-    log(G, 'بسم الله نبدأ. وزعنا أوراق المحاكمة والشخصيات.');
+    log(G, 'نبدأ: وزعنا أوراق المحاكمة والشخصيات.');
     ev(G, 'dawn', 'الفجر', 'الكل يغمض… الخونة يتعارفون ويحطون القطة السوداء قدام واحد.');
     startStage(G, G.players.some((p) => !p.bot) ? 'ready' : 'w');
     return G;
@@ -1202,15 +1288,13 @@ button.rvc:active{transform:scale(.96)}
   // ---------- core rules ----------
   function checkWin(G) {
     if (G.phase === 'over') return;
-    let rev = 0;
-    for (const p of G.players) for (const c of p.trial) if (c.t === 'W' && c.r) rev++;
-    if (rev >= G.wt) return over(G, 'town');
+    if (!G.players.some((p) => p.alive && p.witch)) return over(G, 'town');
     if (!G.players.some((p) => p.alive && !p.witch)) return over(G, 'witch');
   }
   function over(G, w) {
     G.phase = 'over'; G.win = w; G.pending = null; G.pq = []; G.steps = [];
     const names = G.players.filter((p) => p.witch).map((p) => p.nick).join('، ');
-    if (w === 'town') { log(G, ' انكشفت كل أوراق الخيانة. فاز المسالمين!'); ev(G, 'win', 'فاز المسالمين', 'الخونة كانوا: ' + names, { w }); }
+    if (w === 'town') { log(G, ' طاح آخر خاين. فاز المسالمين!'); ev(G, 'win', 'فاز المسالمين', 'الخونة كانوا: ' + names, { w }); }
     else { log(G, ' مات كل المسالمين. فاز الخونة!'); ev(G, 'win', 'فاز الخونة', 'الخونة كانوا: ' + names, { w }); }
   }
 
@@ -1312,6 +1396,7 @@ button.rvc:active{transform:scale(.96)}
     G.aside.push(id);
     G.phase = 'night_pick'; G.nightN++;
     G.night = { conf: {}, kill: null, prot: null, elig: [], res: null };
+    for (const p of G.players) p.ln = null;
     const ws = G.players.filter((p) => p.witch);
     for (const w of ws) if (w.alive) w.knows = true;
     G.teamSnap = ws.map((w) => w.id);
@@ -1391,6 +1476,7 @@ button.rvc:active{transform:scale(.96)}
     }
     N.res = res;
     if (res === 'life' && G.players[k].alive && unrev(G.players[k]).length) reveal(G, k, pick(unrev(G.players[k])), k, 'life');
+    for (const pid of N.elig) { const q = G.players[pid]; if (q.alive) q.ln = N.conf[pid] >= 0 ? 'c' : 'r'; }
     G.nh.push({ n: G.nightN, k, res, pr: N.prot, cf: confessed.slice() });
     const kn = k != null ? nm(G, k) : '';
     const rtxt = {
@@ -1404,7 +1490,9 @@ button.rvc:active{transform:scale(.96)}
       life: `الخونة اغتالوا ${kn}… بس عبدالله أبو سبعة أرواح قام من موته، وانكشفت منه ورقة!`,
     }[res];
     let body = rtxt;
-    if (confessed.length) body += '\nاعترفوا: ' + confessed.map((i) => nm(G, i)).join('، ');
+    if (confessed.length) body += '\nاعترفوا وأمنوا: ' + confessed.map((i) => nm(G, i)).join('، ');
+    const risked = N.elig.filter((i) => N.conf[i] === -1 && G.players[i].alive);
+    if (risked.length) body += '\nخاطروا: ' + risked.map((i) => nm(G, i)).join('، ');
     log(G, ' طلع الصبح. ' + rtxt);
     ev(G, 'morning', 'طلع الصبح', body, { res, kill: k });
     if (G.phase !== 'over') {
@@ -1430,7 +1518,7 @@ button.rvc:active{transform:scale(.96)}
       if (!p.witch && p.trial.some((c) => c.t === 'W')) { p.witch = true; p.knows = false; note(G, id, ' جاتك ورقة خائن… صرت مع الخونة لين آخر اللعبة.'); }
     }
     log(G, 'كل لاعب أخذ ورقة محاكمة مقلوبة من اللي على يساره.');
-    fx(G, { k: 'consp' });
+    fx(G, { k: 'consp', mv: moves.map((m) => [m.to, m.from]) });
     checkWin(G);
   }
 
@@ -1687,6 +1775,7 @@ button.rvc:active{transform:scale(.96)}
         const h = catHolder(G);
         if (h == null) return err('القطة مو قدام أحد');
         if (!tp || !tp.alive || a.target === h) return err('اختر لاعب ثاني');
+        if (a.target === pid) return err('ما تحطها قدامك: القدرات ما تنلعب على نفسك');
         P.used = true;
         const hp = G.players[h];
         hp.front.splice(hp.front.indexOf(0), 1); tp.front.push(0); G.mv[0] = pid;
@@ -1834,7 +1923,7 @@ button.rvc:active{transform:scale(.96)}
       v: G.v, ph: G.phase, turn: G.turn, tn: G.turnN, tm: G.tmode, dk: G.deck.length, ds: G.disc.length, nn: G.nightN, wt: G.wt, cg: G.catGone ? 1 : 0,
       pd: G.pending ? { k: G.pending.k, w: G.pending.who, tg: G.pending.target, y: G.pending.why } : null,
       pl: G.players.map((p) => ({
-        n: p.nick, b: p.bot ? 1 : 0, c: p.ch, a: p.alive ? 1 : 0, cid: p.cid,
+        n: p.nick, b: p.bot ? 1 : 0, c: p.ch, a: p.alive ? 1 : 0, cid: p.cid, ln: G.phase === 'turn' && p.alive && p.ln ? p.ln : undefined,
         tr: p.trial.map((c) => (c.r || isOver ? c.t + (c.r ? '' : '*') : '?')),
         fr: p.front.map((id) => frontCode(G, id)), fb: p.front.map((id) => (G.by[id] != null ? G.by[id] : null)), fm: p.front.map((id) => (G.mv[id] != null ? G.mv[id] : null)),
         rv: p.trial.map((c) => (c.r ? [c.rb != null ? c.rb : null, c.rw || ''] : 0)), rs: redSum(G, p), th: thresh(p), h: p.hand.length,
@@ -2180,7 +2269,7 @@ const S = {
   ui: { tab: 'hand', sheet: null, modalQ: [], seenEv: -1, seenNote: -1, seenChat: -1, unread: 0, roleOpen: false, bots: 5, joinCode: '', sel2: {}, recv: 0, tl: null },
 };
 store.set('lail.cid', S.cid, 1);
-const H = { G: null, lobby: [], opts: { timer: 0 }, keys: {}, acks: {}, errs: {}, lastAid: {}, seq: 0, epoch: rid(), awSig: '', awAt: 0, botAt: {}, conn: {}, queue: Promise.resolve() };
+const H = { G: null, lobby: [], opts: { timer: 60 }, keys: {}, acks: {}, errs: {}, lastAid: {}, seq: 0, epoch: rid(), awSig: '', awAt: 0, botAt: {}, conn: {}, queue: Promise.resolve() };
 const NET = { room: null, R: null, hostPeer: null, hostPk: null, hostKey: null, buf: {}, epoch: null, seq: -1, pvSeq: -1, out: [], aid: 0, lastErr: 0, hb: null, rs: null, joinTimer: null };
 
 /* ================= crypto (private views & actions) ================= */
@@ -2290,7 +2379,7 @@ function tick() {
   if (ns.length) {
     H.lastShow = ns[ns.length - 1].i;
     let add = 0, drew = false;
-    for (const f of ns) { if (f.k === 'play') add += 2800; else if (f.k === 'black') add += 2400; else if (f.k === 'peek') add += 2000; else if (f.k === 'ab') add += 2900; else if (f.k === 'draw' && !drew) { add += 1700; drew = true; } }
+    for (const f of ns) { if (f.k === 'play') add += 2800; else if (f.k === 'black') add += 2400; else if (f.k === 'peek') add += 2000; else if (f.k === 'ab') add += 2900; else if (f.k === 'consp') add += 3600; else if (f.k === 'draw' && !drew) { add += 1700; drew = true; } }
     if (add && !H.noHold) H.hold = Math.max(H.hold || 0, now0) + add;
   }
   if (G.turnN !== H.lastTn) { if (H.lastTn != null && G.phase === 'turn' && !H.noHold) H.hold = Math.max(H.hold || 0, now0) + 1700; H.lastTn = G.turnN; }
@@ -2299,7 +2388,7 @@ function tick() {
   const aw = LE.awaiting(G);
   const sig = [G.phase, G.turnN, G.tmode, G.tplays, G.pq.length, G.pending ? G.pending.who : '', aw.join(',')].join('|');
   const now = Date.now();
-  if (sig !== H.awSig) { H.awSig = sig; H.awAt = now; H.botAt = {}; }
+  if (sig !== H.awSig) { H.awSig = sig; H.awAt = now; H.botAt = {}; if (H.opts.timer) hostChanged(); }
   for (const pid of aw) {
     const P = G.players[pid];
     const away = !P.bot && P.cid !== S.cid && H.conn[P.cid] === false && now - H.awAt > 12000;
@@ -2972,7 +3061,14 @@ function render() {
   const trEl = document.querySelector('.tray');
   document.documentElement.style.setProperty('--tray-h', trEl ? trEl.offsetHeight + 'px' : '0px');
   SND.ambience(S.mode === 'game' && !!stageMode() && !S.ui.intro && !S.ui.pickMin);
-  setHTML('modal', S.ui.modalQ.length && !(S.pub && ['dawn', 'night_pick', 'night_confess'].includes(S.pub.ph) && S.ui.modalQ[0].k !== 'death') ? modalHTML(S.ui.modalQ[0]) : '');
+  const mNow = S.ui.modalQ.length && !(S.pub && ['dawn', 'night_pick', 'night_confess'].includes(S.pub.ph) && S.ui.modalQ[0].k !== 'death') ? S.ui.modalQ[0] : null;
+  setHTML('modal', mNow ? modalHTML(mNow) : '');
+  const mKey = mNow ? (mNow.k + ':' + (mNow.i != null ? mNow.i : mNow.title)) : '';
+  if (mKey !== S.ui.autoM) {
+    S.ui.autoM = mKey;
+    clearTimeout(S.ui.autoMT);
+    if (mNow && mNow.k !== 'death') S.ui.autoMT = setTimeout(() => { if (S.ui.modalQ[0] === mNow) { S.ui.modalQ.shift(); render(); } }, 4600);
+  }
   runFx();
   updateCoach();
 }
@@ -3022,7 +3118,7 @@ function lobbyHTML() {
   const lb = pub.lb || [];
   const items = lb.map((x) => `<div class="lob-item"><span class="pt sm">${PORTRAITS.draw(null, { letter: x.n })}</span><span class="ln">${esc(x.n)}${x.h ? '<small> · المضيف</small>' : ''}${x.cid === S.cid ? '<small> · أنت</small>' : ''}</span>${x.b ? `<span class="bot">${ic('robot')}</span>` : ''}${host && x.b ? `<button class="x" data-act="rmbot" data-cid="${esc(x.cid)}" aria-label="شيل ${esc(x.n)}">${ic('x')}</button>` : ''}</div>`).join('');
   const n = lb.length;
-  const tsel = host ? `<div class="row between nowrap"><label for="timer">مهلة كل حركة</label><select id="timer">${[[0, 'بدون مهلة'], [45, '٤٥ ثانية'], [90, '٩٠ ثانية']].map(([v, l]) => `<option value="${v}" ${H.opts.timer === v ? 'selected' : ''}>${l}</option>`).join('')}</select></div>` : (pub.op && pub.op.timer ? `<p class="note">مهلة كل حركة: ${AR(pub.op.timer)} ثانية</p>` : '');
+  const tsel = host ? `<div class="row between nowrap"><label for="timer">مهلة كل حركة</label><select id="timer">${[[60, 'دقيقة'], [90, 'دقيقة ونص تقريبًا'], [0, 'بدون مهلة']].map(([v, l]) => `<option value="${v}" ${H.opts.timer === v ? 'selected' : ''}>${l}</option>`).join('')}</select></div>` : (pub.op && pub.op.timer ? `<p class="note">مهلة كل حركة: ${AR(pub.op.timer)} ثانية</p>` : '');
   return `<div class="home">
   <header class="hero"><div class="sadu"></div><p class="tag">رمز الغرفة</p><h1 class="code num">${esc(pub.code || S.code)}</h1>${host ? `<button class="btn sm" data-act="copy">${ic('copy')} انسخ الرمز</button>` : ''}</header>
   <div class="home-grid">
@@ -3070,7 +3166,8 @@ function topHTML() {
     <button class="iconbtn narrow-only" data-act="openlog" aria-label="السجل">${ic('scroll')}</button>
     <button class="iconbtn narrow-only rel" data-act="openchat" aria-label="السوالف">${ic('chat')}${unread}</button>
     <button class="iconbtn" data-act="snd" aria-label="${SND.on ? 'اقفل الصوت' : 'شغّل الصوت'}">${ic(SND.on ? 'snd' : 'mute')}</button>
-    <button class="iconbtn" data-act="rules" aria-label="القوانين">${ic('question')}</button></header>`;
+    <button class="iconbtn" data-act="rules" aria-label="القوانين">${ic('question')}</button>
+    <button class="iconbtn exit" data-act="leaveq" aria-label="اطلع من اللعبة">${ic('x')}</button></header>`;
 }
 
 function roleCard() {
@@ -3207,7 +3304,7 @@ function pboardHTML(p, i, m) {
   const fronts = p.fr.map((f, k) => ({ f: base(f), k })).filter((o) => !LE.RED[o.f] && o.f !== 'CAT').map((o) => `<button class="fm" data-act="fcard" data-pid="${i}" data-k="${o.k}" aria-label="${LE.T[o.f].n}">${cardMini(o.f)}<small>${LE.T[o.f].n}</small></button>`).join('');
   const catK = p.fr.indexOf('CAT');
   const cat = catK >= 0 ? `<button class="fm" data-act="fcard" data-pid="${i}" data-k="${catK}" aria-label="القطة السوداء">${cardMini('CAT')}<small>القطة</small></button>` : '';
-  const order = (i - (me == null ? 0 : me) + N()) % N();
+  const order = TORD && TORD[i] != null ? TORD[i] : 0;
   const tags = [];
   if (pub.cn && !pub.cn[i]) tags.push(`<span class="tg">${ic('wifi')} طالع</span>`);
   if (p.au) tags.push('<span class="tg">البوت يلعب عنه</span>');
@@ -3218,7 +3315,7 @@ function pboardHTML(p, i, m) {
   return `<section class="${cls.join(' ')}" data-mat="${i}" data-act="seat" data-pid="${i}" style="--pc:${p.c ? CHAR_COLOR[p.c] : '#6b625a'}">
     ${now ? '<span class="nowtag">يلعب الحين</span>' : ''}
     ${ccard(i, { tag: 'button', attrs: `data-act="char" data-pid="${i}"`, tok: true, extra: mark, cls: 'pbc' })}
-    <div class="pb-head">${nameplate(p, i)}<span class="pb-meta">${p.a && order ? `<span class="ord num" title="يلعب بعد ${AR(order)} من دورك">${AR(order)}</span>` : ''}<span class="hc num" title="أوراق بيده">${ic('cards')}${AR(p.h)}</span></span></div>
+    <div class="pb-head">${nameplate(p, i)}<span class="pb-meta">${p.ln ? `<span class="lnb ${p.ln}">${p.ln === 'c' ? ic('check') + ' أمِن' : ic('dice') + ' خاطر'}</span>` : ''}${p.a && order ? `<span class="ord num" title="دوره بعد ${AR(order)}">${AR(order)}</span>` : ''}<span class="hc num" title="أوراق بيده">${ic('cards')}${AR(p.h)}</span></span></div>
     <div class="pb-ab">${abChip(p)}</div>
     <div class="pb-trial">${trial}</div>
     ${accHTML(p, 'pb-acc')}
@@ -3243,6 +3340,24 @@ function centerHTML() {
   </div>
   ${fl ? `<p class="ticker flash ${fl.kind}" role="status">${ARs(fl.text)}</p>` : `<p class="ticker">${ARs(last)}</p>`}`;
 }
+let TORD = null; // seat -> how many turns away from the one playing now
+function turnOrder() {
+  const pub = S.pub;
+  TORD = null;
+  if (!pub || pub.ph !== 'turn' || !pub.pl) return null;
+  const n = pub.pl.length;
+  const seq = [];
+  let cur = pub.turn;
+  for (let k = 0; k < n; k++) { const i = (cur + k) % n; if (pub.pl[i].a) seq.push(i); }
+  TORD = {}; seq.forEach((i, k) => { TORD[i] = k; });
+  return seq;
+}
+function torderHTML() {
+  const pub = S.pub, me = meId();
+  const seq = turnOrder();
+  if (!seq || seq.length < 2) return '';
+  return `<div class="torder" aria-label="ترتيب الأدوار">${ic('replay')}${seq.map((i, k) => `<button class="to ${k === 0 ? 'now' : ''} ${i === me ? 'me' : ''}" data-act="char" data-pid="${i}"><span class="pt xs">${portrait(i)}</span><b>${i === me ? 'أنت' : esc(pub.pl[i].n)}</b>${k === 0 ? '<em>يلعب الحين</em>' : k === 1 ? '<em>بعده</em>' : `<em class="num">${AR(k)}</em>`}</button>`).join('<span class="to-arr">←</span>')}</div>`;
+}
 function tableHTML() {
   const pub = S.pub, me = meId();
   const n = N();
@@ -3255,6 +3370,7 @@ function tableHTML() {
   const sleep = (pub.ph === 'dawn' || night) && !(m && (m.k === 'npick' || m.k === 'dpick')) && pub.ph !== 'night_confess';
   return `<main class="board ${m ? 'picking' : ''} ${night ? 'is-night' : ''}" id="table">
     ${night || pub.ph === 'dawn' ? `<div class="nightcap ${sleep ? 'sleep' : ''}"><span class="moon"></span><b>${pub.ph === 'dawn' ? 'الفجر' : 'الليل'}</b>${sleep ? '<small>غمّض عيونك…</small>' : ''}</div>` : ''}
+    ${torderHTML()}
     ${centerHTML()}
     <div class="pgrid${o >= 7 ? ' dense' : ''}">${others.map((i) => pboardHTML(pl(i), i, m)).join('')}</div>
   </main>`;
@@ -3277,6 +3393,7 @@ function myBoxHTML() {
   if (pv.cn) chips.push(`<span class="chip con">${ic('shield')} الشايب</span>`);
   if (now) chips.push(`<span class="chip now">${ic('bolt')} دورك</span>`);
   if (!P.a) chips.push(`<span class="chip dead">${ic('skull')} مت</span>`);
+  if (P.ln) chips.push(`<span class="chip ln-${P.ln}">${P.ln === 'c' ? ic('check') + ' اعترفت وأمنت' : ic('dice') + ' خاطرت ونجيت'}</span>`);
   const trial = pv.tr.map((t, k) => {
     const open = t.includes('+'); const f = t[0];
     return `<button class="mt ${open ? 'open' : ''}" data-act="tcard" data-pid="${me}" data-i="${k}" aria-label="ورقتك ${AR(k + 1)}: ${LE.TN[f]}">${trialFace(f, !open)}<small>${LE.TN[f]}</small><em>${open ? 'مكشوفة' : 'مقلوبة'}</em></button>`;
@@ -3442,16 +3559,22 @@ function asideHTML() {
   const pub = S.pub, pv = S.priv, me = meId();
   const canTalk = pv && pl(me) && (pl(me).a || pv.lw);
   return `<aside class="side"><section class="sbox"><h2>${ic('scroll')} السجل</h2><div class="loglist" data-keep-scroll="log">${(pub.lg || []).map((l) => `<p>${ARs(l.t)}</p>`).join('')}</div></section>
-    <section class="sbox"><h2>${ic('chat')} السوالف</h2><div class="chatlist" data-keep-scroll="chat">${chatMsgs()}</div>${canTalk ? chatForm('chatIn') : '<p class="muted sm">الميت ما يتكلم.</p>'}</section></aside>`;
+    <section class="sbox"><h2>${ic('chat')} السوالف</h2><div class="chatlist" data-keep-scroll="chat">${chatMsgs()}</div>${canTalk ? chatForm() : '<p class="muted sm">الميت ما يتكلم.</p>'}</section></aside>`;
 }
 function chatMsgs() {
   return (S.pub.ch || []).map((c) => { const p = pl(c.p); return `<div class="msg ${c.lw ? 'lw' : ''} ${c.p === meId() ? 'mine' : ''}"><span class="pt xs">${portrait(c.p)}</span><div><b>${p ? esc(p.n) : ''}${c.lw ? ' · كلمته الأخيرة' : ''}</b><p>${esc(c.t)}</p></div></div>`; }).join('') || '<p class="muted sm">ما فيه سوالف للحين.</p>';
 }
-const QR = ['أنا مسالم والله', 'صدقوني!', 'هذا خاين أكيد', 'لا تتهموني', 'ثقوا فيني', 'مين تشكون فيه؟', 'اتفقنا؟', 'هههههه'];
-function chatForm(id) {
+const QR = ['أنا مسالم', 'صدقوني!', 'هذا خاين أكيد', 'لا تتهموني', 'ثقوا فيني', 'مين تشكون فيه؟', 'شكلكم متفقين علي', 'اتفقنا؟', 'انتبهوا منه', 'هههههه'];
+/* chat is quick replies only: no free typing */
+function chatForm() {
   const pv = S.priv, me = meId();
   const lw = pv && pv.lw && !pl(me).a;
-  return `${lw ? '' : `<div class="qr" aria-label="ردود سريعة">${QR.map((t) => `<button class="qrb" data-act="qr" data-t="${t}">${t}</button>`).join('')}</div>`}<form class="chatform" data-form="chat" data-in="${id}"><label for="${id}" class="sr">رسالة</label><input id="${id}" maxlength="120" placeholder="${lw ? 'كلماتك الأخيرة، ثلاث كلمات' : 'اكتب…'}" autocomplete="off"><button class="btn sm pri" type="submit">أرسل</button></form>`;
+  let list = QR;
+  if (lw) {
+    list = (S.pub.pl || []).map((q, i) => ({ q, i })).filter((x) => x.q.a && x.i !== me).slice(0, 5).map((x) => `انتبهوا من ${x.q.n}`);
+    list.push('دمي برقابكم', 'سامحتكم', 'قلت لكم من قبل');
+  }
+  return `${lw ? '<p class="muted sm">كلمتك الأخيرة، وحدة بس:</p>' : ''}<div class="qr wrap" aria-label="ردود سريعة">${list.map((t) => `<button class="qrb" data-act="qr" data-t="${esc(t)}">${esc(t)}</button>`).join('')}</div>`;
 }
 function gameHTML() {
   const pub = S.pub;
@@ -3473,7 +3596,8 @@ function tileHTML(p, i, why, m) {
   const ok = why === '';
   let warn = '';
   if (ok && m && m.k === 'card' && LE.RED[m.t]) {
-    const v = LE.T[m.t].v;
+    let v = LE.T[m.t].v;
+    if (m.ids && m.ids.length > 1) v = m.ids.reduce((sum, id) => { const h = (S.priv.hd || []).find((x) => x[0] === id); return sum + (h ? LE.T[h[1]].v || 0 : 0); }, 0);
     if (p.rs + v >= p.th) warn = `<span class="cht-warn">${ic('scales')} يوصل ${AR(p.th)}: تختار ورقة تنكشف له</span>`;
   }
   const trial = p.tr.map((t) => `<span class="tm">${trialFace(t)}</span>`).join('');
@@ -3487,6 +3611,7 @@ function tileHTML(p, i, why, m) {
     ${fronts || warn || no ? `<span class="cht-foot">${fronts ? `<span class="cht-front">${fronts}</span>` : ''}${warn}${no}</span>` : ''}</button>`;
 }
 function chooserHTML() {
+  if (S.ui.drag) return '';
   const m = tableMode();
   if (!m || S.ui.intro || !['card', 'peek', 'will', 'steal', 'cat', 'heal'].includes(m.k)) return '';
   if (S.ui.ovMin) return ovReopen('ارجع للاختيار');
@@ -3494,9 +3619,11 @@ function chooserHTML() {
   let title, sub, head;
   if (m.k === 'card') {
     const T = LE.T[m.t];
-    title = m.step === 1 ? (m.t === 'ROB' ? `يد ${nk(m.t1)} تروح لمين؟` : `اللي قدام ${nk(m.t1)} ينتقل لمين؟`) : m.t === 'ROB' ? 'مين تسرق يده؟' : m.t === 'SCA' ? 'من قدام مين تنقل؟' : `«${T.n}» على مين؟`;
-    sub = SD[m.t];
-    head = cardBig(0, m.t, 'static');
+    const multi = m.ids && m.ids.length > 1;
+    const v = multi ? m.ids.reduce((sum, id) => { const h = (S.priv.hd || []).find((x) => x[0] === id); return sum + (h ? LE.T[h[1]].v || 0 : 0); }, 0) : 0;
+    title = m.step === 1 ? (m.t === 'ROB' ? `يد ${nk(m.t1)} تروح لمين؟` : `اللي قدام ${nk(m.t1)} ينتقل لمين؟`) : m.t === 'ROB' ? 'مين تسرق يده؟' : m.t === 'SCA' ? 'من قدام مين تنقل؟' : multi ? `ترمي ${AR(v)} اتهامات على مين؟` : `«${T.n}» على مين؟`;
+    sub = multi ? `${AR(m.ids.length)} أوراق تنلعب مرة وحدة على نفس اللاعب.` : SD[m.t];
+    head = multi ? `<span class="multihead">${m.ids.map(() => cardBig(0, 'ACC', 'static mini')).join('')}</span>` : cardBig(0, m.t, 'static');
   } else if (m.k === 'peek') {
     title = 'المحقق: أوراق مين تطالع؟'; sub = 'تشوف ورقتين عشوائية من أوراق محاكمته المقلوبة، ومحد يدري وش شفت.'; head = ccard(me, { cls: 'md' });
   } else if (m.k === 'steal') {
@@ -3523,6 +3650,11 @@ function chooserHTML() {
   } else {
     title = 'وصية أبو عزوز'; sub = 'اختر لاعب واحد: تنفتح لك ورقتين عشوائية من أوراقه، وأنت تختار وحدة منها تنكشف للكل.'; head = ccard(me, { cls: 'md' });
   }
+  let extras = '';
+  if (m.k === 'card' && LE.RED[m.t] && (!m.step || m.step === 0)) {
+    const reds = (S.priv.hd || []).filter(([id, t]) => LE.RED[t] && id !== m.id);
+    if (reds.length) extras = `<div class="addreds"><p>${ic('plus')} عندك اتهامات ثانية، ارمها مع بعض:</p><div class="ar-row">${reds.map(([id, t]) => `<button class="arb ${m.ids && m.ids.includes(id) ? 'on' : ''}" data-act="addred" data-id="${id}">${cardMini(t)}<small>${LE.T[t].n}${LE.T[t].v > 1 ? ' ×' + AR(LE.T[t].v) : ''}</small></button>`).join('')}</div></div>`;
+  }
   const tiles = pub.pl.map((p, i) => {
     if (!p.a || (i === me && m.k !== 'cat')) return '';
     if (m.k === 'card' && m.step === 1 && i === m.t1) return '';
@@ -3530,6 +3662,7 @@ function chooserHTML() {
   }).join('');
   return `<div class="ov chooser" role="dialog" aria-label="${esc(title)}"><div class="ov-in">
     <header class="ov-head">${head}<div class="ov-t"><h2>${title}</h2><p>${sub}</p></div></header>
+    ${extras}
     <div class="ch-grid">${tiles}</div>
     <div class="ov-bar"><button class="btn ghost" data-act="ovmin">${ic('eye')} شوف الطاولة</button>${m.k !== 'will' ? '<button class="btn" data-act="cancel">إلغاء</button>' : ''}</div>
   </div></div>`;
@@ -3693,7 +3826,7 @@ function overHTML() {
   const host = S.role === 'host' || S.role === 'solo';
   const gw = pv && pv.gw, gcs = pv && pv.gcs;
   const score = gw && (gw[1] || (gcs && gcs[1])) ? `<div class="gscore">${ic('sparkle')}<span>${gw[1] ? `«مين الخاين؟» صابت <b class="num">${AR(gw[0])} من ${AR(gw[1])}</b>` : ''}${gw[1] && gcs[1] ? '<br>' : ''}${gcs[1] ? `«وين الدرع؟» صابت <b class="num">${AR(gcs[0])} من ${AR(gcs[1])}</b>` : ''}</span></div>` : '';
-  return `<div class="home over"><header class="hero"><div class="sadu"></div><p class="tag">${me != null ? (iWon ? 'فزت' : 'خسرت') : 'انتهت اللعبة'}</p><h1 class="wordmark">${town ? 'فاز المسالمين' : 'فاز الخونة'}</h1><p class="muted">${town ? 'انكشفت كل أوراق الخيانة.' : 'مات كل المسالمين.'} ${pub.nn ? `لعبتوا ${pub.nn === 1 ? 'ليلة وحدة' : pub.nn === 2 ? 'ليلتين' : AR(pub.nn) + ' ليالي'}.` : 'خلصت قبل أول ليلة.'}</p></header>
+  return `<div class="home over"><header class="hero"><div class="sadu"></div><p class="tag">${me != null ? (iWon ? 'فزت' : 'خسرت') : 'انتهت اللعبة'}</p><h1 class="wordmark">${town ? 'فاز المسالمين' : 'فاز الخونة'}</h1><p class="muted">${town ? 'طاحوا الخونة كلهم.' : 'مات كل المسالمين.'} ${pub.nn ? `لعبتوا ${pub.nn === 1 ? 'ليلة وحدة' : pub.nn === 2 ? 'ليلتين' : AR(pub.nn) + ' ليالي'}.` : 'خلصت قبل أول ليلة.'}</p></header>
     <div class="home-grid">${score}${summaryHTML()}<h2 class="o-h">اللاعبين</h2><div class="olist">${rows}</div>
     ${host ? `<button class="btn pri" data-act="again">${S.role === 'solo' ? 'جولة ثانية' : 'جولة ثانية بنفس الربع'}</button>` : '<p class="note">ننتظر المضيف يبدأ جولة ثانية.</p>'}
     <button class="btn ghost" data-act="leave">الصفحة الرئيسية</button></div></div>`;
@@ -3710,13 +3843,13 @@ function sheetHTML() {
   if (sh.k === 'rules') return wrap(`<div class="rules">${rulesHTML()}</div>`);
   if (sh.k === 'char') return wrap(charSheet(sh), 'small');
   if (sh.k === 'log') return wrap(`<h2>السجل</h2><div class="loglist tall" data-keep-scroll="slog">${(pub.lg || []).map((l) => `<p>${ARs(l.t)}</p>`).join('')}</div>`);
-  if (sh.k === 'chat') { const pv = S.priv; const canTalk = pv && pl(me) && (pl(me).a || pv.lw); return wrap(`<h2>السوالف</h2><div class="chatlist tall" data-keep-scroll="schat">${chatMsgs()}</div>${canTalk ? chatForm('chatIn2') : '<p class="muted sm">الميت ما يتكلم.</p>'}`); }
+  if (sh.k === 'chat') { const pv = S.priv; const canTalk = pv && pl(me) && (pl(me).a || pv.lw); return wrap(`<h2>السوالف</h2><div class="chatlist tall" data-keep-scroll="schat">${chatMsgs()}</div>${canTalk ? chatForm() : '<p class="muted sm">الميت ما يتكلم.</p>'}`); }
   if (sh.k === 'info') return wrap(`<h2>${sh.title}</h2><p>${sh.body}</p>`);
   if (sh.k === 'mine') {
     const pv = S.priv; if (!pv) return '';
     const team = pv.w && pv.k ? pv.tm.filter((x) => x !== pv.me) : [];
     const lines = pv.tr.map((t) => `<li>${trialFace(t[0], !t.includes('+'))}<span><b>${LE.TN[t[0]]}</b> · ${t.includes('+') ? 'مكشوفة للكل' : 'مقلوبة، محد يعرفها غيرك'}</span></li>`).join('');
-    return wrap(`<div class="who">${ccard(pv.me, { cls: 'lg' })}<div><h2>${pv.w ? 'أنت خائن' : 'أنت مسالم'}</h2><p class="muted">${pv.w ? 'تفوز إذا مات كل المسالمين' : 'تفوز إذا انكشفت كل أوراق الخيانة'}</p></div></div>
+    return wrap(`<div class="who">${ccard(pv.me, { cls: 'lg' })}<div><h2>${pv.w ? 'أنت خائن' : 'أنت مسالم'}</h2><p class="muted">${pv.w ? 'تفوز إذا مات كل المسالمين' : 'تفوز إذا طاحوا الخونة كلهم'}</p></div></div>
       ${pv.w ? `<h3>ربعك الخونة</h3>${team.length ? `<div class="team-row">${team.map((x) => `<div class="mate">${ccard(x)}${nameplate(pl(x), x)}</div>`).join('')}</div>` : `<p class="muted">${pv.k ? 'أنت الخاين الوحيد.' : 'بتعرفهم أول ما ينزل الليل.'}</p>`}` : ''}
       ${pv.cn ? '<p class="ability">معك ورقة الشايب: كل ليلة تحمي واحد غيرك بالدرع، لين تنكشف الورقة.</p>' : ''}
       <h3>أوراقي</h3><ul class="ilist">${lines}</ul>${pv.pk ? `<p class="ability">المحقق: فتّشت أوراق ${nk(pv.pk.target)} المقلوبة: ${pkList(pv.pk)}.</p>` : ''}`);
@@ -3725,6 +3858,10 @@ function sheetHTML() {
     const T2 = { ali: ['ما أصبر!', 'إذا خلّصت دورك هذا، تاخذ دور ثاني على طول. مرة وحدة باللعبة.', 'أبي دور ثاني'], hamad: ['دوّروا!', 'كل لاعب يعطي كل الأوراق اللي بيده للي على يساره، وأنت معهم. مرة وحدة باللعبة.', 'دوّروا الأوراق'] }[sh.c];
     return wrap(`<div class="who">${ccard(meId(), { cls: 'lg' })}<div><h2>${T2[0]}</h2><p>${T2[1]}</p></div></div>
       <div class="ov-bar col"><button class="btn gold big" data-act="abok">${ic('sparkle')} ${T2[2]}</button><button class="btn ghost" data-act="close">مو الحين</button></div>`, 'small');
+  }
+  if (sh.k === 'leaveq') {
+    return wrap(`<h2>تطلع من اللعبة؟</h2><p class="muted">${S.role === 'host' ? 'إذا طلعت، التحكم ينتقل لجوال لاعب ثاني واللعبة تكمل. وتقدر ترجع بنفس الرمز.' : 'تقدر ترجع بنفس الرمز، ومكانك محفوظ. وإذا طوّلت يلعب عنك البوت.'}</p>
+      <div class="ov-bar col"><button class="btn big dark" data-act="leave">${ic('x')} اطلع</button><button class="btn big ghost" data-act="close">خلني ألعب</button></div>`, 'small');
   }
   if (sh.k === 'curpick') {
     const p = pl(sh.t1);
@@ -4064,11 +4201,13 @@ const TIPS = [
   ['ability', () => abReady(), 'قدرتك جاهزة', 'بطاقة شخصيتك تلمع وطلع لك زر ذهبي: اضغطه وتستخدم قدرتك. مرة وحدة باللعبة، فاختر وقتها صح!'],
   ['cat', (pub) => pub.ph === 'turn' && pub.pl.some((p) => p.fr.includes('CAT')), 'القطة السوداء', 'إذا انسحبت ورقة «المؤامرة» تنكشف ورقة من اللي قدامه القطة، وبعدها كل لاعب ياخذ ورقة مقلوبة من جاره.'],
 ];
-function tipsSeen() { try { return JSON.parse(store.get('lail.tips') || '{}') || {}; } catch (e) { return {}; } }
+const TIPSEEN = {}; // tips survive even where storage is blocked, and go away on their own
+function tipsSeen() { let o = {}; try { o = JSON.parse(store.get('lail.tips') || '{}') || {}; } catch (e) { /* blocked */ } return Object.assign(o, TIPSEEN); }
+function tipDone(id) { if (!id) return; TIPSEEN[id] = 1; try { const o = JSON.parse(store.get('lail.tips') || '{}') || {}; o[id] = 1; store.set('lail.tips', JSON.stringify(o)); } catch (e) { /* blocked */ } }
 function coachTip() {
   const pub = S.pub, pv = S.priv, me = meId();
   if (S.mode !== 'game' || !pub || !pv || me == null || S.ui.intro || pub.ph === 'over' || !pl(me) || !pl(me).a) return null;
-  if (!S.ui.learn && store.get('lail.tipsOff') === '1') return null;
+  if (!S.ui.learn && (TIPSEEN.__off || store.get('lail.tipsOff') === '1')) return null;
   const seen = tipsSeen();
   for (const t of TIPS) { try { if (!seen[t[0]] && t[1](pub, pv, me)) return t; } catch (e) { /* not ready */ } }
   return null;
@@ -4080,6 +4219,8 @@ function updateCoach() {
   const id = t ? t[0] : '';
   if (id === (S.ui.coach || '')) return;
   S.ui.coach = id;
+  clearTimeout(updateCoach.tmr);
+  if (id && !S.ui.learn) updateCoach.tmr = setTimeout(() => { tipDone(id); if (S.ui.coach === id) { S.ui.coach = null; updateCoach(); } }, 9000);
   box.innerHTML = t ? `<div class="coach" role="dialog" aria-label="${t[2]}"><div class="co-in"><span class="co-ic">${ic('sparkle')}</span><div class="co-t"><b>${t[2]}</b><p>${typeof t[3] === 'function' ? t[3](S.priv) : t[3]}</p></div></div><div class="co-bar"><button class="btn sm ghost" data-act="tipsoff">${S.ui.learn ? 'وقّف الشرح' : 'لا تطلع نصائح'}</button><button class="btn sm gold" data-act="tipok">فهمت</button></div></div>` : '';
 }
 /* ================= animations ================= */
@@ -4215,6 +4356,12 @@ function drawShow(a, n) {
   const backs = Array.from({ length: Math.min(n, 3) }, (_, k) => `<span class="as-back" style="--k:${k}"></span>`).join('');
   return { ms: mine ? 1100 : 1600, snd: 'draw', html: asWrap('draw', `<div class="as-row">${ccard(a, { cls: 'md' })}<span class="as-backs">${backs}</span></div><h3>${mine ? 'سحبت' : esc(p.n) + ' سحب'} ${cnt}</h3><p class="as-s">${mine ? 'وخلص دورك' : 'وخلّص دوره'}</p>`) };
 }
+function multiAccShow(f, cnt, v) {
+  const me = meId(), tp = pl(f.b);
+  const backs = Array.from({ length: Math.min(cnt, 4) }, (_, k) => `<span class="as-card st${k}">${cardBig(0, 'ACC', 'static mini')}</span>`).join('');
+  const sub = tp && tp.a ? `صار ${f.b === me ? 'عليك' : 'عليه'} ${AR(tp.rs)} من ${AR(tp.th)} اتهامات` : 'وانكشفت أوراقه';
+  return { ms: 2800, snd: 'acc', html: asWrap('play red', `<div class="as-row"><span class="as-p">${ccard(f.a, { cls: 'md' })}<b>${whoIs(f.a)}</b></span><span class="as-arr" aria-hidden="true">←</span><span class="as-stack">${backs}</span><span class="as-arr" aria-hidden="true">←</span><span class="as-p">${ccard(f.b, { cls: 'md' })}<b>${whoIs(f.b)}</b></span></div><h3>${whoIs(f.a)} ${f.a === me ? 'رميت' : 'رمى'} ${AR(v)} اتهامات مرة وحدة على ${whoIs(f.b)}</h3><p class="as-s">${sub}</p>`) };
+}
 function blackShow(f) {
   const T = LE.T[f.t];
   return { ms: 2200, snd: f.t === 'CON' ? 'witch' : 'acc', html: asWrap('black', `<div class="as-row"><span class="as-p">${ccard(f.a, { cls: 'md' })}<b>${whoIs(f.a)}</b></span><span class="as-card big">${cardBig(0, f.t, 'static')}</span></div><h3>${whoIs(f.a)} ${f.a === meId() ? 'سحبت' : 'سحب'} «${T.n}»</h3><p class="as-s">${f.t === 'NIG' ? 'ينزل الليل…' : 'صاحب القطة السوداء تنكشف له ورقة، والكل يتبادل ورقة'}</p>`) };
@@ -4246,6 +4393,12 @@ function abShow(f) {
   }
   return { ms: 2600, snd, buzz: f.b === me || f.d === me, html: asWrap('ab', `<p class="as-k" style="--cc:${CHAR_COLOR[f.c]}">${ic('sparkle')} ${c.n} · ${c.t}</p><div class="as-row">${row}</div><h3>${head}</h3><p class="as-s">${sub}</p>`) };
 }
+function conspShow(f) {
+  const me = meId();
+  if (!f.mv || !f.mv.length) return null;
+  const rows = f.mv.map(([to, from]) => `<p class="csp-row"><span class="pt xs">${portrait(to)}</span><b>${whoIs(to)}</b> ${to === me ? 'أخذت' : 'أخذ'} ورقة مقلوبة من <b>${whoIs(from)}</b><span class="pt xs">${portrait(from)}</span></p>`).join('');
+  return { ms: Math.min(5200, 2400 + f.mv.length * 420), snd: 'witch', html: asWrap('consp', `<p class="as-k">${ic('CON')} المؤامرة</p><h3>كل واحد أخذ ورقة من جاره</h3><div class="csp">${rows}</div>`) };
+}
 function runFx() {
   const pub = S.pub, fx = pub && pub.fx;
   if (!fx || S.mode !== 'game') return;
@@ -4257,10 +4410,16 @@ function runFx() {
   // what happened, big on every screen: plays, draws (grouped), black cards, peeks; then whose turn it is
   for (let k = 0; k < news.length; k++) {
     const f = news[k];
-    if (f.k === 'play') queueShow(playShow(f));
+    if (f.k === 'play' && LE.RED[f.t] && news[k + 1] && news[k + 1].k === 'play' && news[k + 1].a === f.a && news[k + 1].b === f.b && LE.RED[news[k + 1].t]) {
+      let v = LE.T[f.t].v, cnt = 1;
+      while (news[k + 1] && news[k + 1].k === 'play' && news[k + 1].a === f.a && news[k + 1].b === f.b && LE.RED[news[k + 1].t]) { k++; cnt++; v += LE.T[news[k].t].v; }
+      queueShow(multiAccShow(f, cnt, v));
+    }
+    else if (f.k === 'play') queueShow(playShow(f));
     else if (f.k === 'black') queueShow(blackShow(f));
     else if (f.k === 'peek') queueShow(peekShow(f));
     else if (f.k === 'ab') queueShow(abShow(f));
+    else if (f.k === 'consp') queueShow(conspShow(f));
     else if (f.k === 'draw') { let n = 1; while (news[k + 1] && news[k + 1].k === 'draw' && news[k + 1].a === f.a) { n++; k++; } queueShow(drawShow(f.a, n)); }
   }
   if (pub.ph === 'turn' && pub.tn != null && S.ui.lastTn != null && pub.tn > S.ui.lastTn) queueShow(turnShow(pub.turn));
@@ -4296,7 +4455,17 @@ function seatTap(pid) {
         doAct({ t: 'play', card: tg.id, target: pid, c2i: bl[0].k }); S.ui.tg = null; return render();
       }
       if (tg.step === 1) doAct({ t: 'play', card: tg.id, target: tg.t1, target2: pid });
-      else doAct({ t: 'play', card: tg.id, target: pid });
+      else if (tg.ids && tg.ids.length > 1) {
+        // a bundle of accusations lands together: stop once the pile reaches the limit
+        const tp = pl(pid);
+        let rs = tp.rs;
+        const hd = Object.fromEntries((S.priv.hd || []).map(([id, t]) => [id, t]));
+        for (const id of tg.ids) {
+          if (rs >= tp.th) break;
+          doAct({ t: 'play', card: id, target: pid });
+          rs += LE.T[hd[id]] ? (LE.T[hd[id]].v || 0) : 0;
+        }
+      } else doAct({ t: 'play', card: tg.id, target: pid });
       S.ui.tg = null; return render();
     }
   }
@@ -4305,6 +4474,7 @@ function seatTap(pid) {
   S.ui.sheet = { k: 'seat', pid }; render();
 }
 function onClick(e) {
+  if (DRAG.on || Date.now() - (DRAG.dropped || 0) < 400) return;
   const el = e.target.closest('[data-act]');
   if (!el) return;
   const act = el.dataset.act;
@@ -4358,8 +4528,8 @@ function onClick(e) {
     case 'sgno': S.ui.sgc = null; render(); break;
     case 'snd': SND.toggle(); lastHTML.screen = null; render(); break;
     case 'qr': if (pub && S.priv) { doAct({ t: 'chat', text: el.dataset.t }); SND.play('tap'); } break;
-    case 'tipok': { const s = tipsSeen(); s[S.ui.coach] = 1; store.set('lail.tips', JSON.stringify(s)); S.ui.coach = null; updateCoach(); break; }
-    case 'tipsoff': store.set('lail.tipsOff', '1'); S.ui.learn = false; S.ui.coach = null; updateCoach(); break;
+    case 'tipok': { tipDone(S.ui.coach); S.ui.coach = null; updateCoach(); break; }
+    case 'tipsoff': TIPSEEN.__off = 1; store.set('lail.tipsOff', '1'); S.ui.learn = false; S.ui.coach = null; updateCoach(); break;
     case 'learn': saveNick(); if (!S.nick) { S.nick = 'متعلم'; } store.set('lail.tips', '{}'); store.set('lail.tipsOff', ''); S.ui.learn = true; S.ui.bots = 4; startSolo(); break;
     case 'resume': { const v = SESS.read(false); if (v) resumeSession(v); break; }
     case 'install': installApp(); break;
@@ -4370,6 +4540,7 @@ function onClick(e) {
       render(); break;
     }
     case 'seatinfo': S.ui.sheet = { k: 'seat', pid }; render(); break;
+    case 'leaveq': S.ui.sheet = { k: 'leaveq' }; render(); break;
     case 'useab': {
       const P = pl(me); S.ui.sheet = null;
       if (P && abReady()) useAbility();
@@ -4391,9 +4562,10 @@ function onClick(e) {
       const myTurn = pub.ph === 'turn' && !pub.pd && pub.turn === me && (pub.tm === 'choose' || pub.tm === 'play') && pl(me).a;
       if (!myTurn) { S.ui.sheet = { k: 'hcard', t }; render(); break; }
       if (S.ui.tg && S.ui.tg.id === id) { S.ui.tg = null; render(); break; }
-      S.ui.tg = { k: 'card', id, t, step: 0, t1: null }; S.ui.ovMin = false;
+      S.ui.tg = { k: 'card', id, t, step: 0, t1: null, ids: LE.RED[t] ? [id] : null }; S.ui.ovMin = false;
       render(); break;
     }
+    case 'addred': { const tg = S.ui.tg; if (tg && tg.ids) { const id = +el.dataset.id; const k = tg.ids.indexOf(id); if (k >= 0 && id !== tg.id) tg.ids.splice(k, 1); else if (k < 0) tg.ids.push(id); render(); } break; }
     case 'cancel': S.ui.tg = null; render(); break;
     case 'willcard': if (pub.pd && pub.pd.tg != null) doAct({ t: 'will', target: pub.pd.tg, idx: +el.dataset.i }); break;
     case 'abok': { const c = S.ui.sheet && S.ui.sheet.c; S.ui.sheet = null; if (c) doAct({ t: c === 'ali' ? 'rush' : 'majlis' }); render(); break; }
@@ -4427,11 +4599,74 @@ function onInput(e) {
 function onChange(e) { if (e.target.id === 'timer') { H.opts.timer = +e.target.value; hostChanged(); } }
 
 /* ================= boot ================= */
+/* drag a hand card with the mouse and drop it on a player's mat */
+const DRAG = { on: false, id: null, t: null, ghost: null, over: null, sx: 0, sy: 0, armed: null };
+function dragTargetAt(x, y) {
+  const el = document.elementFromPoint(x, y);
+  if (!el) return null;
+  const mat = el.closest('[data-mat],[data-tok],.cht[data-pid]');
+  if (!mat) return null;
+  const pid = +(mat.dataset.mat != null ? mat.dataset.mat : mat.dataset.tok != null ? mat.dataset.tok : mat.dataset.pid);
+  return Number.isFinite(pid) ? { pid, el: mat.closest('[data-mat]') || mat } : null;
+}
+function dragStart(x, y) {
+  const a = DRAG.armed;
+  DRAG.on = true; DRAG.id = a.id; DRAG.t = a.t;
+  S.ui.tg = { k: 'card', id: a.id, t: a.t, step: 0, t1: null, ids: LE.RED[a.t] ? [a.id] : null };
+  S.ui.drag = 1; S.ui.ovMin = false;
+  render();
+  const g = document.createElement('div');
+  g.className = 'dragghost';
+  g.innerHTML = cardMini(a.t);
+  document.getElementById('fx').appendChild(g);
+  DRAG.ghost = g;
+  dragMove(x, y);
+}
+function dragMove(x, y) {
+  if (DRAG.ghost) { DRAG.ghost.style.left = x + 'px'; DRAG.ghost.style.top = y + 'px'; }
+  const t = dragTargetAt(x, y);
+  const el = t && tokTargetable(S.ui.tg, t.pid) === '' ? t.el : null;
+  if (DRAG.over && DRAG.over !== el) DRAG.over.classList.remove('dropover');
+  if (el) el.classList.add('dropover');
+  DRAG.over = el;
+}
+function dragEnd(x, y, cancel) {
+  if (DRAG.ghost) DRAG.ghost.remove();
+  if (DRAG.over) DRAG.over.classList.remove('dropover');
+  const was = DRAG.on;
+  if (was) DRAG.dropped = Date.now();
+  DRAG.on = false; DRAG.ghost = null; DRAG.over = null; DRAG.armed = null;
+  S.ui.drag = 0;
+  if (!was) return;
+  const t = cancel ? null : dragTargetAt(x, y);
+  if (t && S.ui.tg && tokTargetable(S.ui.tg, t.pid) === '') { seatTap(t.pid); if (S.ui.tg && S.ui.tg.step === 1) return; }
+  else S.ui.tg = null;
+  render();
+}
+function bindDrag() {
+  document.addEventListener('pointerdown', (e) => {
+    if (e.pointerType !== 'mouse' || e.button !== 0) return;
+    const c = e.target.closest('.hand .card[data-id]');
+    if (!c || !S.pub) return;
+    const me = meId();
+    const myTurn = S.pub.ph === 'turn' && !S.pub.pd && S.pub.turn === me && (S.pub.tm === 'choose' || S.pub.tm === 'play');
+    if (!myTurn) return;
+    DRAG.armed = { id: +c.dataset.id, t: c.dataset.t, x: e.clientX, y: e.clientY };
+  });
+  document.addEventListener('pointermove', (e) => {
+    if (DRAG.on) { dragMove(e.clientX, e.clientY); return; }
+    const a = DRAG.armed;
+    if (a && (Math.abs(e.clientX - a.x) > 9 || Math.abs(e.clientY - a.y) > 9)) dragStart(e.clientX, e.clientY);
+  });
+  document.addEventListener('pointerup', (e) => { if (DRAG.on) { dragEnd(e.clientX, e.clientY); e.preventDefault(); } DRAG.armed = null; });
+  document.addEventListener('pointercancel', (e) => dragEnd(e.clientX, e.clientY, true));
+}
 function boot() {
   root = document.getElementById('app');
   toastBox = document.getElementById('toasts');
   document.body.insertAdjacentHTML('afterbegin', PORTRAITS.defs);
   root.addEventListener('click', onClick);
+  bindDrag();
   document.getElementById('sheet').addEventListener('click', (e) => { if (e.target.classList.contains('scrim')) { S.ui.sheet = null; render(); return; } onClick(e); });
   document.getElementById('modal').addEventListener('click', onClick);
   document.getElementById('coach').addEventListener('click', onClick);
