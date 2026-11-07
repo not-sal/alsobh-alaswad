@@ -951,6 +951,68 @@ button.rvc:active{transform:scale(.96)}
 @media (max-width:370px){.as-p .ccard{--ccw:54px}.as-card .card{--cardw:80px;--cardh:112px}.as-in h3{font-size:18px}}
 
 
+/* log rows with pictures */
+.lg{display:flex;flex-direction:column;gap:4px;padding:6px 0 8px;border-bottom:1px solid var(--line)}
+.lg p{margin:0;color:#e7e3ff;font-size:12.5px;line-height:1.55;opacity:.85}
+.lg-vis{display:flex;align-items:center;flex-wrap:wrap;gap:5px}
+.lg-p{display:inline-flex;align-items:center;gap:5px;background:rgba(255,255,255,.07);border-radius:999px;padding:2px 9px 2px 3px}
+.lg-p .pt{--ps:24px;box-shadow:0 0 0 1.5px #fff6df}
+.lg-p b{font-size:13px;white-space:nowrap}
+.lg-c{display:inline-flex;align-items:center;gap:4px;background:rgba(0,0,0,.25);border-radius:9px;padding:3px 8px 3px 5px;--mw:20px;--mh:27px}
+.lg-c small{font-size:12px;font-weight:800}
+.lg-c b{font-size:13px;color:var(--gold)}
+.lg-c .ic{width:16px;height:16px}
+.lg-c.dead{color:#ff9d92}.lg-c.safe{color:#9be3b6}
+.lg-c.ab{background:var(--cc);color:#fff6e2}
+.lg-c.burn{opacity:.75;text-decoration:line-through}
+.lg-t .tface{width:20px;height:28px}
+.lg-arr{color:var(--gold);font-weight:800}
+.lg-mv{display:inline-flex;align-items:center;gap:3px}
+.loglist .lg:last-child{border-bottom:0}
+/* the line under the piles: the last move, in pictures and big */
+.lg.tick{align-items:center;text-align:center;border:0;background:rgba(8,7,24,.55);border-radius:14px;padding:8px 12px;box-shadow:inset 0 0 0 1px var(--line)}
+.lg.tick .lg-vis{justify-content:center}
+.lg.tick p{font-size:14px;opacity:1;font-weight:700}
+.lg.tick .lg-p .pt{--ps:30px}
+.lg.tick .lg-p b{font-size:14.5px}
+.lg.tick .lg-c{--mw:26px;--mh:36px}
+.lg.tick .lg-c small{font-size:13px}
+.lg.tick .lg-t .tface{width:26px;height:36px}
+.ticker.flash{font-size:15px}
+/* the timer turns red near the end */
+.timer.low{background:#a3242b;color:#fff;animation:tlow .8s ease-in-out infinite}
+@keyframes tlow{50%{transform:scale(1.08)}}
+/* bot difficulty */
+.seg .segb{color:inherit}
+.panel .seg{background:rgba(255,255,255,.07)}
+.panel .seg button.on{background:var(--gold);color:var(--gold-ink)}
+/* the bot is playing for me */
+.mb-auto{display:flex;align-items:center;gap:10px;background:#2c2a6e;border-radius:14px;padding:10px 12px;box-shadow:0 0 0 2px var(--gold)}
+.mb-auto>.ic{width:26px;height:26px;color:var(--gold);flex:none}
+.mb-auto span{display:flex;flex-direction:column;flex:1;min-width:0}
+.mb-auto small{color:var(--muted);font-size:12.5px}
+/* bundle count on the big show */
+.as-cnt{position:relative;align-self:center;margin-inline-start:6px;font-size:28px;color:#fff;background:var(--red);border-radius:999px;padding:0 12px;line-height:1.4;box-shadow:0 0 0 2px #fff4}
+/* burning a blue card: big, clear choices */
+.pickrow.big{justify-content:center;gap:16px;padding:6px 0 4px}
+.pickrow.big .pickcard{display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer;border-radius:16px;padding:8px;background:rgba(255,255,255,.05);box-shadow:inset 0 0 0 1px var(--line);transition:transform .15s,background-color .15s}
+.pickrow.big .pickcard:hover,.pickrow.big .pickcard:focus-visible{transform:translateY(-3px);background:rgba(255,90,79,.14)}
+.pickrow.big .pickcard .card{--cardw:110px;--cardh:154px;pointer-events:none}
+.pk-l{display:inline-flex;align-items:center;gap:5px;font-weight:800;color:#ff9d92}
+.pk-l .ic{width:16px;height:16px}
+/* catch the stars while waiting */
+.mgwrap{display:flex;flex-direction:column;gap:8px}
+.mg-head{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.mg-head b{display:inline-flex;align-items:center;gap:6px;color:var(--gold)}
+.mg-head .ic{width:18px;height:18px}
+.mg-sc{font-weight:800;background:rgba(0,0,0,.3);border-radius:10px;padding:2px 10px}
+.mg{position:relative;height:clamp(240px,46vh,520px);border-radius:18px;overflow:hidden;background:radial-gradient(120% 90% at 50% 110%,#2b2470 0,#120f38 60%,#0a0822 100%);box-shadow:inset 0 0 0 1px var(--line);touch-action:manipulation}
+.mgs{position:absolute;width:54px;height:54px;margin:-27px 0 0 -27px;border:0;border-radius:50%;background:radial-gradient(circle,#fff6d0 0,rgba(255,214,107,.55) 38%,rgba(255,214,107,0) 70%);color:#fff1b8;display:grid;place-items:center;cursor:pointer;animation:mgs var(--life,1600ms) ease-in forwards}
+.mgs .ic{width:30px;height:30px;filter:drop-shadow(0 0 8px #ffd36b)}
+.mgs.g{width:66px;height:66px;margin:-33px 0 0 -33px;background:radial-gradient(circle,#ffe39a 0,rgba(244,191,82,.6) 42%,rgba(244,191,82,0) 72%)}
+.mgs.g .moon{width:30px;height:30px}
+@keyframes mgs{0%{transform:scale(.3);opacity:0}15%{transform:scale(1.08);opacity:1}80%{opacity:1}100%{transform:scale(.6);opacity:0}}
+.mg-note{margin:0;color:var(--muted);font-size:13px}
 /* turn order strip */
 .torder{display:flex;align-items:center;gap:4px;flex-wrap:wrap;background:var(--panel);border-radius:14px;padding:7px 12px;box-shadow:inset 0 0 0 1px var(--line)}
 .torder>.ic{width:16px;height:16px;color:var(--muted);flex:none}
@@ -1122,6 +1184,25 @@ button.rvc:active{transform:scale(.96)}
   .sheet{max-height:86vh}
   .pick-reopen{bottom:24px}
 }
+@media (min-width:1024px){
+  .sg-in{max-width:min(1180px,94vw)}
+  .sg-grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+  .sgc .ccard{--ccw:96px}
+  .sg-main h3{font-size:26px}
+  .sg-sub{font-size:15.5px}
+  .mgs{width:64px;height:64px;margin:-32px 0 0 -32px}
+  .ov-in{max-width:min(1100px,94vw)}
+  .ch-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media (min-width:900px){
+  .sg-main.has-mg{display:grid;grid-template-columns:minmax(0,1fr) 300px;grid-template-areas:"t t" "mg me";column-gap:18px}
+  .sg-main.has-mg .sg-mt{grid-area:t}
+  .sg-main.has-mg .mgwrap{grid-area:mg}
+  .sg-main.has-mg .sg-me{grid-area:me}
+}
+.sg-me{display:flex;flex-direction:column;gap:8px;align-items:center}
+.sg-mek{margin:0;font-weight:800;color:var(--gold)}
+.sg-me .bcard{--bw:270px}
 @media (min-width:1360px){
   .game{grid-template-columns:clamp(340px,27vw,470px) minmax(0,1fr) clamp(300px,21vw,380px);column-gap:26px}
   .pgrid{grid-template-columns:repeat(auto-fill,minmax(380px,1fr));gap:16px}
@@ -1138,6 +1219,7 @@ button.rvc:active{transform:scale(.96)}
 
 </style>
 <div id="app" dir="rtl" lang="ar"><div id="screen"></div></div>
+<div id="ovl" dir="rtl" lang="ar"></div>
 <div id="sheet" dir="rtl" lang="ar"></div>
 <div id="modal" dir="rtl" lang="ar"></div>
 <div id="fx" aria-hidden="true"></div>
@@ -1152,10 +1234,10 @@ button.rvc:active{transform:scale(.96)}
   'use strict';
 
   const T = {
-    ACC: { n: 'اتهام', c: 'red', v: 1, q: 35, d: 'اتهام واحد على لاعب. إذا تجمعت ٧ اتهامات قدامه، اللي حط الاتهام الأخير يكشف له ورقة محاكمة.' },
-    EVI: { n: 'دليل', c: 'red', v: 3, q: 6, d: 'يحسب ٣ اتهامات مرة وحدة.' },
-    WIT: { n: 'شاهد', c: 'red', v: 7, q: 1, d: 'يحسب ٧ اتهامات: تنكشف ورقة محاكمة على طول.' },
-    ALI: { n: 'فزعة', c: 'green', q: 3, d: 'تشيل لين ٣ اتهامات من قدام لاعب (ما تنلعب على نفسك).' },
+    ACC: { n: 'اتهام', c: 'red', v: 1, q: 35, d: 'اتهام واحد على لاعب. إذا تجمعت 7 اتهامات قدامه، اللي حط الاتهام الأخير يكشف له ورقة محاكمة.' },
+    EVI: { n: 'دليل', c: 'red', v: 3, q: 6, d: 'يحسب 3 اتهامات مرة وحدة.' },
+    WIT: { n: 'شاهد', c: 'red', v: 7, q: 1, d: 'يحسب 7 اتهامات: تنكشف ورقة محاكمة على طول.' },
+    ALI: { n: 'فزعة', c: 'green', q: 3, d: 'تشيل لين 3 اتهامات من قدام لاعب (ما تنلعب على نفسك).' },
     ROB: { n: 'سرقة', c: 'green', q: 1, d: 'تاخذ كل الأوراق اللي بيد لاعب وتعطيها لاعب ثاني (مو لنفسك).' },
     SCA: { n: 'الناقة', c: 'green', q: 2, d: 'تنقل كل الأوراق الملعوبة قدام لاعب (الحمراء والزرقاء وريح شوي والقطة) للاعب ثاني.' },
     STO: { n: 'ريح شوي', c: 'green', q: 3, d: 'اللاعب يفوّت دوره الجاي، وبعدها تنحرق. إذا انلعبت عليه ثنتين يفوّت دورين.' },
@@ -1211,7 +1293,7 @@ button.rvc:active{transform:scale(.96)}
   const LEAD = 2600; // the darkness animation plays first
   const clock = () => Date.now();
 
-  function log(G, t) { t = t.replace(/^\s+/, ''); G.log.push({ i: ++G.li, t }); if (G.log.length > 40) G.log.shift(); }
+  function log(G, t, m) { if (G.quiet) return; t = t.replace(/^\s+/, ''); const e = { i: ++G.li, t }; if (m) e.m = m; G.log.push(e); if (G.log.length > 40) G.log.shift(); }
   function ev(G, k, title, body, extra) { G.evs.push(Object.assign({ i: ++G.ei, k, title, body: body || '' }, extra || {})); if (G.evs.length > 8) G.evs.shift(); }
   function note(G, pid, t) { const p = G.players[pid]; p.notes.push({ i: ++G.ni, t: t.replace(/^\s+/, '') }); if (p.notes.length > 6) p.notes.shift(); }
   function fx(G, o) { o.i = ++G.fi; G.fx.push(o); if (G.fx.length > 14) G.fx.shift(); }
@@ -1312,7 +1394,7 @@ button.rvc:active{transform:scale(.96)}
     p.front = [];
     const why = { night: 'انقتل بالليل', witch: 'انكشفت ورقة خيانته', allrev: 'انكشفت كل أوراقه', link: 'مات مع اللي مربوط فيه' }[cause] || '';
     const isW = p.witch;
-    log(G, ` ${p.nick} مات (${why}). أوراقه: ${p.trial.map((c) => TN[c.t]).join('، ')}`);
+    log(G, ` ${p.nick} مات (${why}). أوراقه: ${p.trial.map((c) => TN[c.t]).join('، ')}`, { k: 'death', b: i, w: isW ? 1 : 0 });
     ev(G, 'death', `${p.nick} مات`, why + (isW ? ' — وكان من الخونة!' : ' — وكان مسالم.'), { p: i });
     if (!p.bot) p.lastWords = true;
     else {
@@ -1346,7 +1428,7 @@ button.rvc:active{transform:scale(.96)}
     c.r = true; c.rb = by; c.rw = why;
     fx(G, { k: 'reveal', a: i, x: idx, t: c.t, b: by, w: why });
     const src = { acc: 'بسبب الاتهامات', consp: 'بسبب المؤامرة', confess: 'اعتراف', will: 'وصية أبو عزوز', life: 'قام من موته' }[why] || '';
-    log(G, ` انكشفت ورقة من ${p.nick} (${src}): ${TN[c.t]}`);
+    log(G, ` انكشفت ورقة من ${p.nick} (${src}): ${TN[c.t]}`, { k: 'rev', a: by != null && by >= 0 && by !== i ? by : null, b: i, r: c.t });
     if (c.t === 'W') { kill(G, i, 'witch'); }
     else if (p.trial.every((x) => x.r)) { kill(G, i, 'allrev'); }
     else {
@@ -1384,7 +1466,7 @@ button.rvc:active{transform:scale(.96)}
       const st = p.front.find((id) => G.cards[id] === 'STO');
       if (st != null) {
         p.front = p.front.filter((id) => id !== st); G.disc.push(st);
-        log(G, ` ${p.nick} يريّح شوي ويفوّت دوره.`);
+        log(G, ` ${p.nick} يريّح شوي ويفوّت دوره.`, { k: 'skip', b: p.id, c: 'STO' });
         seat = leftOf(G, seat); continue;
       }
       break;
@@ -1400,7 +1482,7 @@ button.rvc:active{transform:scale(.96)}
     const ws = G.players.filter((p) => p.witch);
     for (const w of ws) if (w.alive) w.knows = true;
     G.teamSnap = ws.map((w) => w.id);
-    log(G, ` نزل الليل (الليلة رقم ${G.nightN}).`);
+    log(G, ` نزل الليل (الليلة رقم ${G.nightN}).`, { k: 'night' });
     ev(G, 'night', 'نزل الليل', 'الكل يختار لاعب… محد يدري مين صاحي.');
     startStage(G, 'w');
     for (const p of G.players) if (p.alive) { botSay(G, p.id, SAY.night, 0.35); }
@@ -1493,7 +1575,7 @@ button.rvc:active{transform:scale(.96)}
     if (confessed.length) body += '\nاعترفوا وأمنوا: ' + confessed.map((i) => nm(G, i)).join('، ');
     const risked = N.elig.filter((i) => N.conf[i] === -1 && G.players[i].alive);
     if (risked.length) body += '\nخاطروا: ' + risked.map((i) => nm(G, i)).join('، ');
-    log(G, ' طلع الصبح. ' + rtxt);
+    log(G, ' طلع الصبح. ' + rtxt, { k: 'morning', b: k != null ? k : null, res });
     ev(G, 'morning', 'طلع الصبح', body, { res, kill: k });
     if (G.phase !== 'over') {
       G.phase = 'turn';
@@ -1517,7 +1599,7 @@ button.rvc:active{transform:scale(.96)}
       const p = G.players[id];
       if (!p.witch && p.trial.some((c) => c.t === 'W')) { p.witch = true; p.knows = false; note(G, id, ' جاتك ورقة خائن… صرت مع الخونة لين آخر اللعبة.'); }
     }
-    log(G, 'كل لاعب أخذ ورقة محاكمة مقلوبة من اللي على يساره.');
+    log(G, 'المؤامرة: ' + moves.map((m) => `${nm(G, m.to)} أخذ من ${nm(G, m.from)}`).join('، '), { k: 'consp', mv: moves.map((m) => [m.to, m.from]) });
     fx(G, { k: 'consp', mv: moves.map((m) => [m.to, m.from]) });
     checkWin(G);
   }
@@ -1536,7 +1618,7 @@ button.rvc:active{transform:scale(.96)}
         if (t === 'CON') {
           G.disc.push(id);
           fx(G, { k: 'black', a: P.id, t: 'CON' });
-          log(G, ` ${P.nick} سحب ورقة المؤامرة!`);
+          log(G, ` ${P.nick} سحب ورقة المؤامرة!`, { a: P.id, c: 'CON' });
           ev(G, 'consp', 'المؤامرة!', (catHolder(G) == null) ? 'ما فيه أحد قدامه القطة، فما تنكشف ورقة. وكل لاعب ياخذ ورقة من اللي على يساره.' : `${nm(G, catHolder(G))} قدامه القطة السوداء وبتنكشف له ورقة. وبعدها كل لاعب ياخذ ورقة من اللي على يساره.`);
           G.steps.unshift({ s: 'cReveal' }, { s: 'cSwap' });
           return;
@@ -1607,7 +1689,7 @@ button.rvc:active{transform:scale(.96)}
       let v = T[type].v;
       tp.front.push(id); G.by[id] = pid; delete G.mv[id];
       G.acc[pid][t] += v;
-      log(G, ` ${P.nick} لعب «${T[type].n}» على ${tp.nick} — صار عليه ${redSum(G, tp)}/${thresh(tp)}`);
+      log(G, ` ${P.nick} لعب «${T[type].n}» على ${tp.nick} — صار عليه ${redSum(G, tp)}/${thresh(tp)}`, { a: pid, b: t, c: type, n: 1, s: redSum(G, tp) });
       if (tp.bot && redSum(G, tp) > 0) botSay(G, t, SAY.accused, 0.35, { a: P.nick });
       if (P.bot) botSay(G, pid, SAY.accuse, 0.15, { t: tp.nick });
       checkAcc(G, t, pid);
@@ -1624,7 +1706,7 @@ button.rvc:active{transform:scale(.96)}
         const cap = 3;
         for (const x of reds) { const v = cardVal(G, x); if (G.cards[x] !== 'WIT' && s + v <= cap) { s += v; tp.front.splice(tp.front.indexOf(x), 1); delete G.dbl[x]; G.disc.push(x); } }
         G.disc.push(id);
-        log(G, ` ${P.nick} فزع لـ${tp.nick} وشال ${s} اتهامات — باقي ${redSum(G, tp)}/${thresh(tp)}`);
+        log(G, ` ${P.nick} فزع لـ${tp.nick} وشال ${s} اتهامات — باقي ${redSum(G, tp)}/${thresh(tp)}`, { a: pid, b: t, c: 'ALI', s: redSum(G, tp) });
         return ok();
       }
       case 'ROB': {
@@ -1635,7 +1717,7 @@ button.rvc:active{transform:scale(.96)}
         const moved = tp.hand.splice(0);
         G.players[t2].hand.push(...moved);
         G.disc.push(id);
-        log(G, ` ${P.nick} سرق ${moved.length} أوراق من ${tp.nick} وعطاها ${nm(G, t2)}`);
+        log(G, ` ${P.nick} سرق ${moved.length} أوراق من يد ${tp.nick} وعطاها ${nm(G, t2)}`, { a: pid, b: t, d: t2, c: 'ROB', n: moved.length });
         note(G, t2, `جتك ${moved.length} أوراق من سرقة ${tp.nick}.`);
         return ok();
       }
@@ -1654,7 +1736,7 @@ button.rvc:active{transform:scale(.96)}
           } else { dp.front.push(x); G.mv[x] = pid; }
         }
         G.disc.push(id);
-        log(G, ` ${P.nick} لعب الناقة: نقل كل اللي قدام ${tp.nick} إلى ${dp.nick}${burned ? ' (وانحرقت ورقتين الارتباط)' : ''} — صار عليه ${redSum(G, dp)}/${thresh(dp)}`);
+        log(G, ` ${P.nick} لعب الناقة: نقل كل اللي قدام ${tp.nick} إلى ${dp.nick}${burned ? ' (وانحرقت ورقتين الارتباط)' : ''} — صار عليه ${redSum(G, dp)}/${thresh(dp)}`, { a: pid, b: t, d: t2, c: 'SCA', n: moved.length });
         checkAcc(G, t2, pid);
         return ok();
       }
@@ -1673,7 +1755,7 @@ button.rvc:active{transform:scale(.96)}
         rm();
         tp.front.splice(tp.front.indexOf(c), 1);
         G.disc.push(c); delete G.by[c]; delete G.mv[c];
-        log(G, ` ${P.nick} لعب «إعفاء» وحرق «${T[G.cards[c]].n}» من قدام ${tp.nick}`);
+        log(G, ` ${P.nick} لعب «إعفاء» وحرق «${T[G.cards[c]].n}» من قدام ${tp.nick}`, { a: pid, b: t, c: 'CUR', x: c === 0 ? 'CAT' : G.cards[c] });
         G.disc.push(id);
         return ok();
       }
@@ -1682,13 +1764,13 @@ button.rvc:active{transform:scale(.96)}
         if (!tp.hand.length) return err('يده فاضية');
         rm();
         const k = tp.hand.length; G.disc.push(...tp.hand.splice(0)); G.disc.push(id);
-        log(G, ` ${P.nick} لعب «حريقة» وحرق ${k} أوراق من يد ${tp.nick}`);
+        log(G, ` ${P.nick} لعب «حريقة» وحرق ${k} أوراق من يد ${tp.nick}`, { a: pid, b: t, c: 'ARS', n: k });
         return ok();
       }
       case 'PIE': case 'ASY': case 'CAT': {
         if (!valid1) return err('اختر لاعب غيرك');
         rm(); tp.front.push(id); G.by[id] = pid; delete G.mv[id];
-        log(G, ` ${P.nick} لعب «${T[type].n}» قدام ${tp.nick}`);
+        log(G, ` ${P.nick} لعب «${T[type].n}» قدام ${tp.nick}`, { a: pid, b: t, c: type });
         return ok();
       }
       case 'MAT': {
@@ -1697,11 +1779,11 @@ button.rvc:active{transform:scale(.96)}
         if (hasF(G, tp, 'MAT')) {
           const other = tp.front.find((y) => G.cards[y] === 'MAT');
           tp.front.splice(tp.front.indexOf(other), 1); G.disc.push(other, id);
-          log(G, ` ${P.nick} لعب «ارتباط» على ${tp.nick} وعنده وحدة: انحرقت الثنتين`);
+          log(G, ` ${P.nick} لعب «ارتباط» على ${tp.nick} وعنده وحدة: انحرقت الثنتين`, { a: pid, b: t, c: 'MAT' });
         } else {
           tp.front.push(id); G.by[id] = pid; delete G.mv[id];
           const o = G.players.find((q) => q.alive && q.id !== t && hasF(G, q, 'MAT'));
-          log(G, ` ${P.nick} لعب «ارتباط» قدام ${tp.nick}${o ? ` — صار مربوط مع ${o.nick}` : ''}`);
+          log(G, ` ${P.nick} لعب «ارتباط» قدام ${tp.nick}${o ? ` — صار مربوط مع ${o.nick}` : ''}`, { a: pid, b: t, c: 'MAT', d: o ? o.id : null });
         }
         return ok();
       }
@@ -1715,7 +1797,33 @@ button.rvc:active{transform:scale(.96)}
       if (G.tmode !== 'choose') return err('لعبت أوراق، ما تقدر تسحب الحين');
       G.tmode = 'draw';
       G.steps.push({ s: 'draw' }, { s: 'draw' }, { s: 'end' });
-      log(G, ` ${P.nick} سحب ورقتين`);
+      log(G, ` ${P.nick} سحب ورقتين`, { a: pid, k: 'draw', n: 2 });
+      return ok();
+    }
+    if (a.t === 'play' && Array.isArray(a.cards) && a.cards.length > 1) {
+      if (G.tmode !== 'choose' && G.tmode !== 'play') return err('مو وقته');
+      const ids = [...new Set(a.cards)];
+      if (ids.some((id) => !P.hand.includes(id) || !RED[G.cards[id]])) return err('الأوراق مو بيدك');
+      const tp = G.players[a.target];
+      if (!tp || !tp.alive || a.target === pid) return err('اختر لاعب غيرك');
+      if (hasF(G, tp, 'PIE')) return err('عنده حصن، ما ينلعب عليه أحمر');
+      // strongest first, and stop the moment the pile reaches the limit
+      ids.sort((x, y) => (T[G.cards[y]].v || 0) - (T[G.cards[x]].v || 0));
+      let n = 0, v = 0;
+      const pq0 = G.pq.length;
+      G.quiet = true;
+      for (const id of ids) {
+        if (!tp.alive || G.pq.length > pq0 || redSum(G, tp) >= thresh(tp)) break;
+        const r = playCard(G, pid, id, { target: a.target });
+        if (!r.ok) break;
+        n++; v += T[G.cards[id]].v || 0;
+      }
+      G.quiet = false;
+      if (!n) return err('ما ينفع');
+      log(G, ` ${P.nick} رمى ${n} أوراق اتهام مرة وحدة على ${tp.nick} (${v} اتهامات)${tp.alive ? ` — صار عليه ${redSum(G, tp)}/${thresh(tp)}` : ''}`, { a: pid, b: a.target, c: 'ACC', n, v, s: redSum(G, tp) });
+      if (G.pq.length > pq0) log(G, ` تجمعت ${thresh(tp)} اتهامات على ${tp.nick}. ${nm(G, G.pq[G.pq.length - 1].who)} يكشف له ورقة.`);
+      G.tmode = 'play'; G.tplays += n;
+      fx(G, { k: 'play', a: pid, b: a.target, t: G.cards[ids[0]], n, v });
       return ok();
     }
     if (a.t === 'play') {
@@ -1743,7 +1851,7 @@ button.rvc:active{transform:scale(.96)}
         P.peek = { target: a.target, ts: shuffle(unrev(tp)).slice(0, 2).map((i) => tp.trial[i].t) };
         fx(G, { k: 'ab', c: 'saleh', a: pid, b: a.target });
         note(G, pid, ` المحقق: شفت من أوراق ${tp.nick}: ${P.peek.ts.map((x) => TN[x]).join('، ')}`);
-        log(G, ` ${P.nick} المحقق طالع ورقتين من أوراق ${tp.nick}`);
+        log(G, ` ${P.nick} المحقق طالع ورقتين من أوراق ${tp.nick}`, { a: pid, b: a.target, ab: 'saleh' });
       } else if (a.t === 'steal') {
         if (!okT) return err('اختر لاعب غيرك');
         if (!tp.hand.length) return err('يده فاضية');
@@ -1754,12 +1862,12 @@ button.rvc:active{transform:scale(.96)}
         fx(G, { k: 'ab', c: 'khaled', a: pid, b: a.target, n: got.length });
         note(G, pid, ` نشلت من ${tp.nick}: ${got.map((x) => T[G.cards[x]].n).join('، ')}`);
         note(G, a.target, ` خالد الحرامي نشل منك: ${got.map((x) => T[G.cards[x]].n).join('، ')}`);
-        log(G, ` ${P.nick} الحرامي نشل ${got.length === 1 ? 'ورقة' : 'ورقتين'} من يد ${tp.nick}`);
+        log(G, ` ${P.nick} الحرامي نشل ${got.length === 1 ? 'ورقة' : 'ورقتين'} من يد ${tp.nick}`, { a: pid, b: a.target, ab: 'khaled', n: got.length });
       } else if (a.t === 'rush') {
         if (G.again === pid) return err('استخدمتها');
         P.used = true; G.again = pid;
         fx(G, { k: 'ab', c: 'ali', a: pid });
-        log(G, ` ${P.nick} المستعجل: له دور ثاني بعد هالدور`);
+        log(G, ` ${P.nick} المستعجل: له دور ثاني بعد هالدور`, { a: pid, ab: 'ali' });
       } else if (a.t === 'majlis') {
         const al = G.players.filter((q) => q.alive);
         if (al.filter((q) => q.hand.length).length < 1 || al.length < 2) return err('ما بيد أحد أوراق');
@@ -1769,7 +1877,7 @@ button.rvc:active{transform:scale(.96)}
         for (const q of al) { q.hand = q.newHand || []; delete q.newHand; }
         for (const q of al) { const from = al.find((x) => leftOf(G, x.id) === q.id); note(G, q.id, ` دوّروا! جتك ${q.hand.length} أوراق من يد ${from ? from.nick : ''}.`); }
         fx(G, { k: 'ab', c: 'hamad', a: pid });
-        log(G, ` ${P.nick} كبير المجلس قال «دوّروا»: كل لاعب عطى يده للي على يساره`);
+        log(G, ` ${P.nick} كبير المجلس قال «دوّروا»: كل لاعب عطى يده للي على يساره`, { a: pid, ab: 'hamad' });
         ev(G, 'info', 'دوّروا!', 'كل لاعب عطى كل الأوراق اللي بيده للي على يساره.');
       } else {
         const h = catHolder(G);
@@ -1780,7 +1888,7 @@ button.rvc:active{transform:scale(.96)}
         const hp = G.players[h];
         hp.front.splice(hp.front.indexOf(0), 1); tp.front.push(0); G.mv[0] = pid;
         fx(G, { k: 'ab', c: 'azouz', a: pid, b: h, d: a.target });
-        log(G, ` ${P.nick} الشقي أخذ القطة السوداء من قدام ${hp.nick} وحطها قدام ${tp.nick}`);
+        log(G, ` ${P.nick} الشقي أخذ القطة السوداء من قدام ${hp.nick} وحطها قدام ${tp.nick}`, { a: pid, b: h, d: a.target, c: 'CAT', ab: 'azouz' });
       }
       return ok();
     }
@@ -1966,6 +2074,7 @@ button.rvc:active{transform:scale(.96)}
   }
 
   // ---------- bots ----------
+  const dz = (G) => (G.opts && G.opts.diff === 'easy' ? 0 : G.opts && G.opts.diff === 'hard' ? 2 : 1);
   function noise(G, a, b) { const x = Math.sin((a + 1) * 12.9898 + (b + 1) * 78.233 + G.salt) * 43758.5453; return x - Math.floor(x); }
   function mates(G, me) { const P = G.players[me]; return P.witch && P.knows ? G.teamSnap.filter((x) => x !== me) : []; }
   function sus(G, me, t) {
@@ -1987,7 +2096,12 @@ button.rvc:active{transform:scale(.96)}
   function ranked(G, me, filt) {
     return G.players.filter((p) => p.alive && p.id !== me && (!filt || filt(p))).map((p) => ({ id: p.id, s: sus(G, me, p.id) })).sort((a, b) => b.s - a.s);
   }
-  function topSus(G, me, filt) { const r = ranked(G, me, filt); if (!r.length) return null; return (r.length > 1 && Math.random() < 0.25) ? r[1].id : r[0].id; }
+  function topSus(G, me, filt) {
+    const r = ranked(G, me, filt); if (!r.length) return null;
+    const d = dz(G);
+    if (d === 0 && Math.random() < 0.45) return pick(r).id;
+    return (r.length > 1 && Math.random() < (d === 2 ? 0.06 : 0.25)) ? r[1].id : r[0].id;
+  }
   function mostTrusted(G, me, filt) { const r = ranked(G, me, filt); return r.length ? r[r.length - 1].id : null; }
 
   function botOptions(G, me) {
@@ -2052,7 +2166,8 @@ button.rvc:active{transform:scale(.96)}
         if (s) out.push({ s, a: { t: 'play', card: id, target: t } });
       }
     }
-    for (const o of out) o.s += (Math.random() - 0.5) * 0.12;
+    const nz = [0.6, 0.12, 0.04][dz(G)];
+    for (const o of out) o.s += (Math.random() - 0.5) * nz;
     out.sort((a, b) => b.s - a.s);
     return out;
   }
@@ -2148,7 +2263,8 @@ button.rvc:active{transform:scale(.96)}
       return null;
     }
     if (G.turn !== me) return null;
-    if ((G.tmode === 'choose' || G.tmode === 'play') && !P.used) {
+    if (dz(G) === 0 && G.tmode === 'choose' && Math.random() < 0.3) return { t: 'draw' };
+    if ((G.tmode === 'choose' || G.tmode === 'play') && !P.used && (dz(G) > 0 || Math.random() < 0.4)) {
       const ab = botAbility(G, me, m);
       if (ab) return ab;
     }
@@ -2160,7 +2276,7 @@ button.rvc:active{transform:scale(.96)}
       if (best && best.s >= thr) return best.a;
       return { t: 'draw' };
     }
-    if (best && best.s >= 0.55 + G.tplays * 0.06) return best.a;
+    if (best && best.s >= [0.62, 0.55, 0.5][dz(G)] + G.tplays * 0.06) return best.a;
     return { t: 'end' };
   }
 
@@ -2249,7 +2365,7 @@ const PORTRAITS = (() => {
 
 'use strict';
 /* ================= utils ================= */
-const AR = (n) => String(n).replace(/\d/g, (d) => '٠١٢٣٤٥٦٧٨٩'[d]);
+const AR = (n) => String(n); // the game shows Latin digits everywhere
 const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const rid = () => Math.random().toString(36).slice(2, 10) + Date.now().toString(36).slice(-4);
 const store = {
@@ -2258,7 +2374,7 @@ const store = {
 };
 const ic = (n, cls) => (IC[n] ? `<svg class="ic${cls ? ' ' + cls : ''}" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true">${IC[n]}</svg>` : '');
 const TICON = { I: 'leaf', W: 'knife', C: 'shield' };
-// codes typed on an Arabic keyboard come as ٠-٩ (or Persian ۰-۹): read them as 0-9
+// codes typed on an Arabic keyboard come as 0-9 (or Persian ۰-۹): read them as 0-9
 const latinDigits = (s) => String(s == null ? '' : s).replace(/[٠-٩]/g, (d) => String(d.charCodeAt(0) - 0x660)).replace(/[۰-۹]/g, (d) => String(d.charCodeAt(0) - 0x6f0));
 const cleanNick = (s) => String(s || '').replace(/[\u0000-\u001f​-‏‪-‮]/g, '').replace(/\s+/g, ' ').trim().slice(0, 16);
 
@@ -2269,7 +2385,7 @@ const S = {
   ui: { tab: 'hand', sheet: null, modalQ: [], seenEv: -1, seenNote: -1, seenChat: -1, unread: 0, roleOpen: false, bots: 5, joinCode: '', sel2: {}, recv: 0, tl: null },
 };
 store.set('lail.cid', S.cid, 1);
-const H = { G: null, lobby: [], opts: { timer: 60 }, keys: {}, acks: {}, errs: {}, lastAid: {}, seq: 0, epoch: rid(), awSig: '', awAt: 0, botAt: {}, conn: {}, queue: Promise.resolve() };
+const H = { G: null, lobby: [], opts: { timer: 40, diff: 'normal' }, miss: {}, tKey: '', tAt: 0, keys: {}, acks: {}, errs: {}, lastAid: {}, seq: 0, epoch: rid(), awSig: '', awAt: 0, botAt: {}, conn: {}, queue: Promise.resolve() };
 const NET = { room: null, R: null, hostPeer: null, hostPk: null, hostKey: null, buf: {}, epoch: null, seq: -1, pvSeq: -1, out: [], aid: 0, lastErr: 0, hb: null, rs: null, joinTimer: null };
 
 /* ================= crypto (private views & actions) ================= */
@@ -2309,14 +2425,15 @@ function botName() {
   const free = LE.BOT_NAMES.filter((n) => !used.has(n));
   return free.length ? free[Math.floor(Math.random() * free.length)] : 'بوت ' + AR(H.lobby.length + 1);
 }
+const timerOn = () => !!H.opts.timer && !(S.role === 'solo' && S.ui.learn);
 function hostPub() {
   if (!H.G) return { ph: 'lobby', lb: H.lobby.map((x) => ({ n: x.nick, b: x.bot ? 1 : 0, cid: x.cid, h: x.host ? 1 : 0, cn: x.bot || x.host || H.conn[x.cid] !== false ? 1 : 0 })), op: H.opts, code: S.code };
   const p = LE.pubView(H.G);
   p.cn = H.G.players.map((q) => (q.bot || q.cid === S.cid || H.conn[q.cid] !== false ? 1 : 0));
   p.dq = deputies();
-  if (H.opts.timer && H.G.phase !== 'over' && !H.G.sec) {
+  if (timerOn() && H.G.phase !== 'over' && !H.G.sec) {
     const aw = LE.awaiting(H.G).filter((i) => !H.G.players[i].bot && !H.G.players[i].auto);
-    if (aw.length) p.tl = Math.max(0, Math.round(H.opts.timer - (Date.now() - H.awAt) / 1000));
+    if (aw.length) p.tl = Math.max(0, Math.round(H.opts.timer - (Date.now() - H.tAt) / 1000));
   }
   return p;
 }
@@ -2338,7 +2455,15 @@ function hostChanged() {
   saveLocal();
   scheduleBackup();
 }
+function timerKey(G) {
+  if (G.phase === 'turn') return G.pending ? `p${G.turnN}:${G.pending.who}:${G.pending.k}:${G.pq.length}` : `t${G.turnN}`;
+  if (G.phase === 'night_confess') return `n${G.nightN}`;
+  return G.phase;
+}
 function hostApply(pid, a, quiet) {
+  const P = H.G.players[pid];
+  if (P && a && a.t !== 'chat') { H.miss[pid] = 0; if (P.auto) { P.auto = false; P.awayAuto = false; } }
+  if (a && a.t === 'back') { H.awSig = ''; return { ok: true }; }
   const r = LE.act(H.G, pid, a);
   if (!r.ok && !quiet && pid === myPid()) toast(r.err);
   return r;
@@ -2349,7 +2474,16 @@ function runBot(pid, forced) {
   try { a = LE.botAct(G, pid); } catch (e) { a = null; }
   let r = a ? LE.act(G, pid, a) : { ok: false };
   if (!r.ok) r = LE.act(G, pid, LE.anyAct(G, pid));
-  if (forced && r.ok && pid === myPid()) toast('خلصت مهلتك، البوت لعب عنك');
+  if (forced && r.ok) {
+    if (pid === myPid()) toast('خلصت مهلتك، البوت لعب عنك');
+    // two turns in a row without finishing: the bot takes over until the player comes back
+    const P = G.players[pid];
+    if (P && !P.bot && H.missAt !== pid + '@' + H.tKey) {
+      H.missAt = pid + '@' + H.tKey;
+      H.miss[pid] = (H.miss[pid] || 0) + 1;
+      if (H.miss[pid] >= 2 && !P.auto) { P.auto = true; P.awayAuto = true; if (pid === myPid()) toast('فاتك دورين، البوت صار يلعب عنك. اضغط «أنا رجعت» إذا بغيت تكمل'); }
+    }
+  }
   hostChanged();
 }
 function delayFor(G, P) {
@@ -2379,21 +2513,23 @@ function tick() {
   if (ns.length) {
     H.lastShow = ns[ns.length - 1].i;
     let add = 0, drew = false;
-    for (const f of ns) { if (f.k === 'play') add += 2800; else if (f.k === 'black') add += 2400; else if (f.k === 'peek') add += 2000; else if (f.k === 'ab') add += 2900; else if (f.k === 'consp') add += 3600; else if (f.k === 'draw' && !drew) { add += 1700; drew = true; } }
+    for (const f of ns) { if (f.k === 'play') add += 3900; else if (f.k === 'black') add += 3300; else if (f.k === 'peek') add += 2800; else if (f.k === 'ab') add += 3700; else if (f.k === 'consp') add += 4600; else if (f.k === 'draw' && !drew) { add += 2500; drew = true; } }
     if (add && !H.noHold) H.hold = Math.max(H.hold || 0, now0) + add;
   }
-  if (G.turnN !== H.lastTn) { if (H.lastTn != null && G.phase === 'turn' && !H.noHold) H.hold = Math.max(H.hold || 0, now0) + 1700; H.lastTn = G.turnN; }
+  if (G.turnN !== H.lastTn) { if (H.lastTn != null && G.phase === 'turn' && !H.noHold) H.hold = Math.max(H.hold || 0, now0) + 2700; H.lastTn = G.turnN; }
   if (now0 < (H.hold || 0)) return;
   if (G.sec && LE.expire(G)) { H.awSig = ''; hostChanged(); return; }
   const aw = LE.awaiting(G);
   const sig = [G.phase, G.turnN, G.tmode, G.tplays, G.pq.length, G.pending ? G.pending.who : '', aw.join(',')].join('|');
   const now = Date.now();
-  if (sig !== H.awSig) { H.awSig = sig; H.awAt = now; H.botAt = {}; if (H.opts.timer) hostChanged(); }
+  if (sig !== H.awSig) { H.awSig = sig; H.awAt = now; H.botAt = {}; }
+  const tk = timerKey(G);
+  if (tk !== H.tKey) { H.tKey = tk; H.tAt = now; if (timerOn()) { hostChanged(); return; } }
   for (const pid of aw) {
     const P = G.players[pid];
     const away = !P.bot && P.cid !== S.cid && H.conn[P.cid] === false && now - H.awAt > 12000;
     if (away && !P.auto) { P.auto = true; P.awayAuto = true; }
-    const timeout = H.opts.timer && !G.sec && !P.bot && now - H.awAt > H.opts.timer * 1000;
+    const timeout = timerOn() && !G.sec && !P.bot && now - H.tAt > H.opts.timer * 1000;
     if (!(P.bot || P.auto || away || timeout)) continue;
     if (H.botAt[pid] == null) H.botAt[pid] = H.awAt + delayFor(G, P);
     if (now < H.botAt[pid]) continue;
@@ -2407,9 +2543,9 @@ setInterval(tick, 200);
 
 function startHostedGame() {
   const lob = H.lobby.map((x) => ({ nick: x.nick, bot: x.bot, cid: x.cid }));
-  if (lob.length < 4 || lob.length > 12) return toast('تحتاجون من ٤ إلى ١٢ لاعب');
-  H.G = LE.newGame(lob, {});
-  H.awSig = ''; H.lastRev = 0; H.hold = 0; H.lastShow = 0; H.lastTn = null;
+  if (lob.length < 4 || lob.length > 12) return toast('تحتاجون من 4 إلى 12 لاعب');
+  H.G = LE.newGame(lob, { diff: H.opts.diff || 'normal' });
+  H.awSig = ''; H.lastRev = 0; H.hold = 0; H.lastShow = 0; H.lastTn = null; H.miss = {}; H.tKey = ''; H.tAt = Date.now();
   S.mode = 'game';
   S.ui.seenEv = -1; S.ui.seenNote = -1; S.ui.seenChat = -1; S.ui.seenFx = -1; S.ui.roleOpen = false; S.ui.sheet = null; S.ui.tg = null;
   wake();
@@ -2499,7 +2635,8 @@ async function handleAct(msg) {
   if (!H.G) { scheduleBroadcast(); return; }
   const pid = H.G.players.findIndex((p) => p.cid === d.f);
   if (pid < 0) { scheduleBroadcast(); return; }
-  H.G.players[pid].auto = false;
+  if (o.a.t !== 'chat') { H.G.players[pid].auto = false; H.G.players[pid].awayAuto = false; H.miss[pid] = 0; }
+  if (o.a.t === 'back') { H.awSig = ''; hostChanged(); return; }
   const r = LE.act(H.G, pid, o.a);
   if (!r.ok) H.errs[d.f] = { aid: o.aid, m: r.err };
   hostChanged();
@@ -2677,7 +2814,7 @@ async function resumeSession(v) {
 async function clientJoin(code) {
   code = latinDigits(code).replace(/\D/g, '');
   if (!S.nick) return toast('اكتب اسمك أول');
-  if (!/^\d{4}$/.test(code)) return toast('الرمز ٤ أرقام');
+  if (!/^\d{4}$/.test(code)) return toast('الرمز 4 أرقام');
   if (!NET.room) return toast('اللعب الجماعي مو متوفر هنا');
   if (S.ui.connecting) return;
   S.ui.connecting = true; toast('ندخل الغرفة…');
@@ -2878,14 +3015,14 @@ const nk = (i) => { if (i === -1) return 'الخونة'; const p = pl(i); return
 const meId = () => (S.priv && typeof S.priv.me === 'number' ? S.priv.me : null);
 const base = (f) => String(f).replace('2', '');
 const SD = {
-  ACC: 'اتهام واحد. إذا وصلت ٧ تنكشف له ورقة', EVI: 'يحسب ٣ اتهامات مرة وحدة', WIT: '٧ اتهامات: تنكشف ورقة على طول',
-  ALI: 'تشيل لين ٣ اتهامات عن لاعب', ROB: 'تاخذ يد لاعب كاملة وتعطيها ثاني', SCA: 'تنقل كل اللي قدام لاعب للاعب ثاني',
+  ACC: 'اتهام واحد. إذا وصلت 7 تنكشف له ورقة', EVI: 'يحسب 3 اتهامات مرة وحدة', WIT: '7 اتهامات: تنكشف ورقة على طول',
+  ALI: 'تشيل لين 3 اتهامات عن لاعب', ROB: 'تاخذ يد لاعب كاملة وتعطيها ثاني', SCA: 'تنقل كل اللي قدام لاعب للاعب ثاني',
   STO: 'اللاعب يفوّت دوره الجاي', CUR: 'تحرق ورقة زرقاء من قدام لاعب', ARS: 'تحرق كل الأوراق اللي بيد لاعب',
   PIE: 'ما ينلعب على صاحبها أي ورقة حمراء', ASY: 'صاحبها ما ينقتل بالليل', MAT: 'إذا مات واحد من الاثنين يموت الثاني',
   CAT: 'إذا انسحبت المؤامرة تنكشف ورقة صاحبها', NIG: 'ينزل الليل', CON: 'تنكشف ورقة صاحب القطة ويتبادلون الأوراق',
 };
 const TAG = {
-  ACC: 'اتهام واحد', EVI: '٣ اتهامات', WIT: '٧ اتهامات', ALI: 'تشيل ٣ اتهامات', ROB: 'تاخذ يده كاملة', SCA: 'تنقل اللي قدامه',
+  ACC: 'اتهام واحد', EVI: '3 اتهامات', WIT: '7 اتهامات', ALI: 'تشيل 3 اتهامات', ROB: 'تاخذ يده كاملة', SCA: 'تنقل اللي قدامه',
   STO: 'يفوّت دوره', CUR: 'تحرق ورقة زرقاء', ARS: 'تحرق يده كاملة', PIE: 'ضد الأوراق الحمراء', ASY: 'ما ينقتل بالليل', MAT: 'يموتون سوا',
   CAT: 'تنكشف بالمؤامرة', NIG: 'ينزل الليل', CON: 'كشف وتبادل',
 };
@@ -2903,15 +3040,15 @@ function onViews() {
     for (const e of pub.ev) {
       if (e.i <= S.ui.seenEv) continue;
       if (e.k === 'morning' || e.k === 'consp' || e.k === 'dawnEnd') S.ui.modalQ.push(e);
-      else if (e.k === 'death') { SND.play('death'); if (e.p === meId()) S.ui.modalQ.push({ k: 'death', title: 'متّ', body: e.body + (pv && pv.lw ? '\nلك ثلاث كلمات أخيرة في السوالف.' : '') }); else flash(e.title + '. ' + e.body, 'bad'); }
-      else if (e.k === 'info') flash(e.body);
+      else if (e.k === 'death') later(() => { SND.play('death'); if (e.p === meId()) { S.ui.modalQ.push({ k: 'death', title: 'متّ', body: e.body + (pv && pv.lw ? '\nلك ثلاث كلمات أخيرة في السوالف.' : '') }); render(); } else flash(e.title + '. ' + e.body, 'bad'); });
+      else if (e.k === 'info') later(() => flash(e.body));
     }
     S.ui.seenEv = Math.max(S.ui.seenEv, mx);
   }
   if (pv && pv.nt) {
     const mx = pv.nt.reduce((m, e) => Math.max(m, e.i), 0);
     if (S.ui.seenNote < 0) S.ui.seenNote = mx;
-    for (const n of pv.nt) if (n.i > S.ui.seenNote && !n.t.startsWith('سحبت')) flash(n.t, 'mine');
+    for (const n of pv.nt) if (n.i > S.ui.seenNote && !n.t.startsWith('سحبت')) later(() => flash(n.t, 'mine'));
     S.ui.seenNote = Math.max(S.ui.seenNote, mx);
   }
   if (pub.ch) {
@@ -2936,7 +3073,7 @@ function onViews() {
   }
   if (pub.ph === 'over' && S.ui.lastPh && S.ui.lastPh !== 'over') { const P = pl(meId()); SND.play(P && ((P.wi ? 'witch' : 'town') === pub.win) ? 'win' : 'lose'); S.ui.learn = false; }
   if (pub.ph !== S.ui.lastPh) { S.ui.lastPh = pub.ph; S.ui.sel2 = {}; S.ui.tg = null; S.ui.pickMin = false; if (pub.ph === 'night_pick') S.ui.nrole = null; }
-  if (!(pub.ph === 'turn' && pub.turn === meId() && !pub.pd)) { if (S.ui.tg) S.ui.tg = null; }
+  if (!(pub.ph === 'turn' && pub.turn === meId() && !pub.pd) && !(S.ui.tg && S.ui.tg.k === 'heal' && pub.ph === 'night_confess')) { if (S.ui.tg) S.ui.tg = null; }
   const night = pub.ph === 'night_pick' || pub.ph === 'night_confess';
   document.body.classList.toggle('night', night);
   document.body.classList.toggle('dawn', pub.ph === 'dawn');
@@ -3034,6 +3171,11 @@ function render() {
   if (!root) return;
   if (CD.on && (!S.ui.intro || S.mode !== 'game' || !S.pub || S.pub.ph === 'over' || meId() == null)) { cdClose(); S.ui.intro = false; }
   if (S.mode === 'game' && S.pub && S.priv) { const k = ovKey(); if (k !== S.ui.ovKey) { S.ui.ovKey = k; S.ui.ovMin = false; S.ui.rvSent = null; } }
+  // a reveal is playing: nothing behind it may change, or the board would give the result away
+  if (S.mode === 'game' && S.pub && S.pub.ph !== 'over') runFx();
+  const frozen = S.mode === 'game' && (rvBusy || RVQ.length > 0);
+  if (frozen) { S.ui.dirty = true; return; }
+  S.ui.dirty = false;
   let html = '';
   if (S.mode === 'home') html = homeHTML();
   else if (S.mode === 'lobby') html = lobbyHTML();
@@ -3057,6 +3199,10 @@ function render() {
   const shChanged = lastHTML.sheet !== shHTML;
   const chatVal = document.getElementById('chatIn2') ? document.getElementById('chatIn2').value : null;
   setHTML('sheet', shHTML);
+  const ovl = S.mode === 'game' && S.pub && S.pub.pl && S.pub.ph !== 'over' ? chooserHTML() + revealerHTML() + confessHTML() + stageHTML() : '';
+  setHTML('ovl', ovl);
+  tickClocks();
+  mgMount();
   if (shChanged) { const c2 = document.getElementById('chatIn2'); if (c2 && chatVal != null) c2.value = chatVal; const cl = document.querySelector('#sheet [data-keep-scroll]'); if (cl) cl.scrollTop = cl.scrollHeight; }
   const trEl = document.querySelector('.tray');
   document.documentElement.style.setProperty('--tray-h', trEl ? trEl.offsetHeight + 'px' : '0px');
@@ -3069,7 +3215,7 @@ function render() {
     clearTimeout(S.ui.autoMT);
     if (mNow && mNow.k !== 'death') S.ui.autoMT = setTimeout(() => { if (S.ui.modalQ[0] === mNow) { S.ui.modalQ.shift(); render(); } }, 4600);
   }
-  runFx();
+  if (!(S.mode === 'game' && S.pub && S.pub.ph !== 'over')) runFx();
   updateCoach();
 }
 
@@ -3086,14 +3232,14 @@ function installApp() {
   const P = window.LAIL_PWA;
   if (!P) return;
   if (P.prompt) { P.prompt.prompt(); P.prompt.userChoice.finally(() => { P.prompt = null; lastHTML.screen = null; render(); }); return; }
-  S.ui.sheet = { k: 'info', title: 'ثبّتها على الآيفون', body: `١. اضغط زر المشاركة تحت في سفاري (المربع اللي طالع منه سهم).<br>٢. اختر «إضافة إلى الشاشة الرئيسية».<br>٣. اضغط «إضافة»، وتطلع لك أيقونة «الصبح الأسود».` };
+  S.ui.sheet = { k: 'info', title: 'ثبّتها على الآيفون', body: `1. اضغط زر المشاركة تحت في سفاري (المربع اللي طالع منه سهم).<br>2. اختر «إضافة إلى الشاشة الرئيسية».<br>3. اضغط «إضافة»، وتطلع لك أيقونة «الصبح الأسود».` };
   render();
 }
 function homeHTML() {
   const mp = S.netStatus === 'ok';
   const chk = S.netStatus === 'checking';
   return `<div class="home">
-  <header class="hero"><div class="sadu"></div><h1>${wordmark()}</h1><p class="tag">لعبة الخيانة في الديرة · من ٤ إلى ١٢ لاعب</p></header>
+  <header class="hero"><div class="sadu"></div><h1>${wordmark()}</h1><p class="tag">لعبة الخيانة في الديرة · من 4 إلى 12 لاعب</p></header>
   <div class="home-grid">
     ${!SESS.read(true) && SESS.read(false) && SESS.read(false).role !== 'solo' ? `<button class="btn gold big" data-act="resume">${ic('replay')} ارجع للعبة اللي كنت فيها</button>` : ''}
     <div class="panel"><label for="nick">اسمك بالديرة</label><input id="nick" maxlength="16" placeholder="مثلاً: أبو عبدالله" value="${esc(S.nick)}" autocomplete="nickname"></div>
@@ -3104,12 +3250,19 @@ function homeHTML() {
     </section>
     <section class="panel"><h2>العب مع البوتات</h2>
       <div class="row between"><span>عدد البوتات</span><div class="stepper"><button class="btn sm" data-act="bots-" aria-label="أقل">${ic('minus')}</button><b class="num">${AR(S.ui.bots)}</b><button class="btn sm" data-act="bots+" aria-label="أكثر">${ic('plus')}</button></div></div>
+      ${diffHTML()}
       <button class="btn gold" data-act="solo">ابدأ لعبة من ${AR(S.ui.bots + 1)} لاعبين</button>
     </section>
-    <section class="panel"><h2>أول مرة تلعب؟</h2><p class="note">جولة مع ٤ بوتات، تطلع لك فيها نصائح خطوة بخطوة، والبوتات توقف لين تقرأ.</p><button class="btn" data-act="learn">${ic('school')} تعلّم اللعب</button></section>
+    <section class="panel"><h2>أول مرة تلعب؟</h2><p class="note">جولة مع 4 بوتات، تطلع لك فيها نصائح خطوة بخطوة، والبوتات توقف لين تقرأ.</p><button class="btn" data-act="learn">${ic('school')} تعلّم اللعب</button></section>
     ${installHTML()}
     <div class="row between"><button class="linkbtn" data-act="rules">طريقة اللعب والأوراق</button><button class="linkbtn" data-act="snd">${ic(SND.on ? 'snd' : 'mute')} ${SND.on ? 'الصوت شغال' : 'الصوت مقفل'}</button></div>
   </div></div>`;
+}
+function diffHTML(ro) {
+  const cur = H.opts.diff || 'normal';
+  const L = [['easy', 'سهل'], ['normal', 'عادي'], ['hard', 'صعب']];
+  if (ro) { const op = (S.pub && S.pub.op) || {}; const l = L.find((x) => x[0] === (op.diff || 'normal')); return `<p class="note">صعوبة البوتات: ${l ? l[1] : 'عادي'}</p>`; }
+  return `<div class="row between nowrap"><span>صعوبة البوتات</span><div class="seg" role="radiogroup" aria-label="صعوبة البوتات">${L.map(([v, l]) => `<button class="segb ${cur === v ? 'on' : ''}" data-act="diff" data-v="${v}" role="radio" aria-checked="${cur === v}">${l}</button>`).join('')}</div></div>`;
 }
 function lobbyHTML() {
   const pub = S.pub;
@@ -3118,14 +3271,14 @@ function lobbyHTML() {
   const lb = pub.lb || [];
   const items = lb.map((x) => `<div class="lob-item"><span class="pt sm">${PORTRAITS.draw(null, { letter: x.n })}</span><span class="ln">${esc(x.n)}${x.h ? '<small> · المضيف</small>' : ''}${x.cid === S.cid ? '<small> · أنت</small>' : ''}</span>${x.b ? `<span class="bot">${ic('robot')}</span>` : ''}${host && x.b ? `<button class="x" data-act="rmbot" data-cid="${esc(x.cid)}" aria-label="شيل ${esc(x.n)}">${ic('x')}</button>` : ''}</div>`).join('');
   const n = lb.length;
-  const tsel = host ? `<div class="row between nowrap"><label for="timer">مهلة كل حركة</label><select id="timer">${[[60, 'دقيقة'], [90, 'دقيقة ونص تقريبًا'], [0, 'بدون مهلة']].map(([v, l]) => `<option value="${v}" ${H.opts.timer === v ? 'selected' : ''}>${l}</option>`).join('')}</select></div>` : (pub.op && pub.op.timer ? `<p class="note">مهلة كل حركة: ${AR(pub.op.timer)} ثانية</p>` : '');
+  const tsel = host ? `<div class="row between nowrap"><label for="timer">مهلة كل دور</label><select id="timer">${[[40, '40 ثانية'], [60, 'دقيقة'], [90, 'دقيقة ونص'], [0, 'بدون مهلة']].map(([v, l]) => `<option value="${v}" ${H.opts.timer === v ? 'selected' : ''}>${l}</option>`).join('')}</select></div>` : (pub.op && pub.op.timer ? `<p class="note">مهلة كل دور: ${AR(pub.op.timer)} ثانية</p>` : '');
   return `<div class="home">
   <header class="hero"><div class="sadu"></div><p class="tag">رمز الغرفة</p><h1 class="code num">${esc(pub.code || S.code)}</h1>${host ? `<button class="btn sm" data-act="copy">${ic('copy')} انسخ الرمز</button>` : ''}</header>
   <div class="home-grid">
-    <section class="panel"><div class="row between"><h2>اللاعبين</h2><span class="num muted">${AR(n)} من ١٢</span></div><div class="lob-list">${items}</div>
-      ${host ? `<div class="row"><button class="btn sm" data-act="addbot" ${n >= 12 ? 'disabled' : ''}>${ic('plus')} بوت</button><span class="muted sm">البوتات تكمّل العدد</span></div>` : ''}${tsel}</section>
+    <section class="panel"><div class="row between"><h2>اللاعبين</h2><span class="num muted">${AR(n)} من 12</span></div><div class="lob-list">${items}</div>
+      ${host ? `<div class="row"><button class="btn sm" data-act="addbot" ${n >= 12 ? 'disabled' : ''}>${ic('plus')} بوت</button><span class="muted sm">البوتات تكمّل العدد</span></div>` : ''}${tsel}${diffHTML(!host)}</section>
     ${host ? `<button class="btn pri" data-act="start" ${n < 4 ? 'disabled' : ''}>${n < 4 ? `تحتاجون ${AR(4 - n)} زيادة عشان تبدون` : `ابدأ اللعبة بـ${AR(n)} لاعبين`}</button>` : `<p class="note">${S.ui.hostGone ? 'المضيف طلع من الغرفة…' : 'ننتظر المضيف يبدأ اللعبة.'}</p>`}
-    <p class="note">ربعك يفتحون نفس الصفحة، يكتبون أسماءهم، ويدخلون الرمز. اللي سوّى الغرفة يخلي الصفحة مفتوحة لين تخلص اللعبة.${n > 9 ? ' عندنا ٩ شخصيات، فاللي فوق ٩ يلعبون بدون قدرة.' : ''}</p>
+    <p class="note">ربعك يفتحون نفس الصفحة، يكتبون أسماءهم، ويدخلون الرمز. اللي سوّى الغرفة يخلي الصفحة مفتوحة لين تخلص اللعبة.${n > 9 ? ' عندنا 9 شخصيات، فاللي فوق 9 يلعبون بدون قدرة.' : ''}</p>
     <button class="btn ghost" data-act="leave">اطلع من الغرفة</button>
   </div></div>`;
 }
@@ -3153,8 +3306,8 @@ function statusHTML() {
   } else if (pub.ph === 'night_confess') { t = `الليل ${AR(pub.nn)}: وقت الاعتراف`; sm = 'كل واحد يقرر: يعترف ولا يخاطر'; }
   if (S.role === 'client' && S.ui.hostGone) { t = 'المضيف طلع من الغرفة…'; sm = 'إذا ما رجع، تنتقل اللعبة لجوال لاعب ثاني وتكمل'; mine = false; }
   let tl = '';
-  if (pub.tl != null) { const rem = Math.max(0, pub.tl - Math.floor((Date.now() - S.ui.recv) / 1000)); tl = `<span class="timer num" aria-label="الوقت الباقي">${AR(rem)}</span>`; }
-  else if (pub.sg && pub.sg.k !== 'ready') tl = `<span class="timer num sgt" aria-label="الوقت الباقي">${AR(sgSecs())}</span>`;
+  if (pub.tl != null) tl = `<span class="timer num" aria-label="الوقت الباقي"></span>`;
+  else if (pub.sg && pub.sg.k !== 'ready') tl = `<span class="timer num sgt" aria-label="الوقت الباقي"></span>`;
   const tp = pub.ph === 'turn' && pl(pub.turn) ? `<span class="pt xs">${portrait(pub.pd ? pub.pd.w : pub.turn)}</span>` : '<span class="st-ic">' + ic(pub.ph === 'dawn' ? 'sun' : 'moon') + '</span>';
   return `<div class="status ${mine ? 'mine' : ''}" role="status">${tp}<div class="st"><b>${t}</b>${sm ? `<small>${sm}</small>` : ''}</div>${tl || '<span></span>'}</div>`;
 }
@@ -3247,7 +3400,7 @@ function bcardHTML(cid, o) {
   return `<div class="bcard${o.cls ? ' ' + o.cls : ''}${o.used ? ' used' : ''}" style="--cc:${cid ? CHAR_COLOR[cid] : '#4a4038'}" role="img" aria-label="${c ? `${c.n}، ${c.t}: ${c.d}` : 'بدون شخصية'}">
     <div class="bc-art">${PORTRAITS.draw(cid, { letter: o.letter || '؟' })}</div>
     <div class="bc-name"><b>${c ? c.n : 'بدون شخصية'}</b></div>
-    <div class="bc-txt">${c ? `<p class="bc-t">${c.t}</p><p class="bc-d">${c.d}</p>` : '<p class="bc-t">بدون قدرة</p><p class="bc-d">اللاعبين فوق ٩ يلعبون بدون شخصية.</p>'}</div>
+    <div class="bc-txt">${c ? `<p class="bc-t">${c.t}</p><p class="bc-d">${c.d}</p>` : '<p class="bc-t">بدون قدرة</p><p class="bc-d">اللاعبين فوق 9 يلعبون بدون شخصية.</p>'}</div>
     <div class="bc-foot">${ic(fi)}<span>${when}</span></div>
   </div>`;
 }
@@ -3322,6 +3475,25 @@ function pboardHTML(p, i, m) {
     ${fronts || cat || tags.length ? `<div class="pb-foot">${cat}${fronts}${tags.join('')}</div>` : ''}
   </section>`;
 }
+function lgWho(i) { const p = i != null ? pl(i) : null; return p ? `<span class="lg-p"><span class="pt xs">${portrait(i)}</span><b>${whoIs(i)}</b></span>` : ''; }
+function lgRow(l, cls) {
+  const m = l.m;
+  const arr = '<span class="lg-arr" aria-hidden="true">←</span>';
+  const card = (t, n) => (t && LE.T[t] ? `<span class="lg-c">${cardMini(t)}<small>${LE.T[t].n}</small>${n > 1 ? `<b class="num">×${AR(n)}</b>` : ''}</span>` : '');
+  let vis = '';
+  if (m) {
+    if (m.k === 'draw') vis = lgWho(m.a) + `<span class="lg-c"><span class="mini t-back"></span><b class="num">+${AR(m.n)}</b></span>`;
+    else if (m.k === 'rev') vis = (m.a != null ? lgWho(m.a) + arr : '') + lgWho(m.b) + `<span class="lg-c lg-t">${trialFace(m.r)}<small>${LE.TN[m.r]}</small></span>`;
+    else if (m.k === 'death') vis = lgWho(m.b) + `<span class="lg-c dead">${ic('skull')}<small>${m.w ? 'كان خاين' : 'كان مسالم'}</small></span>`;
+    else if (m.k === 'skip') vis = lgWho(m.b) + card('STO');
+    else if (m.k === 'night') vis = `<span class="lg-c">${ic('moon')}<small>الليل</small></span>`;
+    else if (m.k === 'morning') vis = `<span class="lg-c">${ic('sun')}<small>الصبح</small></span>` + (m.b != null ? lgWho(m.b) + `<span class="lg-c ${m.res === 'dead' ? 'dead' : 'safe'}">${ic(m.res === 'dead' ? 'skull' : 'shield')}</span>` : '');
+    else if (m.k === 'consp') vis = card('CON') + (m.mv || []).map(([to, from]) => `<span class="lg-mv">${lgWho(from)}<span class="lg-arr">←</span>${lgWho(to)}</span>`).join('');
+    else if (m.ab) vis = lgWho(m.a) + `<span class="lg-c ab" style="--cc:${CHAR_COLOR[m.ab]}">${ic('sparkle')}<small>${LE.CHARS[m.ab].t}</small></span>` + (m.b != null ? arr + lgWho(m.b) : '') + (m.d != null ? arr + lgWho(m.d) : '');
+    else if (m.c) vis = lgWho(m.a) + arr + card(m.c, m.n) + (m.b != null ? arr + lgWho(m.b) : '') + (m.d != null ? arr + lgWho(m.d) : '') + (m.x ? `<span class="lg-c burn">${cardMini(m.x)}<small>انحرقت</small></span>` : '');
+  }
+  return `<div class="lg ${cls || ''}">${vis ? `<div class="lg-vis">${vis}</div>` : ''}<p>${ARs(l.t)}</p></div>`;
+}
 function centerHTML() {
   const pub = S.pub;
   const revW = pub.pl.reduce((s, p) => s + p.tr.filter((t) => t === 'W').length, 0);
@@ -3338,7 +3510,7 @@ function centerHTML() {
       <div class="trk"><span class="trk-l">${ic('moon')} الليالي</span><b class="num">${AR(pub.nn)}</b></div>
     </div>
   </div>
-  ${fl ? `<p class="ticker flash ${fl.kind}" role="status">${ARs(fl.text)}</p>` : `<p class="ticker">${ARs(last)}</p>`}`;
+  ${fl ? `<p class="ticker flash ${fl.kind}" role="status">${ARs(fl.text)}</p>` : pub.lg && pub.lg.length ? lgRow(pub.lg[pub.lg.length - 1], 'tick') : ''}`;
 }
 let TORD = null; // seat -> how many turns away from the one playing now
 function turnOrder() {
@@ -3413,6 +3585,7 @@ function myBoxHTML() {
         ${accHTML(P, 'mb-acc')}
       </div>
     </div>
+    ${P.au && P.a ? `<div class="mb-auto">${ic('robot')}<span><b>البوت يلعب عنك</b><small>فاتك دورين وما خلّصتهم</small></span><button class="btn sm gold" data-act="back">أنا رجعت</button></div>` : ''}
     ${ready ? `<button class="mb-abil" data-act="char" data-pid="${me}">${ic('sparkle')}<span><b>قدرتك جاهزة: ${ch.t}</b><small>اضغط بطاقة شخصيتك وتستخدمها</small></span></button>` : ''}
     <div class="mb-sec"><h4>أوراق المحاكمة</h4><div class="mb-trial">${trial}</div></div>
     ${fronts ? `<div class="mb-sec"><h4>قدامك</h4><div class="mb-front">${fronts}</div></div>` : ''}
@@ -3458,6 +3631,66 @@ function stageMode() {
   if (sg.k === 'w') return pv.w ? 'witch' : 'guessW';
   return pv.cn ? 'con' : 'guessC';
 }
+/* every clock on screen is written here, four times a second, never by render() */
+/* star catching: purely on this phone, survives re-renders of the night screen */
+const MG = { stars: [], score: 0, best: 0, tm: null, n: 0 };
+try { MG.best = +(store.get('lail.mgbest') || 0) || 0; } catch (e) { /* blocked */ }
+function mgMount() {
+  const box = document.getElementById('mg');
+  if (!box) { if (MG.tm) { clearInterval(MG.tm); MG.tm = null; } return; }
+  if (!MG.tm) { MG.stars = []; MG.score = 0; MG.tm = setInterval(mgTick, 450); }
+  mgDraw();
+}
+function mgTick() {
+  const box = document.getElementById('mg');
+  if (!box) { clearInterval(MG.tm); MG.tm = null; return; }
+  const now = Date.now();
+  MG.stars = MG.stars.filter((x) => now - x.at < x.life);
+  if (MG.stars.length < 5 && Math.random() < 0.8) MG.stars.push({ id: ++MG.n, x: 6 + Math.random() * 86, y: 8 + Math.random() * 80, at: now, life: 1300 + Math.random() * 900, g: Math.random() < 0.12 });
+  mgDraw();
+}
+function mgDraw() {
+  const box = document.getElementById('mg');
+  if (!box) return;
+  const now = Date.now();
+  const want = new Set(MG.stars.map((x) => x.id));
+  box.querySelectorAll('.mgs').forEach((e) => { if (!want.has(+e.dataset.id)) e.remove(); });
+  for (const x of MG.stars) {
+    if (box.querySelector(`.mgs[data-id="${x.id}"]`)) continue;
+    const b = document.createElement('button');
+    b.className = 'mgs' + (x.g ? ' g' : '');
+    b.dataset.act = 'mgstar'; b.dataset.id = x.id;
+    b.style.left = x.x + '%'; b.style.top = x.y + '%';
+    b.style.setProperty('--life', x.life - (now - x.at) + 'ms');
+    b.setAttribute('aria-label', 'نجمة');
+    b.innerHTML = x.g ? '<span class="moon"></span>' : ic('sparkle');
+    box.appendChild(b);
+  }
+  const sc = document.getElementById('mgsc');
+  if (sc) sc.textContent = `${AR(MG.score)} · أعلى ${AR(Math.max(MG.best, MG.score))}`;
+}
+function mgHit(id) {
+  const k = MG.stars.findIndex((x) => x.id === id);
+  if (k < 0) return;
+  const x = MG.stars.splice(k, 1)[0];
+  MG.score += x.g ? 3 : 1;
+  if (MG.score > MG.best) { MG.best = MG.score; try { store.set('lail.mgbest', String(MG.best)); } catch (e) { /* blocked */ } }
+  SND.play('tap');
+  const e = document.querySelector(`.mgs[data-id="${id}"]`);
+  if (e) { const c = center(e); burst(c.x, c.y); e.remove(); }
+  mgDraw();
+}
+function tickClocks() {
+  const el = document.querySelector('.timer:not(.sgt)');
+  if (el && S.pub && S.pub.tl != null) { const rem = Math.max(0, S.pub.tl - Math.floor((Date.now() - S.ui.recv) / 1000)); const t = AR(rem); if (el.textContent !== t) el.textContent = t; el.classList.toggle('low', rem <= 10); }
+  const sg = S.pub && S.pub.sg;
+  if (sg && sg.k !== 'ready') {
+    const rem = sgLeft(), t = AR(sgSecs());
+    document.querySelectorAll('.sgt, .sg-time b').forEach((e) => { if (e.textContent !== t) e.textContent = t; });
+    const r = document.querySelector('.sg-time:not(.wait)');
+    if (r) { r.style.setProperty('--p', Math.min(1, rem / sg.d).toFixed(3)); r.classList.toggle('low', rem < 5000); }
+  }
+}
 function sgLeft() { const sg = S.pub && S.pub.sg; return sg ? Math.max(0, sg.sl - (Date.now() - S.ui.recv)) : 0; }
 function sgSecs() { const sg = S.pub && S.pub.sg; return sg ? Math.min(sg.d / 1000, Math.ceil(sgLeft() / 1000)) : 0; }
 function stageHTML() {
@@ -3465,7 +3698,7 @@ function stageHTML() {
   if (!mode || S.ui.intro) return '';
   const pub = S.pub, pv = S.priv, me = meId();
   const sg = pub.sg, dawn = pub.ph === 'dawn';
-  if (S.ui.pickMin) return `<button class="pick-reopen" data-act="pickmin">${ic('moon')} ارجع للشاشة <span class="num sgt">${AR(sgSecs())}</span></button>`;
+  if (S.ui.pickMin) return `<button class="pick-reopen" data-act="pickmin">${ic('moon')} ارجع للشاشة <span class="num sgt"></span></button>`;
   const title = dawn ? 'الفجر' : `الليل ${AR(pub.nn)}`;
   const who = (i) => (i === me ? 'نفسك' : nk(i));
   const mates = pv && pv.w && pv.k ? pv.tm.filter((x) => x !== me) : [];
@@ -3517,10 +3750,11 @@ function stageHTML() {
     const s2 = mode === 'witch' ? 'إذا أكدت ينتهي الاختيار لكم كلكم.' : 'إذا أكدت ما تقدر تغيّر.';
     cf = `<div class="sg-cf" role="alertdialog" aria-label="${q}"><div class="sg-cf-in">${ccard(t, { cls: 'lg' })}${nameplate(pl(t), t, { cls: 'lg' })}<h3>${q}</h3><p>${s2}</p><div class="ov-bar"><button class="btn ghost" data-act="sgno">تراجع</button><button class="btn gold big" data-act="sgok">${mode.startsWith('guess') ? 'ثبّت' : 'أكّد'}</button></div></div></div>`;
   }
-  const time = sg.k === 'ready' ? '<span class="sg-time wait"><span class="sg-dots"><i></i><i></i><i></i></span></span>' : `<span class="sg-time num" style="--p:${Math.min(1, sgLeft() / sg.d).toFixed(3)}" aria-label="الوقت الباقي"><b>${AR(sgSecs())}</b></span>`;
+  const time = sg.k === 'ready' ? '<span class="sg-time wait"><span class="sg-dots"><i></i><i></i><i></i></span></span>' : `<span class="sg-time num" aria-label="الوقت الباقي"><b></b></span>`;
+  const mg = mode === 'wait' || mode === 'dead' || mode === 'spect' ? `<div class="mgwrap"><div class="mg-head"><b>${ic('sparkle')} اصطد النجوم قبل لا يطلع الصبح</b><span class="mg-sc num" id="mgsc"></span></div><div class="mg" id="mg" aria-label="لعبة النجوم"></div><p class="mg-note">لعبة جانبية لين يجهز الكل. اضغط كل نجمة تلمع قبل لا تختفي، والقمر الذهبي عليه 3 نقاط.</p></div>` : '';
   return `<div class="stage${dawn ? ' dawn' : ''}" role="dialog" aria-label="${title}"><div class="sg-in">
     <header class="sg-head"><span class="moon"></span><div class="sg-ht"><h2>${title}</h2><p>الكل يختار… محد يدري مين صاحي</p></div>${time}</header>
-    <section class="sg-main"><h3>${T[0]}</h3><p class="sg-sub">${T[1]}</p>${box}${cells ? `<div class="sg-grid">${cells}</div>` : ''}${status ? `<p class="sg-st">${status}</p>` : ''}</section>
+    <section class="sg-main${mg ? ' has-mg' : ''}"><div class="sg-mt"><h3>${T[0]}</h3><p class="sg-sub">${T[1]}</p></div>${mg}${mg && mode === 'wait' && pl(me) && pl(me).c ? `<div class="sg-me"><p class="sg-mek">شخصيتك</p>${bcardHTML(pl(me).c, { mine: true, letter: pl(me).n })}</div>` : ''}${box}${cells ? `<div class="sg-grid">${cells}</div>` : ''}${status ? `<p class="sg-st">${status}</p>` : ''}</section>
     <button class="btn ghost sm sg-min" data-act="pickmin">${ic('eye')} شوف الطاولة</button>
   </div>${cf}</div>`;
 }
@@ -3558,7 +3792,7 @@ function pendingPanel() {
 function asideHTML() {
   const pub = S.pub, pv = S.priv, me = meId();
   const canTalk = pv && pl(me) && (pl(me).a || pv.lw);
-  return `<aside class="side"><section class="sbox"><h2>${ic('scroll')} السجل</h2><div class="loglist" data-keep-scroll="log">${(pub.lg || []).map((l) => `<p>${ARs(l.t)}</p>`).join('')}</div></section>
+  return `<aside class="side"><section class="sbox"><h2>${ic('scroll')} السجل</h2><div class="loglist" data-keep-scroll="log">${(pub.lg || []).map((l) => lgRow(l)).join('')}</div></section>
     <section class="sbox"><h2>${ic('chat')} السوالف</h2><div class="chatlist" data-keep-scroll="chat">${chatMsgs()}</div>${canTalk ? chatForm() : '<p class="muted sm">الميت ما يتكلم.</p>'}</section></aside>`;
 }
 function chatMsgs() {
@@ -3580,7 +3814,7 @@ function gameHTML() {
   const pub = S.pub;
   if (!pub || !pub.pl) return '<div class="home"><header class="hero"><p class="tag">نحمّل…</p></header></div>';
   if (pub.ph === 'over') return overHTML();
-  return `<div class="game"><div class="main">${topHTML()}${statusHTML()}${tableHTML()}</div>${myBoxHTML()}${asideHTML()}${chooserHTML()}${revealerHTML()}${confessHTML()}${stageHTML()}</div>`;
+  return `<div class="game"><div class="main">${topHTML()}${statusHTML()}${tableHTML()}</div>${myBoxHTML()}${asideHTML()}</div>`;
 }
 /* ---- popups for the big choices ---- */
 function ovKey() {
@@ -3713,6 +3947,14 @@ function confessHTML() {
   </div></div>`;
 }
 const RVQ = [];
+const AFTER = [];
+/* the board, the sounds and the news wait for the flip to finish */
+function revealComing() {
+  const pub = S.pub;
+  return rvBusy || RVQ.length > 0 || !!(pub && pub.fx && S.ui.seenFx != null && S.ui.seenFx >= 0 && pub.fx.some((f) => f.k === 'reveal' && f.i > S.ui.seenFx));
+}
+function later(fn) { if (revealComing()) AFTER.push(fn); else fn(); }
+function afterReveal() { const fs = AFTER.splice(0); fs.forEach((fn) => { try { fn(); } catch (e) { /* gone */ } }); if (S.ui.dirty) render(); }
 let rvBusy = false, rvT = [], rvPreOn = null;
 /* ---- the big flip: every screen sees the card fight to get out, then burst open. No skipping. ---- */
 function queueReveal(f) {
@@ -3772,7 +4014,7 @@ function nextReveal() {
   const box = document.getElementById('rvl');
   if (!box) return;
   const f = RVQ.shift();
-  if (!f) { rvBusy = false; box.innerHTML = ''; return; }
+  if (!f) { rvBusy = false; box.innerHTML = ''; afterReveal(); return; }
   rvBusy = true;
   rvPlay(f, RVQ.length > 0, Date.now());
 }
@@ -3842,7 +4084,7 @@ function sheetHTML() {
   const pub = S.pub, me = meId();
   if (sh.k === 'rules') return wrap(`<div class="rules">${rulesHTML()}</div>`);
   if (sh.k === 'char') return wrap(charSheet(sh), 'small');
-  if (sh.k === 'log') return wrap(`<h2>السجل</h2><div class="loglist tall" data-keep-scroll="slog">${(pub.lg || []).map((l) => `<p>${ARs(l.t)}</p>`).join('')}</div>`);
+  if (sh.k === 'log') return wrap(`<h2>السجل</h2><div class="loglist tall" data-keep-scroll="slog">${(pub.lg || []).map((l) => lgRow(l)).join('')}</div>`);
   if (sh.k === 'chat') { const pv = S.priv; const canTalk = pv && pl(me) && (pl(me).a || pv.lw); return wrap(`<h2>السوالف</h2><div class="chatlist tall" data-keep-scroll="schat">${chatMsgs()}</div>${canTalk ? chatForm() : '<p class="muted sm">الميت ما يتكلم.</p>'}`); }
   if (sh.k === 'info') return wrap(`<h2>${sh.title}</h2><p>${sh.body}</p>`);
   if (sh.k === 'mine') {
@@ -3866,7 +4108,7 @@ function sheetHTML() {
   if (sh.k === 'curpick') {
     const p = pl(sh.t1);
     const opts = p.fr.map((f, k) => ({ f, k })).filter((x) => x.f === 'CAT' || LE.BLUE[x.f]);
-    return wrap(`<h2>أي ورقة تحرق من قدام ${nk(sh.t1)}؟</h2><div class="pickrow">${opts.map((x) => `<button class="pickcard" data-act="curpick" data-k="${x.k}">${cardBig(0, x.f, 'static')}</button>`).join('')}</div>`);
+    return wrap(`<div class="who">${ccard(sh.t1, { cls: 'lg' })}<div><h2>أي ورقة تحرق من قدام ${nk(sh.t1)}؟</h2><p class="muted">اضغط الورقة اللي تبي تحرقها بـ«إعفاء».</p></div></div><div class="pickrow big">${opts.map((x) => `<div class="pickcard" role="button" tabindex="0" data-act="curpick" data-k="${x.k}">${cardBig(0, x.f, 'static')}<span class="pk-l">${ic('ARS')} احرقها</span></div>`).join('')}</div>`, 'small');
   }
   if (!pub || !pub.pl) return '';
   if (sh.k === 'seat') return wrap(seatSheet(sh.pid));
@@ -3913,7 +4155,7 @@ function seatSheet(i) {
   p.fr.forEach((f, k) => { const b = base(f); if (LE.RED[b]) { const by = p.fb ? p.fb[k] : null; const v = (LE.T[b].v || 0) * (f.endsWith('2') ? 2 : 1); byAcc[by] = (byAcc[by] || 0) + v; } });
   const accLines = Object.keys(byAcc).map((by) => `<li>${cardMini('ACC')}<span>${by === 'null' ? 'غير معروف' : nk(+by)}: ${AR(byAcc[by])}</span></li>`).join('');
   const fronts = p.fr.map((f, k) => ({ f: base(f), k })).filter((o) => !LE.RED[o.f]).map((o) => `<li>${cardMini(o.f)}<span><b>${LE.T[o.f].n}</b> · ${giverText(p, o.k)}<br><small>${SD[o.f]}</small></span></li>`).join('');
-  const hostCtl = S.role === 'host' && !p.b && i !== me && p.a ? `<button class="btn sm ghost" data-act="auto" data-pid="${i}">${p.au ? 'رجّعه يلعب بنفسه' : 'خلّ البوت يلعب عنه'}</button>` : '';
+  const hostCtl = '';
   return `<div class="who">${ccard(i, { cls: 'lg', tag: 'button', attrs: `data-act="char" data-pid="${i}"` })}<div class="who-t">${nameplate(p, i, { cls: 'lg' })}${ch ? `<p class="who-c">الشخصية: <b>${ch.n}</b> · ${ch.t}${used ? ' · استخدم قدرته' : ''}</p>` : '<p class="who-c">بدون شخصية</p>'}${chips.length ? `<p class="chips">${chips.map((c) => `<span>${c}</span>`).join('')}</p>` : ''}</div></div>
     ${ch ? `<p class="ability">${ch.d}</p>` : ''}
     <h3>أوراق المحاكمة</h3><ul class="ilist">${trial}</ul>
@@ -3946,13 +4188,13 @@ function rulesHTML() {
   const cards = ['ACC', 'EVI', 'WIT', 'ALI', 'ROB', 'SCA', 'STO', 'CUR', 'ARS', 'PIE', 'ASY', 'MAT', 'NIG', 'CON', 'CAT'].map((k) => `<li>${cardMini(k)}<span><b>${LE.T[k].n}</b>${LE.T[k].q ? ` <small class="muted num">× ${AR(LE.T[k].q)}</small>` : ''}<br>${LE.T[k].d}</span></li>`).join('');
   return `<h2>طريقة اللعب</h2>
   <h3>الهدف</h3><p>كل لاعب قدامه أوراق محاكمة مقلوبة: مسالم أو خائن أو شايب. <b>المسالمين</b> يفوزون أول ما تنكشف آخر ورقة «خائن» في اللعبة، حتى لو أصحابها عايشين. <b>الخونة</b> يفوزون إذا كل اللي باقين عايشين من الخونة.</p>
-  <h3>أوراق المحاكمة</h3><ul><li>٤ و٥ لاعبين: خائن واحد. من ٦ لين ١٢: خائنين. ودايم شايب واحد.</li><li>كل لاعب ٥ أوراق لين ٧ لاعبين، و٤ أوراق لـ٨ و٩، و٣ أوراق من ١٠ لين ١٢.</li><li>اللي تجيه ورقة «خائن» يصير من الخونة لين آخر اللعبة، حتى لو راحت منه.</li><li>اللي معه ورقة «الشايب» وما انكشفت يحمي لاعب غيره كل ليلة. إذا انكشفت أو راحت منه، راح دوره.</li></ul>
-  <h3>البداية والفجر</h3><p>كل واحد يسحب شخصيته ويشوف أوراقه. كل لاعب ياخذ ٣ أوراق، والمؤامرة تنخلط في السحب، والليل دايم تحت الكومة. بعدها تظلم الشاشة: الخونة لهم ٢٠ ثانية يختارون وين يحطون القطة السوداء (حتى قدام واحد منهم)، واللي قدامه القطة يبدأ.</p>
+  <h3>أوراق المحاكمة</h3><ul><li>4 و5 لاعبين: خائن واحد. من 6 لين 12: خائنين. ودايم شايب واحد.</li><li>كل لاعب 5 أوراق لين 7 لاعبين، و4 أوراق لـ8 و9، و3 أوراق من 10 لين 12.</li><li>اللي تجيه ورقة «خائن» يصير من الخونة لين آخر اللعبة، حتى لو راحت منه.</li><li>اللي معه ورقة «الشايب» وما انكشفت يحمي لاعب غيره كل ليلة. إذا انكشفت أو راحت منه، راح دوره.</li></ul>
+  <h3>البداية والفجر</h3><p>كل واحد يسحب شخصيته ويشوف أوراقه. كل لاعب ياخذ 3 أوراق، والمؤامرة تنخلط في السحب، والليل دايم تحت الكومة. بعدها تظلم الشاشة: الخونة لهم 20 ثانية يختارون وين يحطون القطة السوداء (حتى قدام واحد منهم)، واللي قدامه القطة يبدأ.</p>
   <h3>كيف يختار الخونة</h3><p>ضغطة على لاعب = اقتراح يشوفه ربعك. ضغطة ثانية على نفس اللاعب = قرار، وتطلع لك رسالة تأكيد. إذا خلص الوقت بدون قرار ينختار اللي عليه اقتراحات أكثر. وبنفس الوقت الباقين يلعبون «مين الخاين؟» على نفس الشاشة: يخمّنون واحد من الخونة، عشان محد يعرف مين صاحي من شكل جواله.</p>
   <h3>دورك</h3><p>يا تسحب ورقتين وينتهي دورك، يا تلعب ورقة أو أكثر ثم تخلّص. إذا سحبت ورقة سودا (الليل أو المؤامرة) تنفذ على طول وتنحسب من الثنتين. ما تلعب أي ورقة على نفسك، ولا ورقة تفيدك أنت مباشرة.</p>
-  <h3>الاتهامات</h3><p>الأوراق الحمراء تتجمع قدام اللاعب. إذا وصلت ٧، اللي حط الاتهام الأخير يختار ورقة من أوراقه المقلوبة وتنكشف، وتنحرق كل الاتهامات اللي عليه. الزيادة فوق ٧ ما تنحسب.</p>
+  <h3>الاتهامات</h3><p>الأوراق الحمراء تتجمع قدام اللاعب. إذا وصلت 7، اللي حط الاتهام الأخير يختار ورقة من أوراقه المقلوبة وتنكشف، وتنحرق كل الاتهامات اللي عليه. الزيادة فوق 7 ما تنحسب.</p>
   <h3>يموت اللاعب إذا</h3><ul><li>انكشفت منه ورقة «خائن».</li><li>انكشفت كل أوراقه.</li><li>اغتالوه الخونة بالليل.</li></ul><p>إذا مات تنحرق يده واللي قدامه، وتنكشف كل أوراقه، وينقال للكل إذا كان من الخونة. له ثلاث كلمات أخيرة وبعدها يسكت.</p>
-  <h3>الليل</h3><ol><li>تظلم الشاشة. الخونة لهم ٢٠ ثانية يختارون ضحية (يقدرون يختارون واحد منهم)، والباقين يلعبون «مين الخاين؟».</li><li>بعدها الشايب له ١٠ ثواني يحط الدرع قدام لاعب غيره، والباقين يخمّنون «وين الدرع؟». إذا خلص وقته بدون اختيار ما فيه درع.</li><li>الكل يشوف الدرع، وأي واحد يقدر يعترف: يكشف ورقة يختارها من أوراقه وينجو الليلة.</li><li>تنكشف الضحية: تموت إلا إذا معها الدرع أو اعترفت أو قدامها «السلاح».</li><li>المحروق ينخلط ويرجع سحب، والليل تحت، ويكمل الدور من مكانه.</li></ol>
+  <h3>الليل</h3><ol><li>تظلم الشاشة. الخونة لهم 20 ثانية يختارون ضحية (يقدرون يختارون واحد منهم)، والباقين يلعبون «مين الخاين؟».</li><li>بعدها الشايب له 10 ثواني يحط الدرع قدام لاعب غيره، والباقين يخمّنون «وين الدرع؟». إذا خلص وقته بدون اختيار ما فيه درع.</li><li>الكل يشوف الدرع، وأي واحد يقدر يعترف: يكشف ورقة يختارها من أوراقه وينجو الليلة.</li><li>تنكشف الضحية: تموت إلا إذا معها الدرع أو اعترفت أو قدامها «السلاح».</li><li>المحروق ينخلط ويرجع سحب، والليل تحت، ويكمل الدور من مكانه.</li></ol>
   <h3>المؤامرة</h3><p>اللي سحبها يختار ورقة من أوراق صاحب القطة وتنكشف (إذا ما أحد قدامه القطة يتعدى). بعدها كل لاعب ياخذ ورقة مقلوبة من اللي على يساره، والأوراق تنخلط في مكانها عشان محد يعرف وين الجديدة.</p>
   <h3>لما يبقى لاعبين</h3><p>تنشال من اللعبة كل الأوراق الزرقاء والقطة، والسرقة والناقة.</p>
   <h3>أهل الديرة</h3><ul class="ilist">${ch}</ul>
@@ -4193,7 +4435,7 @@ function cdFinish() {
 const TIPS = [
   ['start', (pub) => pub.ph === 'dawn' && pub.sg && pub.sg.k !== 'ready', 'الفجر', (pv) => (pv.w ? 'أنت خائن: اختار مع ربعك وين تحطون القطة السوداء. ضغطة على لاعب = اقتراح يشوفه ربعك، وضغطة ثانية عليه = قرار.' : 'أنت مسالم: الخونة يختارون الحين. وأنت العب «مين الخاين؟»: خمّن واحد من الخونة، وبآخر اللعبة تعرف كم صابت.')],
   ['board', (pub, pv, me) => pub.ph === 'turn' && !pub.pd && pub.turn !== me, 'الطاولة', 'كل لاعب له لوحة: اسمه، وبطاقة شخصيته على الجنب، وأوراقه المقلوبة، وكم اتهام عليه. اضغط أي لوحة وتشوف تفاصيلها.'],
-  ['myturn', (pub, pv, me) => pub.ph === 'turn' && !pub.pd && pub.turn === me && pub.tm === 'choose', 'دورك', 'يا تسحب ورقتين وينتهي دورك، يا تضغط ورقة من يدك وتلعبها على لاعب. الأوراق الحمراء اتهامات: إذا وصلت ٧ على واحد تنكشف له ورقة.'],
+  ['myturn', (pub, pv, me) => pub.ph === 'turn' && !pub.pd && pub.turn === me && pub.tm === 'choose', 'دورك', 'يا تسحب ورقتين وينتهي دورك، يا تضغط ورقة من يدك وتلعبها على لاعب. الأوراق الحمراء اتهامات: إذا وصلت 7 على واحد تنكشف له ورقة.'],
   ['played', (pub, pv, me) => pub.ph === 'turn' && !pub.pd && pub.turn === me && pub.tm === 'play', 'لعبت ورقة', 'تقدر تلعب ورقة ثانية، أو اضغط «خلّصت دوري». بعد ما تلعب ما تقدر تسحب بنفس الدور.'],
   ['revealpick', (pub, pv, me) => pub.ph === 'turn' && pub.pd && pub.pd.w === me && pub.pd.k === 'reveal', 'اختر ورقة', 'وصلت الاتهامات للحد: اختر وحدة من أوراقه المقلوبة وتنقلب قدام الكل. إذا طلعت «خائن» يموت.'],
   ['night', (pub) => pub.ph === 'night_pick' && pub.sg && pub.sg.k === 'w', 'الليل', 'الخونة يختارون ضحية، وبعدها الشايب يحط الدرع قدام واحد، والباقين يخمّنون. محد يدري مين صاحي.'],
@@ -4217,8 +4459,9 @@ function updateCoach() {
   if (!box) return;
   const t = coachTip();
   const id = t ? t[0] : '';
-  if (id === (S.ui.coach || '')) return;
-  S.ui.coach = id;
+  if (id === (box.dataset.k || '')) { S.ui.coach = id || null; return; }
+  box.dataset.k = id;
+  S.ui.coach = id || null;
   clearTimeout(updateCoach.tmr);
   if (id && !S.ui.learn) updateCoach.tmr = setTimeout(() => { tipDone(id); if (S.ui.coach === id) { S.ui.coach = null; updateCoach(); } }, 9000);
   box.innerHTML = t ? `<div class="coach" role="dialog" aria-label="${t[2]}"><div class="co-in"><span class="co-ic">${ic('sparkle')}</span><div class="co-t"><b>${t[2]}</b><p>${typeof t[3] === 'function' ? t[3](S.priv) : t[3]}</p></div></div><div class="co-bar"><button class="btn sm ghost" data-act="tipsoff">${S.ui.learn ? 'وقّف الشرح' : 'لا تطلع نصائح'}</button><button class="btn sm gold" data-act="tipok">فهمت</button></div></div>` : '';
@@ -4322,7 +4565,7 @@ function nextShow() {
   if (s.buzz) { try { if (navigator.vibrate) navigator.vibrate(90); } catch (e) { /* not allowed */ } }
   const el = box.firstElementChild;
   setTimeout(() => { if (el) el.classList.add('out'); }, s.ms);
-  setTimeout(nextShow, s.ms + 260);
+  setTimeout(nextShow, s.ms + 700);
 }
 const asWrap = (cls, inner) => `<div class="as ${cls}" aria-live="polite"><div class="as-in">${inner}</div></div>`;
 const whoIs = (i) => (i === meId() ? 'أنت' : nk(i));
@@ -4330,11 +4573,12 @@ function turnShow(i) {
   const p = pl(i), me = meId();
   if (!p) return null;
   const mine = i === me, ch = p.c ? LE.CHARS[p.c] : null;
-  return { ms: mine ? 1700 : 1500, buzz: mine, snd: mine ? 'myturn' : 'turn', html: asWrap('turn' + (mine ? ' mine' : ''), `${ccard(i, { cls: 'lg' })}<div class="as-t"><p class="as-k">${mine ? 'جا دورك' : 'الدور على'}</p><h2>${mine ? 'دورك!' : esc(p.n)}</h2><p class="as-s">${mine ? 'اسحب ورقتين، أو العب ورقة على لاعب' : ch ? `${ch.n} · ${ch.t}` : ''}</p></div>`) };
+  return { ms: mine ? 2400 : 2300, buzz: mine, snd: mine ? 'myturn' : 'turn', html: asWrap('turn' + (mine ? ' mine' : ''), `${ccard(i, { cls: 'lg' })}<div class="as-t"><p class="as-k">${mine ? 'جا دورك' : 'الدور على'}</p><h2>${mine ? 'دورك!' : esc(p.n)}</h2><p class="as-s">${mine ? 'اسحب ورقتين، أو العب ورقة على لاعب' : ch ? `${ch.n} · ${ch.t}` : ''}</p></div>`) };
 }
 function playShow(f) {
   const T = LE.T[f.t], me = meId();
   if (!T) return null;
+  if (f.n > 1 && LE.RED[f.t]) return multiAccShow(f, f.n, f.v);
   const mineA = f.a === me;
   const on = (i) => (i === me ? 'عليك' : 'على ' + nk(i));
   const tp = pl(f.b);
@@ -4346,7 +4590,7 @@ function playShow(f) {
   else if (tp && f.t === 'ALI') sub = `باقي ${f.b === me ? 'عليك' : 'عليه'} ${AR(tp.rs)} من ${AR(tp.th)}`;
   const tgt = (i) => `<span class="as-p">${ccard(i, { cls: 'md' })}<b>${whoIs(i)}</b></span>`;
   const row = `${tgt(f.a)}<span class="as-arr" aria-hidden="true">←</span><span class="as-card">${cardBig(0, f.t, 'static')}</span><span class="as-arr" aria-hidden="true">←</span>${tgt(f.b)}${f.c != null ? `<span class="as-arr" aria-hidden="true">←</span>${tgt(f.c)}` : ''}`;
-  return { ms: mineA ? 1500 : 2600, snd: LE.RED[f.t] ? 'acc' : 'play', html: asWrap('play t-' + T.c + (LE.RED[f.t] ? ' red' : ''), `<div class="as-row">${row}</div><h3>${head}</h3>${sub ? `<p class="as-s">${sub}</p>` : ''}`) };
+  return { ms: mineA ? 2200 : 3200, snd: LE.RED[f.t] ? 'acc' : 'play', html: asWrap('play t-' + T.c + (LE.RED[f.t] ? ' red' : ''), `<div class="as-row">${row}</div><h3>${head}</h3>${sub ? `<p class="as-s">${sub}</p>` : ''}`) };
 }
 function drawShow(a, n) {
   const p = pl(a), me = meId();
@@ -4354,17 +4598,17 @@ function drawShow(a, n) {
   const mine = a === me;
   const cnt = n === 1 ? 'ورقة' : n === 2 ? 'ورقتين' : `${AR(n)} أوراق`;
   const backs = Array.from({ length: Math.min(n, 3) }, (_, k) => `<span class="as-back" style="--k:${k}"></span>`).join('');
-  return { ms: mine ? 1100 : 1600, snd: 'draw', html: asWrap('draw', `<div class="as-row">${ccard(a, { cls: 'md' })}<span class="as-backs">${backs}</span></div><h3>${mine ? 'سحبت' : esc(p.n) + ' سحب'} ${cnt}</h3><p class="as-s">${mine ? 'وخلص دورك' : 'وخلّص دوره'}</p>`) };
+  return { ms: mine ? 1700 : 2300, snd: 'draw', html: asWrap('draw', `<div class="as-row">${ccard(a, { cls: 'md' })}<span class="as-backs">${backs}</span></div><h3>${mine ? 'سحبت' : esc(p.n) + ' سحب'} ${cnt}</h3><p class="as-s">${mine ? 'وخلص دورك' : 'وخلّص دوره'}</p>`) };
 }
 function multiAccShow(f, cnt, v) {
   const me = meId(), tp = pl(f.b);
-  const backs = Array.from({ length: Math.min(cnt, 4) }, (_, k) => `<span class="as-card st${k}">${cardBig(0, 'ACC', 'static mini')}</span>`).join('');
+  const backs = Array.from({ length: Math.min(cnt, 4) }, (_, k) => `<span class="as-card st${k}">${cardBig(0, 'ACC', 'static mini')}</span>`).join('') + `<b class="as-cnt num">×${AR(cnt)}</b>`;
   const sub = tp && tp.a ? `صار ${f.b === me ? 'عليك' : 'عليه'} ${AR(tp.rs)} من ${AR(tp.th)} اتهامات` : 'وانكشفت أوراقه';
-  return { ms: 2800, snd: 'acc', html: asWrap('play red', `<div class="as-row"><span class="as-p">${ccard(f.a, { cls: 'md' })}<b>${whoIs(f.a)}</b></span><span class="as-arr" aria-hidden="true">←</span><span class="as-stack">${backs}</span><span class="as-arr" aria-hidden="true">←</span><span class="as-p">${ccard(f.b, { cls: 'md' })}<b>${whoIs(f.b)}</b></span></div><h3>${whoIs(f.a)} ${f.a === me ? 'رميت' : 'رمى'} ${AR(v)} اتهامات مرة وحدة على ${whoIs(f.b)}</h3><p class="as-s">${sub}</p>`) };
+  return { ms: 3400, snd: 'acc', html: asWrap('play red', `<div class="as-row"><span class="as-p">${ccard(f.a, { cls: 'md' })}<b>${whoIs(f.a)}</b></span><span class="as-arr" aria-hidden="true">←</span><span class="as-stack">${backs}</span><span class="as-arr" aria-hidden="true">←</span><span class="as-p">${ccard(f.b, { cls: 'md' })}<b>${whoIs(f.b)}</b></span></div><h3>${whoIs(f.a)} ${f.a === me ? 'رميت' : 'رمى'} ${AR(v)} اتهامات مرة وحدة على ${whoIs(f.b)}</h3><p class="as-s">${sub}</p>`) };
 }
 function blackShow(f) {
   const T = LE.T[f.t];
-  return { ms: 2200, snd: f.t === 'CON' ? 'witch' : 'acc', html: asWrap('black', `<div class="as-row"><span class="as-p">${ccard(f.a, { cls: 'md' })}<b>${whoIs(f.a)}</b></span><span class="as-card big">${cardBig(0, f.t, 'static')}</span></div><h3>${whoIs(f.a)} ${f.a === meId() ? 'سحبت' : 'سحب'} «${T.n}»</h3><p class="as-s">${f.t === 'NIG' ? 'ينزل الليل…' : 'صاحب القطة السوداء تنكشف له ورقة، والكل يتبادل ورقة'}</p>`) };
+  return { ms: 2900, snd: f.t === 'CON' ? 'witch' : 'acc', html: asWrap('black', `<div class="as-row"><span class="as-p">${ccard(f.a, { cls: 'md' })}<b>${whoIs(f.a)}</b></span><span class="as-card big">${cardBig(0, f.t, 'static')}</span></div><h3>${whoIs(f.a)} ${f.a === meId() ? 'سحبت' : 'سحب'} «${T.n}»</h3><p class="as-s">${f.t === 'NIG' ? 'ينزل الليل…' : 'صاحب القطة السوداء تنكشف له ورقة، والكل يتبادل ورقة'}</p>`) };
 }
 function peekShow(f) {
   return { ms: 1800, snd: 'flip', html: asWrap('peek', `<div class="as-row"><span class="as-p">${ccard(f.a, { cls: 'md' })}<b>${whoIs(f.a)}</b></span><span class="as-arr">${ic('eye')}</span><span class="as-p">${ccard(f.b, { cls: 'md' })}<b>${whoIs(f.b)}</b></span></div><h3>${whoIs(f.a)} ${f.a === meId() ? 'طالعت' : 'طالع'} ورقة من ${f.b === meId() ? 'أوراقك' : 'أوراق ' + nk(f.b)}</h3><p class="as-s">عين الصقر: محد يدري وش شاف</p>`) };
@@ -4391,7 +4635,7 @@ function abShow(f) {
     case 'abdullah': row = P(f.a); head = `${f.a === me ? 'قمت' : nk(f.a) + ' قام'} من الموت!`; sub = 'أبو سبعة أرواح: اغتالوه وما مات… بس انكشفت منه ورقة'; snd = 'shield'; break;
     default: return null;
   }
-  return { ms: 2600, snd, buzz: f.b === me || f.d === me, html: asWrap('ab', `<p class="as-k" style="--cc:${CHAR_COLOR[f.c]}">${ic('sparkle')} ${c.n} · ${c.t}</p><div class="as-row">${row}</div><h3>${head}</h3><p class="as-s">${sub}</p>`) };
+  return { ms: 3200, snd, buzz: f.b === me || f.d === me, html: asWrap('ab', `<p class="as-k" style="--cc:${CHAR_COLOR[f.c]}">${ic('sparkle')} ${c.n} · ${c.t}</p><div class="as-row">${row}</div><h3>${head}</h3><p class="as-s">${sub}</p>`) };
 }
 function conspShow(f) {
   const me = meId();
@@ -4455,17 +4699,8 @@ function seatTap(pid) {
         doAct({ t: 'play', card: tg.id, target: pid, c2i: bl[0].k }); S.ui.tg = null; return render();
       }
       if (tg.step === 1) doAct({ t: 'play', card: tg.id, target: tg.t1, target2: pid });
-      else if (tg.ids && tg.ids.length > 1) {
-        // a bundle of accusations lands together: stop once the pile reaches the limit
-        const tp = pl(pid);
-        let rs = tp.rs;
-        const hd = Object.fromEntries((S.priv.hd || []).map(([id, t]) => [id, t]));
-        for (const id of tg.ids) {
-          if (rs >= tp.th) break;
-          doAct({ t: 'play', card: id, target: pid });
-          rs += LE.T[hd[id]] ? (LE.T[hd[id]].v || 0) : 0;
-        }
-      } else doAct({ t: 'play', card: tg.id, target: pid });
+      else if (tg.ids && tg.ids.length > 1) doAct({ t: 'play', cards: tg.ids.slice(), target: pid });
+      else doAct({ t: 'play', card: tg.id, target: pid });
       S.ui.tg = null; return render();
     }
   }
@@ -4577,7 +4812,9 @@ function onClick(e) {
     case 'nrole': S.ui.nrole = el.dataset.r; render(); break;
     case 'confess': doAct({ t: 'confess', idx: +el.dataset.i }); break;
     case 'modalok': S.ui.modalQ.shift(); render(); break;
-    case 'auto': { const P = H.G && H.G.players[pid]; if (P) { P.auto = !P.auto; H.awSig = ''; hostChanged(); } break; }
+    case 'back': doAct({ t: 'back' }); toast('رجعت تلعب بنفسك'); break;
+    case 'mgstar': mgHit(+el.dataset.id); break;
+    case 'diff': H.opts.diff = el.dataset.v; S.ui.diff = el.dataset.v; try { store.set('lail.diff', el.dataset.v); } catch (e2) { /* blocked */ } if (S.mode === 'lobby') hostChanged(); else render(); break;
   }
 }
 function saveNick() { const el = document.getElementById('nick'); if (el) { S.nick = cleanNick(el.value); store.set('lail.nick', S.nick); } }
@@ -4662,6 +4899,7 @@ function bindDrag() {
   document.addEventListener('pointercancel', (e) => dragEnd(e.clientX, e.clientY, true));
 }
 function boot() {
+  try { const d = store.get('lail.diff'); if (d === 'easy' || d === 'normal' || d === 'hard') H.opts.diff = d; } catch (e) { /* blocked */ }
   root = document.getElementById('app');
   toastBox = document.getElementById('toasts');
   document.body.insertAdjacentHTML('afterbegin', PORTRAITS.defs);
@@ -4669,6 +4907,7 @@ function boot() {
   bindDrag();
   document.getElementById('sheet').addEventListener('click', (e) => { if (e.target.classList.contains('scrim')) { S.ui.sheet = null; render(); return; } onClick(e); });
   document.getElementById('modal').addEventListener('click', onClick);
+  document.getElementById('ovl').addEventListener('click', onClick);
   document.getElementById('coach').addEventListener('click', onClick);
   document.getElementById('sheet').addEventListener('submit', onSubmit);
   root.addEventListener('submit', onSubmit);
@@ -4678,17 +4917,7 @@ function boot() {
   let rt = null; window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(() => { lastHTML.screen = null; render(); if (CD.ph === 'pick') cdFan(false); }, 150); });
   S.ui.seenFx = -1;
   render();
-  setInterval(() => {
-    const el = document.querySelector('.timer:not(.sgt)');
-    if (el && S.pub && S.pub.tl != null) { const rem = Math.max(0, S.pub.tl - Math.floor((Date.now() - S.ui.recv) / 1000)); el.textContent = AR(rem); }
-    const sg = S.pub && S.pub.sg;
-    if (sg && sg.k !== 'ready') {
-      const rem = sgLeft(), s = AR(sgSecs());
-      document.querySelectorAll('.sgt, .sg-time b').forEach((e) => { if (e.textContent !== s) e.textContent = s; });
-      const r = document.querySelector('.sg-time:not(.wait)');
-      if (r) { r.style.setProperty('--p', Math.min(1, rem / sg.d).toFixed(3)); r.classList.toggle('low', rem < 5000); }
-    }
-  }, 250);
+  setInterval(tickClocks, 250);
   if (window.claude && typeof window.claude.use === 'function') {
     const resume = () => { const v = SESS.read(true); if (v) resumeSession(v); };
     window.claude.use('room').then((r) => { NET.room = r; S.netStatus = r ? 'ok' : 'none'; render(); resume(); }).catch(() => { S.netStatus = 'none'; render(); resume(); });
