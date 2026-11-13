@@ -1161,6 +1161,222 @@ body{overflow-x:clip}
   .side .sbox{flex:1 1 50%;max-height:340px}
 }
 
+
+/* ================= v13: the table in turn order, my seat among them, my character underneath ================= */
+.pgrid.seats{grid-template-columns:repeat(3,minmax(0,1fr));gap:16px 8px;padding-top:8px}
+.pgrid.seats.few{grid-template-columns:repeat(2,minmax(0,1fr))}
+.seats .pb{grid-template-columns:var(--ccw) minmax(0,1fr);grid-template-areas:"card head" "trial trial" "acc acc" "foot foot";align-content:start;column-gap:7px;row-gap:6px;padding:10px 7px 8px;border-radius:14px;
+  --ccw:40px;--tmw:15px;--tmh:21px;--mw:17px;--mh:24px;
+  background:linear-gradient(180deg,color-mix(in srgb,var(--pc) 26%,var(--p1)),var(--p1) 64px)}
+.seats .pb .ccard{aspect-ratio:1;border-radius:10px}
+.seats .pb .cc-name,.seats .pb-ab{display:none}
+.seats .pb-head{flex-direction:column;align-items:flex-start;justify-content:center;gap:3px}
+.seats .pb .plate{font-size:13px}
+.seats .pb .plate .ic,.seats .pb .plate em{display:none}
+.seats .pb-meta{flex-wrap:wrap}
+.seats .pb .hc{font-size:11.5px;padding:0 5px}
+.seats .pb-trial{gap:3px;justify-content:center}
+.seats .pb-acc{justify-content:center;gap:5px;min-height:14px}
+.seats .pb .pips{gap:2px;flex-wrap:nowrap}
+.seats .pb .pips i{width:6px;height:6px}
+.seats .pb-acc b{font-size:11.5px}
+.seats .pb-foot{padding-top:5px;gap:4px;justify-content:center}
+.seats .fm{padding:2px 3px}
+.seats .fm small{display:none}
+.seats .tg{font-size:10.5px;padding:0 6px}
+.seats .pb.me{box-shadow:0 0 0 2.5px var(--gold),0 5px 0 rgba(0,0,0,.2),0 10px 22px rgba(0,0,0,.28)}
+.seats .pb.me.now{box-shadow:0 0 0 3px var(--gold),0 0 26px rgba(244,191,82,.7),0 5px 0 rgba(0,0,0,.2)}
+.seats .pb.me .plate em{display:inline-block}
+.seats .pb.me .plate b{display:none}
+.seats .nowtag{top:-10px;inset-inline-end:8px;font-size:10.5px;padding:0 8px}
+.nowtag.next{background:#fff6e2;color:var(--ink)}
+.nowtag.ordn{background:#2b2a6e;color:#e9e6ff;min-width:20px;text-align:center;padding:0 6px;box-shadow:0 0 0 1px rgba(255,255,255,.25),0 3px 8px rgba(0,0,0,.4)}
+.pb.dead .nowtag{display:none}
+.mb-a,.mb-b,.mb-c{display:contents}
+.mb-desc{display:none;margin:0;gap:8px;align-items:flex-start;font-size:13.5px;line-height:1.6;color:var(--ink2);background:rgba(43,30,18,.06);border-radius:12px;padding:8px 10px}
+.mb-desc .ic{width:16px;height:16px;flex:none;margin-top:3px;color:color-mix(in srgb,var(--pc) 78%,#000)}
+.mb-desc b{color:var(--ink)}
+@media (max-width:370px){.seats .pb{--ccw:34px;--tmw:13px;--tmh:18px;padding-inline:5px}}
+@media (min-width:700px){
+  .pgrid.seats{grid-template-columns:repeat(4,minmax(0,1fr));gap:18px 10px}
+  .pgrid.seats.few{grid-template-columns:repeat(var(--n),minmax(0,1fr))}
+  .seats .pb{--ccw:56px;--tmw:21px;--tmh:29px;--mw:20px;--mh:28px;padding:12px 10px 9px;column-gap:9px}
+  .seats .pb .ccard{aspect-ratio:3/4}
+  .seats .pb .cc-name{display:grid;font-size:11.5px}
+  .seats .pb .plate{font-size:14.5px}
+  .seats .pb .hc{font-size:12.5px}
+  .seats .pb .pips i{width:7px;height:7px}
+  .seats .pb-acc b{font-size:12.5px}
+}
+@media (min-width:1024px){
+  .game{grid-template-columns:minmax(0,1fr) clamp(280px,21vw,350px);grid-template-areas:"main side" "me side";gap:14px 22px}
+  .main{min-height:0}
+  .board{flex:none}
+  .board .pgrid{flex:none}
+  .pgrid.seats,.pgrid.seats.few{grid-template-columns:repeat(var(--cd),minmax(0,1fr));gap:20px 12px}
+  .seats .pb{grid-template-areas:"card head" "card ab" "trial trial" "acc acc" "foot foot";--ccw:70px;--tmw:26px;--tmh:36px;--mw:24px;--mh:33px;padding:14px 12px 10px;column-gap:10px;row-gap:7px;border-radius:18px;
+    background:linear-gradient(180deg,color-mix(in srgb,var(--pc) 26%,var(--p1)),var(--p1) 110px)}
+  .seats .pb-ab{display:flex}
+  .seats .pb .abl{font-size:11.5px;padding:0 7px}
+  .seats .pb .cc-name{font-size:13px}
+  .seats .pb .plate{font-size:16px}
+  .seats .pb .plate .ic{display:block}
+  .seats .pb .hc{font-size:13px}
+  .seats .pb .pips{gap:3px}
+  .seats .pb .pips i{width:9px;height:9px}
+  .seats .pb-acc b{font-size:13.5px}
+  .seats .fm small{display:block}
+  .seats .tg{font-size:11.5px}
+  .seats .nowtag{font-size:12px;padding:1px 10px;top:-12px;inset-inline-end:12px}
+  .mybox{grid-area:me;position:static;max-height:none;overflow:visible;display:grid;grid-template-columns:minmax(260px,300px) minmax(0,1fr);grid-template-areas:"a c" "b c";gap:16px 22px;align-items:start;padding:18px 20px;--ccw:104px}
+  .mb-a,.mb-b,.mb-c{display:flex;flex-direction:column;gap:12px;min-width:0}
+  .mb-a{grid-area:a}.mb-b{grid-area:b}.mb-c{grid-area:c;border-inline-start:1px dashed var(--pline);padding-inline-start:22px;align-self:stretch}
+  .mb-c .mb-sec,.mb-b .mb-sec:first-child{border-top:0;padding-top:0}
+  .mb-desc{display:flex}
+  .mybox .hand{grid-template-columns:repeat(auto-fill,minmax(104px,1fr));gap:12px}
+  .mybox .hand .cname{font-size:15px}
+  .mybox .hand .cart .ic{width:44px;height:44px}
+  .mybox .hand .ctag{font-size:12.5px}
+}
+@media (min-width:1024px) and (max-width:1279px){
+  .game{grid-template-columns:minmax(0,1fr);grid-template-areas:"main" "me" "side"}
+}
+@media (min-width:1280px){
+  .mybox{grid-template-columns:minmax(280px,330px) minmax(300px,370px) minmax(0,1fr);grid-template-areas:"a b c"}
+  .mb-b{border-inline-start:1px dashed var(--pline);padding-inline-start:22px;align-self:stretch}
+}
+@media (min-width:1360px){
+  .game{grid-template-columns:minmax(0,1fr) clamp(300px,21vw,380px);column-gap:26px}
+  .seats .pb{--ccw:84px;--tmw:30px;--tmh:42px}
+  .seats .pb .plate{font-size:17.5px}
+  .mybox{--ccw:120px}
+}
+
+/* ---------- popups: one solid panel above everything, nothing underneath can be pressed ---------- */
+.ov{z-index:76;background:rgba(6,5,20,.8);display:flex;align-items:flex-start;justify-content:center;animation:ovfade .16s ease;-webkit-backdrop-filter:none;backdrop-filter:none}
+@supports (backdrop-filter:blur(4px)){.ov{background:rgba(6,5,20,.8);-webkit-backdrop-filter:none;backdrop-filter:none}}
+@keyframes ovfade{from{opacity:0}to{opacity:1}}
+.ov-in{width:100%;margin:auto;background:#17154d;border-radius:22px;padding:16px 14px;box-shadow:0 0 0 2px rgba(244,191,82,.55),0 30px 80px rgba(0,0,0,.7)}
+.ov.chooser .ov-bar{position:sticky;bottom:-16px;margin:0 -14px -16px;padding:10px 14px 14px;background:linear-gradient(180deg,rgba(23,21,77,0),#17154d 30%);border-radius:0 0 22px 22px}
+.scrim{z-index:77}
+.modal{z-index:77}
+.toasts{z-index:96}
+.pick-reopen{z-index:72}
+#ovl:not(:empty) ~ #coach,#sheet:not(:empty) ~ #coach{display:none}
+@media (min-width:1024px){.ov{padding:28px}.ov-in{padding:22px}.ov.chooser .ov-bar{bottom:-22px;margin:0 -22px -22px;padding:12px 22px 20px}}
+
+/* ---------- "who did what": a clear banner under the top bar; the table stays lit and usable ---------- */
+#act .as,.is-game ~ #act .as{inset:auto 0 auto 0;top:calc(env(safe-area-inset-top,0px) + 62px);display:flex;justify-content:center;padding:0 10px;background:none;animation:asdrop .26s cubic-bezier(.2,.9,.3,1) both}
+#act .as.out{animation:asup .24s ease forwards}
+@keyframes asdrop{from{opacity:0;transform:translateY(-14px)}to{opacity:1;transform:none}}
+@keyframes asup{to{opacity:0;transform:translateY(-10px)}}
+#act .as-in{animation:none;width:min(440px,100%);gap:6px;padding:12px 14px;border-radius:20px;background:#1a1856;box-shadow:0 0 0 2px rgba(244,191,82,.7),0 14px 34px rgba(0,0,0,.6)}
+#act .as.red .as-in{box-shadow:0 0 0 2px #ff5a4f,0 14px 34px rgba(0,0,0,.6)}
+#act .as-in h3{font-size:17px;margin:0}
+#act .as-s{font-size:14px}
+#act .as-p .ccard{--ccw:54px}
+#act .as-card .card{--cardw:70px;--cardh:98px}
+#act .as-card.big .card{--cardw:84px;--cardh:118px}
+#act .as.turn .as-in{padding:10px 14px}
+#act .as.turn .ccard{--ccw:60px}
+#act .as.turn h2{font-size:clamp(28px,8vw,38px)}
+#act .as.turn.mine .as-in{background:linear-gradient(180deg,#ffd36d,#e7a13a);box-shadow:0 0 0 3px #fff2c4,0 14px 34px rgba(0,0,0,.55)}
+#act .as.ab .as-in{background:linear-gradient(180deg,color-mix(in srgb,var(--abc,#f4bf52) 30%,#1c1a5a),#15134a);box-shadow:0 0 0 2px #f4bf52,0 14px 34px rgba(0,0,0,.6)}
+#act .as.ab .as-p .ccard{--ccw:60px}
+#act .as.ab .as-row>.as-p:only-child .ccard{--ccw:72px;animation:none}
+#act .as.ab h3{font-size:clamp(20px,5.5vw,24px)}
+@media (min-width:1024px){
+  #act .as-in{width:min(520px,100%);padding:14px 18px}
+  #act .as-in h3{font-size:19px}
+  #act .as-p .ccard{--ccw:64px}
+  #act .as-card .card{--cardw:80px;--cardh:112px}
+}
+/* the conspiracy banner: one line that follows the card in the air */
+.csp-now{margin:2px 0 0;display:flex;align-items:center;justify-content:center;gap:7px;flex-wrap:wrap;font-size:15.5px;background:rgba(255,255,255,.07);border-radius:12px;padding:7px 12px;width:100%}
+.csp-now .pt{width:28px;height:28px;border-radius:50%;overflow:hidden;flex:none}
+.csp-now .mini{--mw:20px;--mh:28px;display:block}
+.csp-now .lg-arr{color:var(--gold);font-weight:800}
+.csp-now em{font-style:normal;font-size:12.5px;font-weight:800;background:var(--gold);color:var(--gold-ink);border-radius:999px;padding:0 9px;line-height:1.7}
+.csp-cnt{margin:0;font-size:12.5px;color:var(--muted);font-weight:800}
+.flyer .mini.csp-fly{--mw:40px;--mh:56px;box-shadow:0 0 0 2px #f4bf52,0 0 22px rgba(244,191,82,.8),0 12px 22px rgba(0,0,0,.55)}
+.flabel.cspl{background:#1f6b3e;color:#eafff0;font-size:13.5px}
+
+.btop{display:flex;flex-direction:column;gap:12px;min-width:0}
+@media (min-width:1024px){
+  .btop{flex-direction:row;align-items:stretch}
+  .btop>.bcenter{flex:1 1 46%}
+  .btop>.lg.tick,.btop>.ticker{flex:1 1 54%;margin:0;display:flex;flex-direction:column;justify-content:center}
+  .seats .pb{grid-template-columns:minmax(0,1fr);grid-template-areas:"card" "head" "ab" "trial" "acc" "foot";justify-items:center;text-align:center;--ccw:92px;--tmw:25px;--tmh:35px;padding:16px 10px 10px}
+  .seats .pb-head{flex-direction:row;align-items:center;justify-content:center;gap:8px;max-width:100%}
+  .seats .pb-ab{justify-content:center;max-width:100%}
+  .seats .pb .abl{font-size:12.5px;padding:0 9px}
+  .seats .pb-foot{width:100%}
+  .seats.many .pb{--ccw:66px;--tmw:22px;--tmh:31px;padding:14px 8px 8px;row-gap:5px}
+  .seats.many .pb .plate{font-size:15px}
+  #coach{justify-content:flex-end;padding-inline:16px}
+  .coach{width:min(420px,100%)}
+}
+@media (min-width:1360px){
+  .seats .pb{--ccw:104px;--tmw:28px;--tmh:39px}
+  .seats.many .pb{--ccw:74px;--tmw:25px;--tmh:35px}
+}
+
+@media (max-width:1023px){
+  .mybox .mb-act{order:1}
+  .mybox .mb-c>.mb-sec{order:2}
+  .mybox .mb-b>.mb-sec{order:3}
+}
+@media (min-width:1024px){
+  .seats .pb,.seats.many .pb{--tmw:22px;--tmh:31px}
+  .seats .pb-trial{gap:4px}
+  .mybox .hand{grid-template-columns:repeat(auto-fill,minmax(88px,1fr));gap:10px}
+  .mybox .hand .cname{font-size:14px}
+  .mybox .hand .cart .ic{width:38px;height:38px}
+  .mybox .hand .ctag{font-size:12px}
+}
+@media (min-width:1280px){
+  .mybox{grid-template-columns:minmax(250px,290px) minmax(300px,350px) minmax(0,1fr)}
+  .mybox .hand{grid-template-columns:repeat(auto-fill,minmax(96px,1fr))}
+}
+@media (min-width:1360px){
+  .seats .pb,.seats.many .pb{--tmw:24px;--tmh:34px}
+}
+@media (min-width:1700px){
+  .seats .pb{--tmw:30px;--tmh:42px;--ccw:120px}
+  .seats.many .pb{--ccw:90px;--tmw:28px;--tmh:39px}
+  .mybox .hand{grid-template-columns:repeat(auto-fill,minmax(110px,1fr))}
+}
+
+/* 7 players and up on a wide screen: flat tiles, as many per row as fit, so my own area stays in view */
+@media (min-width:1024px){
+  .pgrid.seats.many{grid-template-columns:repeat(auto-fill,minmax(214px,1fr));gap:18px 12px}
+  .seats.many .pb{grid-template-columns:var(--ccw) minmax(0,1fr);grid-template-areas:"card head" "card ab" "card trial" "card acc" "foot foot";justify-items:start;text-align:start;align-content:center;
+    --ccw:66px;--tmw:20px;--tmh:28px;padding:13px 10px 9px;row-gap:4px;column-gap:10px;background:linear-gradient(270deg,color-mix(in srgb,var(--pc) 24%,var(--p1)) calc(var(--ccw) + 16px),var(--p1) calc(var(--ccw) + 16px))}
+  .seats.many .pb-head,.seats.many .pb-ab,.seats.many .pb-trial,.seats.many .pb-acc{justify-content:flex-start}
+  .seats.many .pb-head{width:100%;justify-content:space-between}
+  .seats.many .pb-trial{gap:3px}
+}
+@media (min-width:1360px){.seats.many .pb{--ccw:72px;--tmw:22px;--tmh:31px}}
+@media (min-width:1700px){.pgrid.seats.many{grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}.seats.many .pb{--ccw:84px;--tmw:25px;--tmh:35px}}
+@media (min-width:1024px) and (max-height:820px){
+  .seats:not(.many) .pb{--ccw:72px;padding-top:14px;row-gap:5px}
+  .status{min-height:54px}
+}
+
+/* my area: the hand always gets the wide column; three columns only on really wide screens */
+@media (min-width:1024px){
+  .mybox{grid-template-columns:minmax(260px,320px) minmax(0,1fr);grid-template-areas:"a c" "b c"}
+  .mb-b{border-inline-start:0;padding-inline-start:0;align-self:start}
+  .mybox .hand{grid-template-columns:repeat(auto-fill,minmax(88px,108px));gap:10px;justify-content:start}
+}
+@media (min-width:1500px){
+  .mybox{grid-template-columns:minmax(260px,300px) minmax(300px,350px) minmax(0,1fr);grid-template-areas:"a b c"}
+  .mb-b{border-inline-start:1px dashed var(--pline);padding-inline-start:22px;align-self:stretch}
+  .mybox .hand{grid-template-columns:repeat(auto-fill,minmax(96px,116px))}
+}
+@media (min-width:1024px) and (max-width:1499px){.mb-b .mb-act{order:-1}.mb-b .mb-sec:first-child{border-top:1px dashed var(--pline);padding-top:12px}}
+@media (min-width:1500px){.mb-trial{gap:6px}}
+
 </style>
 <div id="app" dir="rtl" lang="ar"><div id="screen"></div></div>
 <div id="ovl" dir="rtl" lang="ar"></div>
@@ -1328,11 +1544,15 @@ body{overflow-x:clip}
     if (G.phase === 'over') return;
     if (!G.players.some((p) => p.alive && p.witch)) return over(G, 'town');
     if (!G.players.some((p) => p.alive && !p.witch)) return over(G, 'witch');
+    // one traitor left facing one villager: nobody is left to outvote him, the traitor takes it
+    const al = G.players.filter((p) => p.alive);
+    if (al.length === 2 && al.filter((p) => p.witch).length === 1) return over(G, 'witch', 'duel');
   }
-  function over(G, w) {
+  function over(G, w, how) {
     G.phase = 'over'; G.win = w; G.pending = null; G.pq = []; G.steps = [];
     const names = G.players.filter((p) => p.witch).map((p) => p.nick).join('، ');
     if (w === 'town') { log(G, ' طاح آخر خاين. فاز المسالمين!'); ev(G, 'win', 'فاز المسالمين', 'الخونة كانوا: ' + names, { w }); }
+    else if (how === 'duel') { log(G, ' ما بقى إلا خاين ومسالم واحد. فاز الخونة!'); ev(G, 'win', 'فاز الخونة', 'ما بقى إلا خاين ومسالم واحد. الخونة كانوا: ' + names, { w }); }
     else { log(G, ' مات كل المسالمين. فاز الخونة!'); ev(G, 'win', 'فاز الخونة', 'الخونة كانوا: ' + names, { w }); }
   }
 
@@ -2473,7 +2693,7 @@ function tick() {
   if (ns.length) {
     H.lastShow = ns[ns.length - 1].i;
     let add = 0, drew = false;
-    for (const f of ns) { if (f.k === 'play') add += 3900; else if (f.k === 'black') add += 3300; else if (f.k === 'peek') add += 2800; else if (f.k === 'ab') add += 3700; else if (f.k === 'consp') add += 4600; else if (f.k === 'draw' && !drew) { add += 2500; drew = true; } }
+    for (const f of ns) { if (f.k === 'play') add += 3900; else if (f.k === 'black') add += 3300; else if (f.k === 'peek') add += 2800; else if (f.k === 'ab') add += 3700; else if (f.k === 'consp') add += 2700 + (f.mv ? f.mv.length : 4) * 430; else if (f.k === 'draw' && !drew) { add += 2500; drew = true; } }
     if (add && !H.noHold) H.hold = Math.max(H.hold || 0, now0) + add;
   }
   if (G.turnN !== H.lastTn) { if (H.lastTn != null && G.phase === 'turn' && !H.noHold) H.hold = Math.max(H.hold || 0, now0) + 2700; H.lastTn = G.turnN; }
@@ -3105,7 +3325,7 @@ function onViews() {
     if (S.ui.seenEv < 0) S.ui.seenEv = mx;
     for (const e of pub.ev) {
       if (e.i <= S.ui.seenEv) continue;
-      if (e.k === 'morning' || e.k === 'consp' || e.k === 'dawnEnd') S.ui.modalQ.push(e);
+      if (e.k === 'morning' || e.k === 'dawnEnd') S.ui.modalQ.push(e);
       else if (e.k === 'death') later(() => { SND.play('death'); if (e.p === meId()) { S.ui.modalQ.push({ k: 'death', title: 'متّ', body: e.body + (pv && pv.lw ? '\nلك ثلاث كلمات أخيرة في السوالف.' : '') }); render(); } else flash(e.title + '. ' + e.body, 'bad'); });
       else if (e.k === 'info') later(() => flash(e.body));
     }
@@ -3509,6 +3729,7 @@ function accHTML(p, cls) {
 function pboardHTML(p, i, m) {
   const pub = S.pub, me = meId(), pv = S.priv;
   const cls = ['pb'];
+  if (i === me) cls.push('me');
   if (!p.a) cls.push('dead');
   const now = pub.ph === 'turn' && p.a && (pub.pd ? pub.pd.w === i : pub.turn === i);
   if (now) cls.push('now');
@@ -3526,7 +3747,8 @@ function pboardHTML(p, i, m) {
   const revealMode = m && m.k === 'reveal' && m.tg === i;
   const trial = p.tr.map((t, k) => {
     let face = t, own = false;
-    if (t === '?' && all && all[i]) { face = all[i].tr[k]; own = true; }
+    if (t === '?' && i === me && pv && pv.tr && pv.tr[k]) { face = pv.tr[k][0]; own = true; }
+    else if (t === '?' && all && all[i]) { face = all[i].tr[k]; own = true; }
     return `<button class="tm ${revealMode && t === '?' ? 'target' : ''}" data-act="tcard" data-pid="${i}" data-i="${k}" aria-label="ورقة محاكمة ${AR(k + 1)}">${trialFace(face, own)}</button>`;
   }).join('');
   const fronts = p.fr.map((f, k) => ({ f: base(f), k })).filter((o) => !LE.RED[o.f] && o.f !== 'CAT').map((o) => `<button class="fm" data-act="fcard" data-pid="${i}" data-k="${o.k}" aria-label="${LE.T[o.f].n}">${cardMini(o.f)}<small>${LE.T[o.f].n}</small></button>`).join('');
@@ -3541,9 +3763,9 @@ function pboardHTML(p, i, m) {
   const votes = m && (m.k === 'dpick' || (m.k === 'npick' && m.role === 'kill')) ? Object.keys(tv).filter((w) => tv[w] === i && +w !== me).length : 0;
   if (votes) mark = `<span class="votes">${ic('knife')}${AR(votes)}</span>`;
   return `<section class="${cls.join(' ')}" data-mat="${i}" data-act="seat" data-pid="${i}" style="--pc:${p.c ? CHAR_COLOR[p.c] : '#6b625a'}">
-    ${now ? '<span class="nowtag">يلعب الحين</span>' : ''}
+    ${now ? `<span class="nowtag">${i === me ? 'دورك الحين' : 'يلعب الحين'}</span>` : p.a && order === 1 ? '<span class="nowtag next">بعده</span>' : p.a && order ? `<span class="nowtag ordn num" title="دوره بعد ${AR(order)}">${AR(order + 1)}</span>` : ''}
     ${ccard(i, { tag: 'button', attrs: `data-act="char" data-pid="${i}"`, tok: true, extra: mark, cls: 'pbc' })}
-    <div class="pb-head">${nameplate(p, i)}<span class="pb-meta">${p.ln ? `<span class="lnb ${p.ln}">${p.ln === 'c' ? ic('check') + ' أمِن' : ic('dice') + ' خاطر'}</span>` : ''}${p.a && order ? `<span class="ord num" title="دوره بعد ${AR(order)}">${AR(order)}</span>` : ''}<span class="hc num" title="أوراق بيده">${ic('cards')}${AR(p.h)}</span></span></div>
+    <div class="pb-head">${nameplate(p, i)}<span class="pb-meta">${p.ln ? `<span class="lnb ${p.ln}">${p.ln === 'c' ? ic('check') + ' أمِن' : ic('dice') + ' خاطر'}</span>` : ''}<span class="hc num" title="أوراق بيده">${ic('cards')}${AR(p.h)}</span></span></div>
     <div class="pb-ab">${abChip(p)}</div>
     <div class="pb-trial">${trial}</div>
     ${accHTML(p, 'pb-acc')}
@@ -3575,7 +3797,7 @@ function centerHTML() {
   const last = pub.lg && pub.lg.length ? pub.lg[pub.lg.length - 1].t : '';
   const fl = S.ui.flash;
   const slots = Array.from({ length: pub.wt }, (_, k) => `<span class="wslot ${k < revW ? 'on' : ''}">${ic(k < revW ? 'knife' : 'scales')}</span>`).join('');
-  return `<div class="bcenter">
+  return `<div class="btop"><div class="bcenter">
     <div class="piles">
       <button class="pile" id="deck" data-act="deckinfo" aria-label="كومة السحب ${pub.dk}"><span class="back b3"></span><span class="back b2"></span><span class="back"></span><b class="num">${AR(pub.dk)}</b></button>
       <button class="pile" id="disc" data-act="discinfo" aria-label="المحروق ${pub.ds}">${pub.dt ? cardMini(pub.dt, 'top') : '<span class="slot"></span>'}<b class="num">${AR(pub.ds)}</b></button>
@@ -3585,7 +3807,7 @@ function centerHTML() {
       <div class="trk"><span class="trk-l">${ic('moon')} الليالي</span><b class="num">${AR(pub.nn)}</b></div>
     </div>
   </div>
-  ${fl ? `<p class="ticker flash ${fl.kind}" role="status">${ARs(fl.text)}</p>` : pub.lg && pub.lg.length ? lgRow(pub.lg[pub.lg.length - 1], 'tick') : ''}`;
+  ${fl ? `<p class="ticker flash ${fl.kind}" role="status">${ARs(fl.text)}</p>` : pub.lg && pub.lg.length ? lgRow(pub.lg[pub.lg.length - 1], 'tick') : ''}</div>`;
 }
 let TORD = null; // seat -> how many turns away from the one playing now
 function turnOrder() {
@@ -3610,16 +3832,14 @@ function tableHTML() {
   const n = N();
   const m = tableMode();
   const night = pub.ph === 'night_pick' || pub.ph === 'night_confess';
-  const others = [];
-  for (let k = 1; k < n; k++) others.push(((me == null ? 0 : me) + k) % n);
-  if (me == null) others.unshift(0);
-  const o = others.length;
+  turnOrder();
+  const seats = pub.pl.map((_, i) => i);
+  const cd = n <= 6 ? n : Math.ceil(n / 2);
   const sleep = (pub.ph === 'dawn' || night) && !(m && (m.k === 'npick' || m.k === 'dpick')) && pub.ph !== 'night_confess';
   return `<main class="board ${m ? 'picking' : ''} ${night ? 'is-night' : ''}" id="table">
     ${night || pub.ph === 'dawn' ? `<div class="nightcap ${sleep ? 'sleep' : ''}"><span class="moon"></span><b>${pub.ph === 'dawn' ? 'الفجر' : 'الليل'}</b>${sleep ? '<small>غمّض عيونك…</small>' : ''}</div>` : ''}
-    ${torderHTML()}
     ${centerHTML()}
-    <div class="pgrid${o >= 7 ? ' dense' : ''}">${others.map((i) => pboardHTML(pl(i), i, m)).join('')}</div>
+    <div class="pgrid seats${n <= 4 ? ' few' : ''}${n > 6 ? ' many' : ''}" style="--cd:${cd};--n:${n}" aria-label="اللاعبين بترتيب الأدوار">${seats.map((i) => pboardHTML(pl(i), i, m)).join('')}</div>
   </main>`;
 }
 /* ---- my own mat: character card on the side, who I am, my trial cards, what's in front of me, what I can do, my hand ---- */
@@ -3650,7 +3870,8 @@ function myBoxHTML() {
   const myTurn = pub.ph === 'turn' && !pub.pd && pub.turn === me && P.a;
   const sel = S.ui.tg && S.ui.tg.k === 'card' ? S.ui.tg.id : null;
   const cards = hand.length ? hand.map(([id, t]) => cardBig(id, t, (sel === id ? 'sel' : '') + (myTurn ? '' : ' idle'), 'card')).join('') : '<p class="tray-msg">يدك فاضية.</p>';
-  return `<section class="${cls.join(' ')}" data-mat="${me}" style="--pc:${P.c ? CHAR_COLOR[P.c] : '#6b625a'}">
+  return `<section class="${cls.join(' ')}" style="--pc:${P.c ? CHAR_COLOR[P.c] : '#6b625a'}">
+    <div class="mb-a">
     <div class="mb-top">
       ${ccard(me, { tag: 'button', attrs: `data-act="char" data-pid="${me}"`, tok: true, ready, cls: 'mbc' })}
       <div class="mb-id">
@@ -3661,11 +3882,17 @@ function myBoxHTML() {
       </div>
     </div>
     ${P.au && P.a ? `<div class="mb-auto">${ic('robot')}<span><b>البوت يلعب عنك</b><small>فاتك دورين وما خلّصتهم</small></span><button class="btn sm gold" data-act="back">أنا رجعت</button></div>` : ''}
+    ${ch ? `<p class="mb-desc">${ic(P.ab ? 'check' : 'sparkle')}<span><b>${ch.t}${P.ab ? ' (استخدمتها)' : ''}</b> ${ch.d}</span></p>` : ''}
     ${ready ? `<button class="mb-abil" data-act="char" data-pid="${me}">${ic('sparkle')}<span><b>قدرتك جاهزة: ${ch.t}</b><small>اضغط بطاقة شخصيتك وتستخدمها</small></span></button>` : ''}
-    <div class="mb-sec"><h4>أوراق المحاكمة</h4><div class="mb-trial">${trial}</div></div>
+    </div>
+    <div class="mb-b">
+    <div class="mb-sec"><h4>أوراق محاكمتك</h4><div class="mb-trial">${trial}</div></div>
     ${fronts ? `<div class="mb-sec"><h4>قدامك</h4><div class="mb-front">${fronts}</div></div>` : ''}
     <div class="mb-act">${actionHTML()}</div>
+    </div>
+    <div class="mb-c">
     <div class="mb-sec"><h4>يدك <span class="num">${AR(hand.length)}</span></h4><div class="hand">${cards}</div></div>
+    </div>
   </section>`;
 }
 function actionHTML() {
@@ -4142,7 +4369,7 @@ function overHTML() {
   const host = amHost();
   const gw = pv && pv.gw, gcs = pv && pv.gcs;
   const score = gw && (gw[1] || (gcs && gcs[1])) ? `<div class="gscore">${ic('sparkle')}<span>${gw[1] ? `«مين الخاين؟» صابت <b class="num">${AR(gw[0])} من ${AR(gw[1])}</b>` : ''}${gw[1] && gcs[1] ? '<br>' : ''}${gcs[1] ? `«وين الدرع؟» صابت <b class="num">${AR(gcs[0])} من ${AR(gcs[1])}</b>` : ''}</span></div>` : '';
-  return `<div class="home over"><header class="hero"><div class="sadu"></div><p class="tag">${me != null ? (iWon ? 'فزت' : 'خسرت') : 'انتهت اللعبة'}</p><h1 class="wordmark">${town ? 'فاز المسالمين' : 'فاز الخونة'}</h1><p class="muted">${town ? 'طاحوا الخونة كلهم.' : 'مات كل المسالمين.'} ${pub.nn ? `لعبتوا ${pub.nn === 1 ? 'ليلة وحدة' : pub.nn === 2 ? 'ليلتين' : AR(pub.nn) + ' ليالي'}.` : 'خلصت قبل أول ليلة.'}</p></header>
+  return `<div class="home over"><header class="hero"><div class="sadu"></div><p class="tag">${me != null ? (iWon ? 'فزت' : 'خسرت') : 'انتهت اللعبة'}</p><h1 class="wordmark">${town ? 'فاز المسالمين' : 'فاز الخونة'}</h1><p class="muted">${town ? 'طاحوا الخونة كلهم.' : 'ما بقى أحد يوقف الخونة.'} ${pub.nn ? `لعبتوا ${pub.nn === 1 ? 'ليلة وحدة' : pub.nn === 2 ? 'ليلتين' : AR(pub.nn) + ' ليالي'}.` : 'خلصت قبل أول ليلة.'}</p></header>
     <div class="home-grid">${score}${summaryHTML()}<h2 class="o-h">اللاعبين</h2><div class="olist">${rows}</div>
     ${host && !(NET.srv && S.role === 'client' && S.ui.againSent) ? `<button class="btn pri" data-act="again">${S.role === 'solo' ? 'جولة ثانية' : 'جولة ثانية بنفس الربع'}</button>` : '<p class="note">ننتظر المضيف يبدأ جولة ثانية.</p>'}
     <button class="btn ghost" data-act="leave">الصفحة الرئيسية</button></div></div>`;
@@ -4165,7 +4392,7 @@ function sheetHTML() {
     const pv = S.priv; if (!pv) return '';
     const team = pv.w && pv.k ? pv.tm.filter((x) => x !== pv.me) : [];
     const lines = pv.tr.map((t) => `<li>${trialFace(t[0], !t.includes('+'))}<span><b>${LE.TN[t[0]]}</b> · ${t.includes('+') ? 'مكشوفة للكل' : 'مقلوبة، محد يعرفها غيرك'}</span></li>`).join('');
-    return wrap(`<div class="who">${ccard(pv.me, { cls: 'lg' })}<div><h2>${pv.w ? 'أنت خائن' : 'أنت مسالم'}</h2><p class="muted">${pv.w ? 'تفوز إذا مات كل المسالمين' : 'تفوز إذا طاحوا الخونة كلهم'}</p></div></div>
+    return wrap(`<div class="who">${ccard(pv.me, { cls: 'lg' })}<div><h2>${pv.w ? 'أنت خائن' : 'أنت مسالم'}</h2><p class="muted">${pv.w ? 'تفوز إذا مات المسالمين، أو بقيت أنت ومسالم واحد' : 'تفوز إذا طاحوا الخونة كلهم'}</p></div></div>
       ${pv.w ? `<h3>ربعك الخونة</h3>${team.length ? `<div class="team-row">${team.map((x) => `<div class="mate">${ccard(x)}${nameplate(pl(x), x)}</div>`).join('')}</div>` : `<p class="muted">${pv.k ? 'أنت الخاين الوحيد.' : 'بتعرفهم أول ما ينزل الليل.'}</p>`}` : ''}
       ${pv.cn ? '<p class="ability">معك ورقة الشايب: كل ليلة تحمي واحد غيرك بالدرع، لين تنكشف الورقة.</p>' : ''}
       <h3>أوراقي</h3><ul class="ilist">${lines}</ul>${pv.pk ? `<p class="ability">المحقق: فتّشت أوراق ${nk(pv.pk.target)} المقلوبة: ${pkList(pv.pk)}.</p>` : ''}`);
@@ -4261,7 +4488,7 @@ function rulesHTML() {
   const ch = Object.keys(LE.CHARS).map((k) => `<li class="rchar">${ccardC(k)}<span><b>${LE.CHARS[k].n}</b> · ${LE.CHARS[k].t}<br>${LE.CHARS[k].d}</span></li>`).join('');
   const cards = ['ACC', 'EVI', 'WIT', 'ALI', 'ROB', 'SCA', 'STO', 'CUR', 'ARS', 'PIE', 'ASY', 'MAT', 'NIG', 'CON', 'CAT'].map((k) => `<li>${cardMini(k)}<span><b>${LE.T[k].n}</b>${LE.T[k].q ? ` <small class="muted num">× ${AR(LE.T[k].q)}</small>` : ''}<br>${LE.T[k].d}</span></li>`).join('');
   return `<h2>طريقة اللعب</h2>
-  <h3>الهدف</h3><p>كل لاعب قدامه أوراق محاكمة مقلوبة: مسالم أو خائن أو شايب. <b>المسالمين</b> يفوزون أول ما تنكشف آخر ورقة «خائن» في اللعبة، حتى لو أصحابها عايشين. <b>الخونة</b> يفوزون إذا كل اللي باقين عايشين من الخونة.</p>
+  <h3>الهدف</h3><p>كل لاعب قدامه أوراق محاكمة مقلوبة: مسالم أو خائن أو شايب. <b>المسالمين</b> يفوزون أول ما تنكشف آخر ورقة «خائن» في اللعبة، حتى لو أصحابها عايشين. <b>الخونة</b> يفوزون إذا كل اللي باقين عايشين من الخونة، أو إذا ما بقى إلا خاين واحد ومسالم واحد.</p>
   <h3>أوراق المحاكمة</h3><ul><li>4 و5 لاعبين: خائن واحد. من 6 لين 12: خائنين. ودايم شايب واحد.</li><li>كل لاعب 5 أوراق لين 7 لاعبين، و4 أوراق لـ8 و9، و3 أوراق من 10 لين 12.</li><li>اللي تجيه ورقة «خائن» يصير من الخونة لين آخر اللعبة، حتى لو راحت منه.</li><li>اللي معه ورقة «الشايب» وما انكشفت يحمي لاعب غيره كل ليلة. إذا انكشفت أو راحت منه، راح دوره.</li></ul>
   <h3>البداية والفجر</h3><p>كل واحد يسحب شخصيته ويشوف أوراقه. كل لاعب ياخذ 3 أوراق، والمؤامرة تنخلط في السحب، والليل دايم تحت الكومة. بعدها تظلم الشاشة: الخونة لهم 20 ثانية يختارون وين يحطون القطة السوداء (حتى قدام واحد منهم)، واللي قدامه القطة يبدأ.</p>
   <h3>كيف يختار الخونة</h3><p>ضغطة على لاعب = اقتراح يشوفه ربعك. ضغطة ثانية على نفس اللاعب = قرار، وتطلع لك رسالة تأكيد. إذا خلص الوقت بدون قرار ينختار اللي عليه اقتراحات أكثر. وبنفس الوقت الباقين يلعبون «مين الخاين؟» على نفس الشاشة: يخمّنون واحد من الخونة، عشان محد يعرف مين صاحي من شكل جواله.</p>
@@ -4457,7 +4684,7 @@ function cdRole() {
   cdBox().innerHTML = `<div class="cd role" role="dialog" aria-modal="true" aria-label="دورك في اللعبة"><div class="cd-bg"></div><div class="cd-rl">
     <div class="cd-rtop"><div class="cd-slot">${bcardHTML(p.c, { mine: true, letter: p.n, cls: 'sm' })}</div>
       <div class="cd-rid"><p class="cd-k">اللاعب</p>${nameplate(p, me, { cls: 'lg', noyou: true })}<p class="cd-k">الشخصية</p><p class="cd-who"><b>${c ? c.n : 'بدون شخصية'}</b>${c ? `<span>${c.t}</span>` : ''}</p></div></div>
-    <div class="in-role ${pv.w ? 'w' : 'i'}"><b>${ic(pv.w ? 'knife' : 'leaf')} ${pv.w ? 'أنت خائن' : 'أنت مسالم'}</b><span>${pv.w ? 'تفوز إذا مات كل المسالمين.' : 'تفوز إذا انكشفت كل أوراق الخيانة.'}${pv.cn ? ' ومعك ورقة الشايب: تحمي واحد غيرك كل ليلة.' : ''}</span></div>
+    <div class="in-role ${pv.w ? 'w' : 'i'}"><b>${ic(pv.w ? 'knife' : 'leaf')} ${pv.w ? 'أنت خائن' : 'أنت مسالم'}</b><span>${pv.w ? 'تفوز إذا مات المسالمين، أو بقيت أنت ومسالم واحد.' : 'تفوز إذا انكشفت كل أوراق الخيانة.'}${pv.cn ? ' ومعك ورقة الشايب: تحمي واحد غيرك كل ليلة.' : ''}</span></div>
     <h3>أوراقك المقلوبة <small>محد يعرفها غيرك</small></h3><div class="in-cards">${cards}</div>
     ${note}
     <button class="btn pri big" data-cd="go">${pv.w && dawn ? 'يلا نختار وين القطة' : 'يلا نبدأ'}</button>
@@ -4591,7 +4818,7 @@ function bubble(pid, text) {
   layer.appendChild(el);
   el.animate([{ opacity: 0, transform: 'translate(-50%,-100%) scale(.7)' }, { opacity: 1, transform: 'translate(-50%,-100%) scale(1)', offset: .1 }, { opacity: 1, offset: .85 }, { opacity: 0 }], { duration: 3400 }).onfinish = () => el.remove();
 }
-const tokEl = (i) => document.querySelector(`[data-tok="${i}"]`);
+const tokEl = (i) => document.querySelector(`.pgrid [data-tok="${i}"]`) || document.querySelector(`[data-tok="${i}"]`);
 const matEl = (i) => document.querySelector(`[data-mat="${i}"]`);
 function animate(f) {
   const me = meId();
@@ -4617,7 +4844,6 @@ function animate(f) {
     }
     case 'reveal': break;
     case 'death': { const t = matEl(f.a); if (t) { t.animate([{ transform: 'translateX(0)' }, { transform: 'translateX(-7px)' }, { transform: 'translateX(7px)' }, { transform: 'translateX(-4px)' }, { transform: 'translateX(0)' }], { duration: 520 }); const c = center(tokEl(f.a) || t); burst(c.x, c.y, 'red'); } break; }
-    case 'consp': { document.querySelectorAll('.pb,.mybox').forEach((m) => m.animate([{ transform: 'rotate(0)' }, { transform: 'rotate(1.5deg) scale(1.02)' }, { transform: 'rotate(-1.5deg)' }, { transform: 'rotate(0)' }], { duration: 800 })); break; }
   }
 }
 /* ---- big "who is playing and what they did" shows on every screen, one after another ---- */
@@ -4638,6 +4864,7 @@ function nextShow() {
   if (!s) { aqBusy = false; box.innerHTML = ''; return; }
   box.innerHTML = s.html;
   if (s.snd) SND.play(s.snd);
+  if (s.run) { try { s.run(); } catch (e) { /* table gone */ } }
   if (s.buzz) { try { if (navigator.vibrate) navigator.vibrate(90); } catch (e) { /* not allowed */ } }
   const el = box.firstElementChild;
   setTimeout(() => { if (el) el.classList.add('out'); }, s.ms);
@@ -4713,11 +4940,30 @@ function abShow(f) {
   }
   return { ms: 3200, snd, buzz: f.b === me || f.d === me, html: asWrap('ab', `<p class="as-k" style="--cc:${CHAR_COLOR[f.c]}">${ic('sparkle')} ${c.n} · ${c.t}</p><div class="as-row">${row}</div><h3>${head}</h3><p class="as-s">${sub}</p>`) };
 }
+/* the conspiracy: one face-down card leaves each seat and lands on the neighbour, one after another */
+const CSP_STEP = 430;
 function conspShow(f) {
-  const me = meId();
   if (!f.mv || !f.mv.length) return null;
-  const rows = f.mv.map(([to, from]) => `<p class="csp-row"><span class="pt xs">${portrait(to)}</span><b>${whoIs(to)}</b> ${to === me ? 'أخذت' : 'أخذ'} ورقة مقلوبة من <b>${whoIs(from)}</b><span class="pt xs">${portrait(from)}</span></p>`).join('');
-  return { ms: Math.min(5200, 2400 + f.mv.length * 420), snd: 'witch', html: asWrap('consp', `<p class="as-k">${ic('CON')} المؤامرة</p><h3>كل واحد أخذ ورقة من جاره</h3><div class="csp">${rows}</div>`) };
+  return { ms: 1700 + f.mv.length * CSP_STEP, snd: 'witch', run: () => conspAnim(f.mv), html: asWrap('consp', `<p class="as-k">${ic('CON')} المؤامرة</p><h3>كل واحد ياخذ ورقة مقلوبة من جاره</h3><p class="csp-now" id="cspNow">${cspLine(f.mv[0])}</p><p class="csp-cnt num"><span id="cspK">1</span> / ${AR(f.mv.length)}</p>`) };
+}
+function cspLine(m) {
+  const to = m[0], from = m[1], me = meId();
+  return `<span class="pt xs">${portrait(from)}</span><b>${whoIs(from)}</b><span class="csp-card"><span class="mini t-back"></span></span><span class="lg-arr" aria-hidden="true">←</span><span class="pt xs">${portrait(to)}</span><b>${whoIs(to)}</b>${to === me ? '<em>وصلتك ورقة</em>' : from === me ? '<em>راحت منك ورقة</em>' : ''}`;
+}
+function conspAnim(mv) {
+  const ring = (el, col) => { if (el && el.animate) el.animate([{ boxShadow: `0 0 0 0 ${col}` }, { boxShadow: `0 0 0 5px ${col}, 0 0 26px ${col}`, offset: .3 }, { boxShadow: `0 0 0 5px ${col}, 0 0 26px ${col}`, offset: .75 }, { boxShadow: `0 0 0 0 ${col}` }], { duration: CSP_STEP + 520 }); };
+  mv.forEach((m, k) => setTimeout(() => {
+    const line = document.getElementById('cspNow'), cnt = document.getElementById('cspK');
+    if (line) line.innerHTML = cspLine(m);
+    if (cnt) cnt.textContent = AR(k + 1);
+    if (reduced()) return;
+    const from = matEl(m[1]), to = matEl(m[0]);
+    if (!from || !to) return;
+    ring(from, '#ff7a6e'); ring(to, '#7fe3a2');
+    fly(from.querySelector('.pb-trial') || from, to.querySelector('.pb-trial') || to, '<span class="mini t-back fly csp-fly"></span>', { ms: CSP_STEP + 330, nopop: true });
+    setTimeout(() => { const t2 = matEl(m[0]); if (t2) floatLabel(t2, `من ${m[1] === meId() ? 'عندك' : pl(m[1]) ? pl(m[1]).n : ''}`, 'cspl'); }, CSP_STEP + 250);
+    try { SND.play('flip'); } catch (e) { /* muted */ }
+  }, 500 + k * CSP_STEP));
 }
 function runFx() {
   const pub = S.pub, fx = pub && pub.fx;

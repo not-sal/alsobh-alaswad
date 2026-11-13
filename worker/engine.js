@@ -153,11 +153,15 @@
     if (G.phase === 'over') return;
     if (!G.players.some((p) => p.alive && p.witch)) return over(G, 'town');
     if (!G.players.some((p) => p.alive && !p.witch)) return over(G, 'witch');
+    // one traitor left facing one villager: nobody is left to outvote him, the traitor takes it
+    const al = G.players.filter((p) => p.alive);
+    if (al.length === 2 && al.filter((p) => p.witch).length === 1) return over(G, 'witch', 'duel');
   }
-  function over(G, w) {
+  function over(G, w, how) {
     G.phase = 'over'; G.win = w; G.pending = null; G.pq = []; G.steps = [];
     const names = G.players.filter((p) => p.witch).map((p) => p.nick).join('، ');
     if (w === 'town') { log(G, ' طاح آخر خاين. فاز المسالمين!'); ev(G, 'win', 'فاز المسالمين', 'الخونة كانوا: ' + names, { w }); }
+    else if (how === 'duel') { log(G, ' ما بقى إلا خاين ومسالم واحد. فاز الخونة!'); ev(G, 'win', 'فاز الخونة', 'ما بقى إلا خاين ومسالم واحد. الخونة كانوا: ' + names, { w }); }
     else { log(G, ' مات كل المسالمين. فاز الخونة!'); ev(G, 'win', 'فاز الخونة', 'الخونة كانوا: ' + names, { w }); }
   }
 

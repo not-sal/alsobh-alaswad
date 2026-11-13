@@ -199,7 +199,7 @@ export class Room {
     if (ns.length) {
       H.lastShow = ns[ns.length - 1].i;
       let add = 0, drew = false;
-      for (const f of ns) { if (f.k === 'play') add += 3900; else if (f.k === 'black') add += 3300; else if (f.k === 'peek') add += 2800; else if (f.k === 'ab') add += 3700; else if (f.k === 'consp') add += 4600; else if (f.k === 'draw' && !drew) { add += 2500; drew = true; } }
+      for (const f of ns) { if (f.k === 'play') add += 3900; else if (f.k === 'black') add += 3300; else if (f.k === 'peek') add += 2800; else if (f.k === 'ab') add += 3700; else if (f.k === 'consp') add += 2700 + (f.mv ? f.mv.length : 4) * 430; else if (f.k === 'draw' && !drew) { add += 2500; drew = true; } }
       if (add) H.hold = Math.max(H.hold || 0, now0) + add;
     }
     if (G.turnN !== H.lastTn) { if (H.lastTn != null && G.phase === 'turn') H.hold = Math.max(H.hold || 0, now0) + 2700; H.lastTn = G.turnN; }
