@@ -121,9 +121,13 @@ export class Room {
       if ([0, 40, 60, 90].includes(o.timer)) st.opts.timer = o.timer;
       if (['easy', 'normal', 'hard'].includes(o.diff)) st.opts.diff = o.diff;
       if (['normal', 'fast'].includes(o.speed)) st.opts.speed = o.speed;
+      if (Number.isInteger(o.tour) && o.tour >= -1 && o.tour < 40) st.opts.tour = o.tour;
+      if (typeof o.tourId === 'string' && /^[a-z0-9]{1,12}$/.test(o.tourId)) st.opts.tourId = o.tourId;
+      if (typeof o.tips === 'boolean') st.opts.tips = o.tips;
     } else if (m.op === 'start' && !st.G) {
       st.lobby = st.lobby.filter((x) => x.bot || this.online(x.cid));
       if (st.lobby.length < 4 || st.lobby.length > 12) return this.err(cid, 'تحتاجون من 4 إلى 12 لاعب');
+      st.opts.tour = -1;
       st.G = LE.newGame(st.lobby.map((x) => ({ nick: x.nick, bot: x.bot, cid: x.cid })), { diff: st.opts.diff, speed: st.opts.speed });
       this.h = Object.assign(this.h, { hold: 0, lastRev: 0, lastShow: 0, lastTn: null, awSig: '', botAt: {}, tKey: '', tAt: Date.now(), miss: {}, missAt: '' });
     } else if (m.op === 'again' && st.G && st.G.phase === 'over') {

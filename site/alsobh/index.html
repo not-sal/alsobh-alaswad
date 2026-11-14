@@ -1377,6 +1377,121 @@ body{overflow-x:clip}
 @media (min-width:1024px) and (max-width:1499px){.mb-b .mb-act{order:-1}.mb-b .mb-sec:first-child{border-top:1px dashed var(--pline);padding-top:12px}}
 @media (min-width:1500px){.mb-trial{gap:6px}}
 
+/* ================= the walkthrough ("شرح اللعبة") ================= */
+#tour:empty{display:none}
+.tour{position:fixed;inset:0;z-index:88;display:flex;align-items:center;justify-content:center;background:rgba(6,5,20,.84);padding:calc(env(safe-area-inset-top,0px) + 10px) 10px calc(env(safe-area-inset-bottom,0px) + 10px);animation:ovfade .18s ease}
+#tour:not(:empty) ~ #coach{display:none}
+.tour-in{width:min(760px,100%);max-height:100%;display:flex;flex-direction:column;background:linear-gradient(180deg,#1f1c62,#141243);color:var(--text);border-radius:24px;box-shadow:0 0 0 2px rgba(244,191,82,.6),0 30px 80px rgba(0,0,0,.7);overflow:hidden;touch-action:pan-y}
+.tr-head{display:flex;align-items:center;gap:8px;padding:12px 14px 0}
+.tr-room{flex:1;min-width:0;display:flex;align-items:center;gap:6px;font-size:13px;font-weight:800;color:var(--gold);line-height:1.4}
+.tr-room .ic{width:16px;height:16px;flex:none}
+.tr-rules{display:inline-flex;align-items:center;gap:4px;font-size:13px;white-space:nowrap}
+.tr-rules .ic{width:15px;height:15px}
+.tr-x{width:38px;height:38px;flex:none;border:0;border-radius:12px;background:rgba(255,255,255,.08);color:var(--text);display:grid;place-items:center;cursor:pointer}
+.tr-x .ic{width:18px;height:18px}
+.tr-prog{display:flex;align-items:center;gap:10px;padding:8px 14px 0}
+.tr-prog>.num{font-size:12.5px;font-weight:800;color:var(--muted);flex:none}
+.tdots{display:flex;gap:5px;flex:1;flex-wrap:wrap}
+.tdot{flex:1;min-width:10px;height:6px;border:0;padding:0;border-radius:99px;background:rgba(255,255,255,.14);cursor:pointer}
+.tdot.on{background:var(--gold)}
+.tdot:disabled{cursor:default}
+.tr-body{flex:1;min-height:0;overflow-y:auto;padding:12px 16px 6px;display:flex;flex-direction:column;gap:14px;animation:trin .28s cubic-bezier(.2,.9,.3,1)}
+@keyframes trin{from{opacity:0;transform:translateX(-18px)}to{opacity:1;transform:none}}
+.tr-body h2{margin:0;display:flex;align-items:center;gap:10px;font-family:var(--f-mark);font-size:clamp(26px,7.4vw,36px);line-height:1.2;color:#fff6e2}
+.tr-ic{width:44px;height:44px;flex:none;border-radius:14px;display:grid;place-items:center;background:var(--gold);color:var(--gold-ink)}
+.tr-ic .ic{width:26px;height:26px}
+.tv{background:rgba(0,0,0,.24);border-radius:18px;padding:14px 10px;display:flex;flex-direction:column;align-items:center;gap:10px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.07)}
+.tv-row{display:flex;align-items:flex-end;justify-content:center;gap:10px;flex-wrap:wrap}
+.tv-row.sm{gap:6px}
+.tv-it{display:flex;flex-direction:column;align-items:center;gap:6px;min-width:0}
+.tv-it small{font-size:12.5px;font-weight:800;color:var(--text);text-align:center;line-height:1.3;max-width:96px}
+.tv-tr .tface{width:46px;height:66px;border-radius:8px}
+.tv-trs{display:flex;gap:4px}.tv-trs .tface{width:30px;height:44px;border-radius:6px}
+.tv-ch .ccard{--ccw:66px}
+.tv-card .card{--cardw:72px;--cardh:100px}
+.tv-row.sm .tv-card .card{--cardw:58px;--cardh:81px}
+.tv-row.sm .tv-ch .ccard{--ccw:56px}
+.tv-mys{width:66px;aspect-ratio:3/4;border-radius:9px;display:grid;place-items:center;background:#0b0a1e;box-shadow:0 0 0 2px #ff5a4f,0 0 18px rgba(255,90,79,.5)}
+.tv-q{font-family:var(--f-mark);font-size:38px;color:#ff8a80}
+.tv-arr{font-size:24px;font-weight:800;color:var(--gold);align-self:center;padding-bottom:18px}
+.tv-moon{width:62px;height:62px;border-radius:50%;display:grid;place-items:center;background:#0b0a1e;color:#cfd3ff;box-shadow:inset 0 0 0 2px rgba(255,255,255,.12)}
+.tv-moon .ic{width:32px;height:32px}
+.tv-moon.sun{background:#ffd36d;color:#7a4b06}
+.tv-moon.red{background:#3a0f14;color:#ff7a6e}
+.tv-cap{margin:0;font-size:13px;color:var(--muted);text-align:center;line-height:1.5}
+.tv-teams{display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%}
+.tv-team{display:flex;flex-direction:column;gap:3px;padding:10px 12px;border-radius:14px;line-height:1.5}
+.tv-team .ic{width:22px;height:22px}
+.tv-team b{font-size:16px}
+.tv-team span{font-size:13.5px}
+.tv-team.i{background:#dcefdf;color:#1f4d2e}
+.tv-team.w{background:#3a0f14;color:#ffd9d4;box-shadow:inset 0 0 0 1.5px #ff5a4f}
+.tv-teams.big .tv-team{padding:14px}
+.tv-teams.big .tv-team b{font-size:19px}
+.tv-teams.big .tv-team span{font-size:15px}
+.tv-meter{display:flex;align-items:center;gap:10px;background:#3a0f14;border-radius:999px;padding:6px 14px}
+.tv-meter b{font-size:13.5px;color:#ffd9d4}
+.tv-pips i{width:11px!important;height:11px!important;background:rgba(255,255,255,.2)}
+.tv-or{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;width:100%}
+.tv-opt{display:flex;flex-direction:column;align-items:center;gap:8px;padding:10px;border-radius:14px;background:rgba(255,255,255,.05);min-width:140px}
+.tv-opt small{font-size:13px;font-weight:800}
+.tv-btn{display:inline-flex;align-items:center;gap:6px;padding:10px 14px;border-radius:12px;background:linear-gradient(180deg,#e64545,#b8262c);color:#fff;font-weight:800;font-size:14.5px;box-shadow:0 4px 0 rgba(0,0,0,.25)}
+.tv-btn .ic{width:18px;height:18px}
+.tv-orw{font-size:16px;color:var(--gold)}
+.tv-steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px;width:100%}
+.tv-steps li{display:flex;gap:10px;align-items:flex-start;font-size:14px;line-height:1.55;background:rgba(255,255,255,.05);border-radius:12px;padding:8px 10px}
+.tv-steps b{font-size:15px}
+.tv-n{width:28px;height:28px;flex:none;border-radius:50%;display:grid;place-items:center;background:var(--gold);color:var(--gold-ink);font-weight:800}
+.tv-map{display:flex;flex-direction:column;gap:6px;width:100%}
+.tv-m{display:grid;grid-template-columns:auto 1fr;column-gap:10px;align-items:center;padding:10px 12px;border-radius:12px;line-height:1.45}
+.tv-m .ic{width:24px;height:24px;grid-row:span 2}
+.tv-m b{font-size:14.5px}.tv-m span{font-size:13px;opacity:.9}
+.tv-m.a{background:#f4ead7;color:var(--ink)}
+.tv-m.b{background:rgba(255,255,255,.07)}
+.tv-m.c{background:linear-gradient(180deg,#f6e3b4,#f4ead7);color:var(--ink);box-shadow:0 0 0 2px var(--gold)}
+.tv-tips{display:flex;flex-direction:column;gap:8px;width:100%}
+.tv-tips p{margin:0;display:flex;gap:10px;align-items:flex-start;font-size:14px;line-height:1.55}
+.tv-tips .ic{width:22px;height:22px;flex:none;color:var(--gold);margin-top:2px}
+.tr-txt{font-size:15.5px;line-height:1.75}
+.tr-txt p{margin:0 0 6px}
+.tr-txt b{color:#fff2c4}
+.tv-list{margin:0;padding-inline-start:20px;display:flex;flex-direction:column;gap:6px}
+.tv-list li::marker{color:var(--gold)}
+.tv-tip{display:flex;gap:8px;align-items:flex-start;background:rgba(244,191,82,.12);border-radius:12px;padding:8px 12px;font-size:14.5px!important}
+.tv-tip .ic{width:18px;height:18px;flex:none;color:var(--gold);margin-top:4px}
+.tv-end{font-size:16px}
+.tr-foot{padding:10px 14px calc(12px);display:flex;flex-direction:column;gap:8px;background:rgba(0,0,0,.18)}
+.tr-nav{display:grid;grid-template-columns:1fr 1.6fr;gap:8px}
+.tr-nav .btn{min-height:50px;font-size:16px}
+.tr-wait{margin:0;display:flex;align-items:center;justify-content:center;gap:6px;font-weight:800;color:var(--gold);font-size:14px}
+.tr-wait .ic{width:18px;height:18px}
+@media (min-width:700px){
+  .tr-body{padding:16px 26px 8px}
+  .tv{padding:18px 14px}
+  .tv-ch .ccard{--ccw:84px}
+  .tv-card .card{--cardw:90px;--cardh:126px}
+  .tv-tr .tface{width:58px;height:82px}
+  .tv-mys{width:84px}
+  .tr-txt{font-size:16.5px}
+  .tr-foot{padding:12px 26px 16px}
+}
+@media (max-width:370px){.tv-ch .ccard{--ccw:54px}.tv-mys{width:54px}.tv-card .card{--cardw:60px;--cardh:84px}.tv-tr .tface{width:38px;height:54px}.tv-teams{grid-template-columns:1fr}}
+/* lobby and home: the help panel and the room-tips switch */
+.tourp h2{display:flex;align-items:center;gap:8px}
+.tourp h2 .ic{width:22px;height:22px;color:var(--gold)}
+.tgl{display:flex;align-items:flex-start;gap:12px;width:100%;border:0;background:rgba(255,255,255,.05);border-radius:14px;padding:12px;color:var(--text);text-align:start;cursor:pointer;font:inherit}
+.tgl span:last-child{display:flex;flex-direction:column;gap:3px;line-height:1.5}
+.tgl small{font-size:12.5px;color:var(--muted)}
+.tgl-k{width:44px;height:26px;flex:none;border-radius:99px;background:rgba(255,255,255,.18);position:relative;transition:background .2s;margin-top:2px}
+.tgl-k::after{content:"";position:absolute;top:3px;inset-inline-start:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:inset-inline-start .2s}
+.tgl.on .tgl-k{background:#2fa35c}
+.tgl.on .tgl-k::after{inset-inline-start:21px}
+.tr-txt .tv-team.i b{color:#1f4d2e}
+.tr-txt .tv-team.w b{color:#ffd9d4}
+@media (max-width:520px){.tv-row{gap:6px}.tv-ch .ccard{--ccw:56px}.tv-mys{width:56px}.tv-q{font-size:30px}.tv-card .card{--cardw:64px;--cardh:90px}.tv-tr .tface{width:42px;height:60px}.tv-arr{font-size:20px}}
+.tv-row.sm .tv-card .card{--cardw:64px;--cardh:90px}
+@media (max-width:520px){.tv-or{flex-direction:column;gap:6px}.tv-opt{width:100%}}
+
 </style>
 <div id="app" dir="rtl" lang="ar"><div id="screen"></div></div>
 <div id="ovl" dir="rtl" lang="ar"></div>
@@ -1384,6 +1499,7 @@ body{overflow-x:clip}
 <div id="modal" dir="rtl" lang="ar"></div>
 <div id="fx" aria-hidden="true"></div>
 <div id="act" dir="rtl" lang="ar"></div>
+<div id="tour" dir="rtl" lang="ar"></div>
 <div id="coach" dir="rtl" lang="ar"></div>
 <div id="cdraw" dir="rtl" lang="ar"></div>
 <div id="rvl" dir="rtl" lang="ar"></div>
@@ -2724,6 +2840,7 @@ setInterval(tick, 200);
 function startHostedGame() {
   const lob = H.lobby.map((x) => ({ nick: x.nick, bot: x.bot, cid: x.cid }));
   if (lob.length < 4 || lob.length > 12) return toast('تحتاجون من 4 إلى 12 لاعب');
+  H.opts.tour = -1;
   H.G = LE.newGame(lob, { diff: H.opts.diff || 'normal', speed: H.opts.speed || 'normal' });
   H.awSig = ''; H.lastRev = 0; H.hold = 0; H.lastShow = 0; H.lastTn = null; H.miss = {}; H.tKey = ''; H.tAt = Date.now();
   S.mode = 'game';
@@ -3319,7 +3436,7 @@ function portrait(i, cls) { const p = pl(i); return PORTRAITS.draw(p && p.c, { c
 
 function onViews() {
   const pub = S.pub, pv = S.priv;
-  if (!pub || pub.ph === 'lobby') { document.body.classList.remove('night', 'dawn'); return; }
+  if (!pub || pub.ph === 'lobby') { document.body.classList.remove('night', 'dawn'); if (pub) S.ui.roomTips = !!(pub.op && pub.op.tips); return; }
   if (pub.ev) {
     const mx = pub.ev.reduce((m, e) => Math.max(m, e.i), 0);
     if (S.ui.seenEv < 0) S.ui.seenEv = mx;
@@ -3349,7 +3466,10 @@ function onViews() {
   }
   const gameKey = pub.pl.map((p) => p.n + ':' + (p.c || '')).join('|');
   if (pub.ph === 'over') S.ui.introGame = null;
-  else if (S.ui.introGame !== gameKey && meId() != null) { S.ui.introGame = gameKey; S.ui.intro = true; cdStart(pub.ph === 'dawn'); }
+  else if (S.ui.introGame !== gameKey && meId() != null) {
+    S.ui.introGame = gameKey; S.ui.intro = true; S.ui.tour = null; cdStart(pub.ph === 'dawn');
+    if (S.ui.roomTips && S.role !== 'solo') { S.ui.learnRoom = true; for (const k in TIPSEEN) delete TIPSEEN[k]; try { store.set('lail.tips', '{}'); } catch (e) { /* blocked */ } }
+  }
   const sk = pub.sg && (pub.ph === 'dawn' || pub.ph === 'night_pick') ? `${pub.ph}:${pub.nn}:${pub.sg.k}` : '';
   if (sk !== S.ui.sgKey) {
     const prev = S.ui.sgKey;
@@ -3357,7 +3477,7 @@ function onViews() {
     if (sk && prev !== undefined && pub.sg.k === 'w' && !(pub.ph === 'dawn' && S.ui.dawnShown === pub.pl.map((p) => p.n).join('|'))) duskFx(pub.ph === 'dawn' ? 'الفجر' : `الليل ${AR(pub.nn)}`, pub.ph === 'dawn' ? 'الكل يغمض… الخونة يصحون' : 'نزل الليل… الكل يغمض', 'w');
     else if (sk && prev !== undefined && pub.sg.k === 'c') duskFx('دور الشايب', 'عشر ثواني يحط الدرع… والباقين يخمّنون', 'c');
   }
-  if (pub.ph === 'over' && S.ui.lastPh && S.ui.lastPh !== 'over') { const P = pl(meId()); SND.play(P && ((P.wi ? 'witch' : 'town') === pub.win) ? 'win' : 'lose'); S.ui.learn = false; }
+  if (pub.ph === 'over' && S.ui.lastPh && S.ui.lastPh !== 'over') { const P = pl(meId()); SND.play(P && ((P.wi ? 'witch' : 'town') === pub.win) ? 'win' : 'lose'); S.ui.learn = false; S.ui.learnRoom = false; }
   if (pub.ph !== S.ui.lastPh) { S.ui.lastPh = pub.ph; S.ui.sel2 = {}; S.ui.tg = null; S.ui.pickMin = false; if (pub.ph === 'night_pick') S.ui.nrole = null; }
   if (!(pub.ph === 'turn' && pub.turn === meId() && !pub.pd) && !(S.ui.tg && S.ui.tg.k === 'heal' && pub.ph === 'night_confess')) { if (S.ui.tg) S.ui.tg = null; }
   const night = pub.ph === 'night_pick' || pub.ph === 'night_confess';
@@ -3502,6 +3622,7 @@ function render() {
     if (mNow && mNow.k !== 'death') S.ui.autoMT = setTimeout(() => { if (S.ui.modalQ[0] === mNow) { S.ui.modalQ.shift(); render(); } }, 4600);
   }
   if (!(S.mode === 'game' && S.pub && S.pub.ph !== 'over')) runFx();
+  setHTML('tour', S.ui.sheet && S.ui.sheet.fromTour ? '' : tourHTML());
   updateCoach();
 }
 
@@ -3539,7 +3660,7 @@ function homeHTML() {
       ${diffHTML()}${speedHTML()}
       <button class="btn gold" data-act="solo">ابدأ لعبة من ${AR(S.ui.bots + 1)} لاعبين</button>
     </section>
-    <section class="panel"><h2>أول مرة تلعب؟</h2><p class="note">جولة مع 4 بوتات، تطلع لك فيها نصائح خطوة بخطوة، والبوتات توقف لين تقرأ.</p><button class="btn" data-act="learn">${ic('school')} تعلّم اللعب</button></section>
+    <section class="panel tourp"><h2>${ic('school')} أول مرة تلعب؟</h2><p class="note">شرح خطوة بخطوة بالصور: الفكرة، الأوراق، الدور، الليل، وكيف تفوز. ياخذ دقيقتين.</p><button class="btn gold" data-act="tour">${ic('question')} شرح اللعبة</button><p class="note">وبعدها جرّب لعبة مع 4 بوتات: تطلع لك نصايح في وقتها، والبوتات توقف لين تقرأ.</p><button class="btn" data-act="learn">${ic('school')} لعبة تعليمية مع البوتات</button></section>
     ${installHTML()}
     <div class="row between"><button class="linkbtn" data-act="rules">طريقة اللعب والأوراق</button><button class="linkbtn" data-act="snd">${ic(SND.on ? 'snd' : 'mute')} ${SND.on ? 'الصوت شغال' : 'الصوت مقفل'}</button></div>
   </div></div>`;
@@ -3572,6 +3693,7 @@ function lobbyHTML() {
   <div class="home-grid">
     <section class="panel"><div class="row between"><h2>اللاعبين</h2><span class="num muted">${AR(n)} من 12</span></div><div class="lob-list">${items}</div>
       ${host ? `<div class="row"><button class="btn sm" data-act="addbot" ${n >= 12 ? 'disabled' : ''}>${ic('plus')} بوت</button><span class="muted sm">البوتات تكمّل العدد</span></div>` : ''}${tsel}${diffHTML(!host)}${speedHTML(!host)}</section>
+    ${lobbyTourHTML(host, op)}
     ${host ? `<button class="btn pri" data-act="start" ${n < 4 ? 'disabled' : ''}>${n < 4 ? `تحتاجون ${AR(4 - n)} زيادة عشان تبدون` : `ابدأ اللعبة بـ${AR(n)} لاعبين`}</button>` : `<p class="note">${S.ui.hostGone ? 'المضيف طلع من الغرفة…' : 'ننتظر المضيف يبدأ اللعبة.'}</p>`}
     <p class="note">ربعك يفتحون نفس الصفحة، يكتبون أسماءهم، ويدخلون الرمز. ${NET.srv ? 'اللعبة تشتغل على السيرفر، فلو أحد طلع أو انقطع نته ترجع له مكانه.' : 'اللي سوّى الغرفة يخلي الصفحة مفتوحة لين تخلص اللعبة.'}${n > 9 ? ' عندنا 9 شخصيات، فاللي فوق 9 يلعبون بدون قدرة.' : ''}</p>
     <button class="btn ghost" data-act="leave">اطلع من الغرفة</button>
@@ -3614,7 +3736,7 @@ function topHTML() {
     <button class="iconbtn narrow-only" data-act="openlog" aria-label="السجل">${ic('scroll')}</button>
     <button class="iconbtn narrow-only rel" data-act="openchat" aria-label="السوالف">${ic('chat')}${unread}</button>
     <button class="iconbtn" data-act="snd" aria-label="${SND.on ? 'اقفل الصوت' : 'شغّل الصوت'}">${ic(SND.on ? 'snd' : 'mute')}</button>
-    <button class="iconbtn" data-act="rules" aria-label="القوانين">${ic('question')}</button>
+    <button class="iconbtn" data-act="tour" aria-label="شرح اللعبة">${ic('question')}</button>
     <button class="iconbtn exit" data-act="leaveq" aria-label="اطلع من اللعبة">${ic('x')}</button></header>`;
 }
 
@@ -4488,7 +4610,7 @@ function rulesHTML() {
   const ch = Object.keys(LE.CHARS).map((k) => `<li class="rchar">${ccardC(k)}<span><b>${LE.CHARS[k].n}</b> · ${LE.CHARS[k].t}<br>${LE.CHARS[k].d}</span></li>`).join('');
   const cards = ['ACC', 'EVI', 'WIT', 'ALI', 'ROB', 'SCA', 'STO', 'CUR', 'ARS', 'PIE', 'ASY', 'MAT', 'NIG', 'CON', 'CAT'].map((k) => `<li>${cardMini(k)}<span><b>${LE.T[k].n}</b>${LE.T[k].q ? ` <small class="muted num">× ${AR(LE.T[k].q)}</small>` : ''}<br>${LE.T[k].d}</span></li>`).join('');
   return `<h2>طريقة اللعب</h2>
-  <h3>الهدف</h3><p>كل لاعب قدامه أوراق محاكمة مقلوبة: مسالم أو خائن أو شايب. <b>المسالمين</b> يفوزون أول ما تنكشف آخر ورقة «خائن» في اللعبة، حتى لو أصحابها عايشين. <b>الخونة</b> يفوزون إذا كل اللي باقين عايشين من الخونة، أو إذا ما بقى إلا خاين واحد ومسالم واحد.</p>
+  <h3>الهدف</h3><p>كل لاعب قدامه أوراق محاكمة مقلوبة: مسالم أو خائن أو شايب. <b>المسالمين</b> يفوزون إذا مات كل الخونة (الخاين يموت إذا انكشفت منه ورقة «خائن»). <b>الخونة</b> يفوزون إذا كل اللي باقين عايشين من الخونة، أو إذا ما بقى إلا خاين واحد ومسالم واحد.</p>
   <h3>أوراق المحاكمة</h3><ul><li>4 و5 لاعبين: خائن واحد. من 6 لين 12: خائنين. ودايم شايب واحد.</li><li>كل لاعب 5 أوراق لين 7 لاعبين، و4 أوراق لـ8 و9، و3 أوراق من 10 لين 12.</li><li>اللي تجيه ورقة «خائن» يصير من الخونة لين آخر اللعبة، حتى لو راحت منه.</li><li>اللي معه ورقة «الشايب» وما انكشفت يحمي لاعب غيره كل ليلة. إذا انكشفت أو راحت منه، راح دوره.</li></ul>
   <h3>البداية والفجر</h3><p>كل واحد يسحب شخصيته ويشوف أوراقه. كل لاعب ياخذ 3 أوراق، والمؤامرة تنخلط في السحب، والليل دايم تحت الكومة. بعدها تظلم الشاشة: الخونة لهم 20 ثانية يختارون وين يحطون القطة السوداء (حتى قدام واحد منهم)، واللي قدامه القطة يبدأ.</p>
   <h3>كيف يختار الخونة</h3><p>ضغطة على لاعب = اقتراح يشوفه ربعك. ضغطة ثانية على نفس اللاعب = قرار، وتطلع لك رسالة تأكيد. إذا خلص الوقت بدون قرار ينختار اللي عليه اقتراحات أكثر. وبنفس الوقت الباقين يلعبون «مين الخاين؟» على نفس الشاشة: يخمّنون واحد من الخونة، عشان محد يعرف مين صاحي من شكل جواله.</p>
@@ -4737,7 +4859,9 @@ function cdFinish() {
 /* ---- tips while playing (and a guided game from the home screen) ---- */
 const TIPS = [
   ['start', (pub) => pub.ph === 'dawn' && pub.sg && pub.sg.k !== 'ready', 'الفجر', (pv) => (pv.w ? 'أنت خائن: اختار مع ربعك وين تحطون القطة السوداء. ضغطة على لاعب = اقتراح يشوفه ربعك، وضغطة ثانية عليه = قرار.' : 'أنت مسالم: الخونة يختارون الحين. اصطد النجوم لين يخلصون.')],
-  ['board', (pub, pv, me) => pub.ph === 'turn' && !pub.pd && pub.turn !== me, 'الطاولة', 'كل لاعب له لوحة: اسمه، وبطاقة شخصيته على الجنب، وأوراقه المقلوبة، وكم اتهام عليه. اضغط أي لوحة وتشوف تفاصيلها.'],
+  ['board', (pub, pv, me) => pub.ph === 'turn' && !pub.pd && pub.turn !== me, 'الطاولة', 'فوق كل اللاعبين بترتيب الدور: «يلعب الحين» و«بعده». تحت مساحتك: شخصيتك وأوراق محاكمتك ويدك. اضغط أي لاعب أو ورقة وتشوف شرحها.'],
+  ['onme', (pub, pv, me) => pub.ph === 'turn' && pl(me) && pl(me).a && pl(me).rs > 0, 'عليك اتهامات', 'النقاط الحمراء تحت اسمك = الاتهامات عليك. إذا وصلت 7 تنكشف لك ورقة. ورقة «فزعة» الخضراء تشيلها، ودافع عن نفسك بالسوالف.'],
+  ['dead', (pub, pv, me) => pub.ph !== 'over' && pl(me) && !pl(me).a, 'متّ', 'تقدر تتفرج لين النهاية وتشوف وش يصير. لك ثلاث كلمات أخيرة بالسوالف، استخدمها صح!'],
   ['myturn', (pub, pv, me) => pub.ph === 'turn' && !pub.pd && pub.turn === me && pub.tm === 'choose', 'دورك', 'يا تسحب ورقتين وينتهي دورك، يا تضغط ورقة من يدك وتلعبها على لاعب. الأوراق الحمراء اتهامات: إذا وصلت 7 على واحد تنكشف له ورقة.'],
   ['played', (pub, pv, me) => pub.ph === 'turn' && !pub.pd && pub.turn === me && pub.tm === 'play', 'لعبت ورقة', 'تقدر تلعب ورقة ثانية، أو اضغط «خلّصت دوري». بعد ما تلعب ما تقدر تسحب بنفس الدور.'],
   ['revealpick', (pub, pv, me) => pub.ph === 'turn' && pub.pd && pub.pd.w === me && pub.pd.k === 'reveal', 'اختر ورقة', 'وصلت الاتهامات للحد: اختر وحدة من أوراقه المقلوبة وتنقلب قدام الكل. إذا طلعت «خائن» يموت.'],
@@ -4752,7 +4876,8 @@ function tipDone(id) { if (!id) return; TIPSEEN[id] = 1; try { const o = JSON.pa
 function coachTip() {
   const pub = S.pub, pv = S.priv, me = meId();
   if (S.mode !== 'game' || !pub || !pv || me == null || S.ui.intro || pub.ph === 'over' || !pl(me) || !pl(me).a) return null;
-  if (!S.ui.learn && (TIPSEEN.__off || store.get('lail.tipsOff') === '1')) return null;
+  if (!S.ui.learn && !S.ui.learnRoom && (TIPSEEN.__off || store.get('lail.tipsOff') === '1')) return null;
+  if (S.ui.tour) return null;
   const seen = tipsSeen();
   for (const t of TIPS) { try { if (!seen[t[0]] && t[1](pub, pv, me)) return t; } catch (e) { /* not ready */ } }
   return null;
@@ -4766,7 +4891,7 @@ function updateCoach() {
   box.dataset.k = id;
   S.ui.coach = id || null;
   clearTimeout(updateCoach.tmr);
-  if (id && !S.ui.learn) updateCoach.tmr = setTimeout(() => { tipDone(id); if (S.ui.coach === id) { S.ui.coach = null; updateCoach(); } }, 9000);
+  if (id && !S.ui.learn && !S.ui.learnRoom) updateCoach.tmr = setTimeout(() => { tipDone(id); if (S.ui.coach === id) { S.ui.coach = null; updateCoach(); } }, 9000);
   box.innerHTML = t ? `<div class="coach" role="dialog" aria-label="${t[2]}"><div class="co-in"><span class="co-ic">${ic('sparkle')}</span><div class="co-t"><b>${t[2]}</b><p>${typeof t[3] === 'function' ? t[3](S.priv) : t[3]}</p></div></div><div class="co-bar"><button class="btn sm ghost" data-act="tipsoff">${S.ui.learn ? 'وقّف الشرح' : 'لا تطلع نصائح'}</button><button class="btn sm gold" data-act="tipok">فهمت</button></div></div>` : '';
 }
 /* ================= animations ================= */
@@ -5044,6 +5169,14 @@ function onClick(e) {
     case 'bots-': S.ui.bots = Math.max(3, S.ui.bots - 1); render(); break;
     case 'bots+': S.ui.bots = Math.min(11, S.ui.bots + 1); render(); break;
     case 'rules': S.ui.sheet = { k: 'rules' }; render(); break;
+    case 'tour': S.ui.sheet = null; S.ui.tour = { k: 0 }; S.ui.coach = null; if (S.mode === 'lobby' && S.pub && S.pub.op && S.pub.op.tour >= 0) S.ui.tourHide = S.pub.op.tourId; render(); break;
+    case 'tourgo': { const st = tourState(); if (st) tourMove(st.k + (+el.dataset.d)); break; }
+    case 'tourto': tourMove(+el.dataset.i); break;
+    case 'tourx': tourClose(); break;
+    case 'tourhide': S.ui.tourHide = S.pub && S.pub.op ? S.pub.op.tourId : null; S.ui.tour = null; render(); break;
+    case 'tourrules': S.ui.sheet = { k: 'rules', fromTour: true }; render(); break;
+    case 'roomtour': if (amHost()) { S.ui.tour = null; S.ui.tourHide = null; roomOpt({ tour: 0, tourId: Math.random().toString(36).slice(2, 8) }); } break;
+    case 'roomtips': if (amHost()) { const cur = curOpts(); const on = !cur.tips; roomOpt(on && (cur.timer === 40) ? { tips: on, timer: 90 } : { tips: on }); } break;
     case 'close': S.ui.sheet = null; render(); break;
     case 'copy': copyText(S.code); break;
     case 'addbot': if (lobbyDo('addbot')) break; if (H.lobby.length < 12) { H.lobby.push({ nick: botName(), bot: true, cid: 'bot' + rid() }); hostChanged(); } break;
@@ -5087,7 +5220,7 @@ function onClick(e) {
     case 'snd': SND.toggle(); lastHTML.screen = null; render(); break;
     case 'qr': if (pub && S.priv) { doAct({ t: 'chat', text: el.dataset.t }); SND.play('tap'); } break;
     case 'tipok': { tipDone(S.ui.coach); S.ui.coach = null; updateCoach(); break; }
-    case 'tipsoff': TIPSEEN.__off = 1; store.set('lail.tipsOff', '1'); S.ui.learn = false; S.ui.coach = null; updateCoach(); break;
+    case 'tipsoff': S.ui.learnRoom = false; TIPSEEN.__off = 1; store.set('lail.tipsOff', '1'); S.ui.learn = false; S.ui.coach = null; updateCoach(); break;
     case 'learn': saveNick(); if (!S.nick) { S.nick = 'متعلم'; } store.set('lail.tips', '{}'); store.set('lail.tipsOff', ''); S.ui.learn = true; S.ui.bots = 4; startSolo(); break;
     case 'resume': { const v = SESS.read(false); if (v) resumeSession(v); break; }
     case 'install': installApp(); break;
@@ -5233,6 +5366,7 @@ function boot() {
   document.getElementById('modal').addEventListener('click', onClick);
   document.getElementById('ovl').addEventListener('click', onClick);
   document.getElementById('coach').addEventListener('click', onClick);
+  document.getElementById('tour').addEventListener('click', onClick);
   document.getElementById('sheet').addEventListener('submit', onSubmit);
   root.addEventListener('submit', onSubmit);
   root.addEventListener('input', onInput);
@@ -5249,6 +5383,222 @@ function boot() {
   C.init();
 }
 boot();
+
+/* ================= the walkthrough: "how to play" in clear steps, for someone who never played =================
+   One slide at a time, with the real cards and characters of the game as pictures.
+   Opened alone from the help button, or by the room's host for everybody at once (every phone shows the host's slide). */
+const TV = {
+  item: (inner, lbl, cls) => `<span class="tv-it ${cls || ''}">${inner}${lbl ? `<small>${lbl}</small>` : ''}</span>`,
+  arr: (t) => `<span class="tv-arr" aria-hidden="true">${t || '←'}</span>`,
+  card: (t, lbl) => TV.item(cardBig(0, t, 'static'), lbl, 'tv-card'),
+  tr: (t, lbl, mine) => TV.item(trialFace(t, mine !== false), lbl, 'tv-tr'),
+  ch: (cid, lbl) => TV.item(ccardC(cid), lbl, 'tv-ch'),
+  pips: (n, on) => `<span class="pips tv-pips" aria-hidden="true">${Array.from({ length: n }, (_, k) => `<i class="${k < on ? 'on' : ''}"></i>`).join('')}</span>`,
+  team: (cls, icn, t, d) => `<div class="tv-team ${cls}">${ic(icn)}<b>${t}</b><span>${d}</span></div>`,
+  step: (n, t, d) => `<li><span class="tv-n num">${n}</span><span><b>${t}</b>${d ? `<br>${d}` : ''}</span></li>`,
+};
+function tourSlides() {
+  return [
+    {
+      k: 'users', t: 'وش هي اللعبة؟',
+      vis: `<div class="tv-row">${TV.ch('saleh')}${TV.ch('noura')}${TV.item('<span class="tv-q">؟</span>', '', 'tv-mys')}${TV.ch('hamad')}${TV.ch('ali')}</div>`,
+      body: `<p>ديرة فيها <b>خونة متخبّين</b> بين أهلها. كل لاعب يعرف هو مين، بس ما يدري عن الباقين.</p>
+        <div class="tv-teams">${TV.team('i', 'leaf', 'المسالمين', 'هم الأكثر. يبون يكشفون الخونة ويتخلصون منهم.')}${TV.team('w', 'knife', 'الخونة', 'واحد أو اثنين. يقتلون بالليل وهم متخبّين بينكم.')}</div>
+        <p class="tv-tip">${ic('chat')} اللعبة سوالف وشكوك: مين تصدّق؟ ومين يكذب؟</p>`,
+    },
+    {
+      k: 'scales', t: 'أوراق المحاكمة: هذي هويتك',
+      vis: `<div class="tv-row">${TV.tr('I', 'مسالم')}${TV.tr('I', 'مسالم')}${TV.tr('W', 'خائن')}${TV.tr('I', 'مسالم')}${TV.tr('C', 'شايب')}</div><p class="tv-cap">مثال: هذي أوراق لاعب. وحدة منها «خائن»، فهو من الخونة</p>`,
+      body: `<ul class="tv-list">
+        <li>كل لاعب قدامه <b>3 إلى 5 أوراق مقلوبة</b>. أنت تشوف أوراقك، والباقين يشوفون ظهرها بس.</li>
+        <li>إذا بين أوراقك ورقة <b>«خائن»</b> فأنت من الخونة. ما فيها؟ فأنت مسالم.</li>
+        <li>ورقة <b>«الشايب»</b> عند واحد بس: يحمي لاعب كل ليلة.</li>
+        <li>عدد الخونة: <b>4 أو 5 لاعبين = خاين واحد</b>. <b>من 6 لين 12 = خاينين</b>.</li></ul>`,
+    },
+    {
+      k: 'check', t: 'مين يفوز؟',
+      vis: `<div class="tv-teams big">${TV.team('i', 'leaf', 'يفوزون المسالمين', 'إذا مات كل الخونة.')}${TV.team('w', 'knife', 'يفوزون الخونة', 'إذا مات كل المسالمين، أو ما بقى إلا خاين واحد ومسالم واحد.')}</div>`,
+      body: `<p>الخاين يموت إذا <b>انكشفت منه ورقة «خائن»</b>. فكل هدف المسالمين: يكشفون أوراق اللي يشكّون فيهم.</p>
+        <p>والخونة هدفهم يقتلون المسالمين بالليل، ويوجّهون الشك على الأبرياء بالنهار.</p>`,
+    },
+    {
+      k: 'sparkle', t: 'شخصيتك وقدرتها',
+      vis: `<div class="tv-row">${TV.ch('saleh', 'يطالع ورقتين')}${TV.ch('noura', 'تعالج بالليل')}${TV.ch('khaled', 'ينشل من يد')}</div>`,
+      body: `<ul class="tv-list">
+        <li>أول اللعبة كل واحد <b>يسحب شخصية</b> لها قدرة خاصة. أغلبها تنستخدم <b>مرة وحدة</b> باللعبة.</li>
+        <li>الشخصية <b>ما تحدد فريقك</b>: أي شخصية ممكن تكون خاين أو مسالم.</li>
+        <li>إذا جهزت قدرتك، تلمع بطاقة شخصيتك ويطلع لك <b>زر ذهبي</b>.</li>
+        <li>تبي تعرف قدرة أحد؟ اضغط بطاقة شخصيته.</li></ul>`,
+    },
+    {
+      k: 'CAT', t: 'الفجر والقطة السوداء',
+      vis: `<div class="tv-row">${TV.item(`<span class="tv-moon">${ic('moon')}</span>`, 'الشاشة تظلم')}${TV.arr()}${TV.card('CAT', 'تنحط قدام لاعب')}${TV.arr()}${TV.item(`<span class="tv-moon sun">${ic('sun')}</span>`, 'يبدأ اللعب')}</div>`,
+      body: `<ul class="tv-list">
+        <li>تظلم شاشات الكل. الخونة بس <b>يختارون مين يحطون قدامه القطة السوداء</b>، وهو اللي يبدأ الدور.</li>
+        <li>الباقين يلعبون لعبة نجوم صغيرة على نفس الشاشة، عشان <b>محد يعرف مين صاحي</b> من شكل جواله.</li>
+        <li>القطة خطيرة: إذا انسحبت «المؤامرة» تنكشف ورقة من اللي قدامه القطة.</li></ul>`,
+    },
+    {
+      k: 'tap', t: 'دورك: عندك خيارين',
+      vis: `<div class="tv-or"><div class="tv-opt"><span class="tv-btn">${ic('stack')} اسحب ورقتين</span><small>وينتهي دورك</small></div><b class="tv-orw">أو</b><div class="tv-opt"><div class="tv-row sm">${TV.card('ACC')}${TV.arr()}${TV.ch('azouz')}</div><small>العب ورقة على لاعب</small></div></div>`,
+      body: `<ul class="tv-list">
+        <li><b>تسحب ورقتين</b> من الكومة وتخلص. أو <b>تلعب ورقة أو أكثر</b> من يدك، وبعدها تضغط «خلّصت دوري».</li>
+        <li>عشان تلعب ورقة: <b>اضغطها، بعدين اضغط اللاعب</b>. وبالكمبيوتر تقدر تسحبها بالماوس عليه.</li>
+        <li>ما تلعب ورقة على نفسك. وعندك <b>وقت محدود</b> لكل دور، يطلع بالعداد فوق.</li>
+        <li>اللي يلعب الحين عليه علامة <b>«يلعب الحين»</b>، واللي بعده <b>«بعده»</b>.</li></ul>`,
+    },
+    {
+      k: 'ACC', t: 'الاتهامات: الأوراق الحمراء',
+      vis: `<div class="tv-row">${TV.card('ACC', '1 اتهام')}${TV.card('EVI', '3 اتهامات')}${TV.card('WIT', '7 مرة وحدة')}</div><div class="tv-meter">${TV.pips(7, 7)}<b>7 من 7 = تنكشف ورقة</b></div>`,
+      body: `<ul class="tv-list">
+        <li>كل ورقة حمراء تحط <b>اتهامات</b> على لاعب. النقاط الحمراء تحت اسمه تبيّن كم عليه.</li>
+        <li>إذا وصلت <b>7</b>، اللي حط الاتهام الأخير <b>يختار ورقة</b> من أوراق المتهم المقلوبة، وتنقلب قدام الكل.</li>
+        <li>طلعت <b>«خائن»</b>؟ يموت. طلعت «مسالم»؟ نجا هالمرة، والاتهامات اللي عليه تنحرق.</li>
+        <li>عندك أكثر من اتهام؟ <b>ارمها مع بعض</b> على نفس اللاعب.</li></ul>`,
+    },
+    {
+      k: 'shield', t: 'الأوراق الخضراء والزرقاء',
+      vis: `<div class="tv-row">${TV.card('ALI', 'تشيل اتهامات')}${TV.card('STO', 'يفوّت دوره')}${TV.card('PIE', 'ما ينتهم')}${TV.card('ASY', 'ما ينقتل')}</div>`,
+      body: `<ul class="tv-list">
+        <li><b>الخضراء</b> مفعولها على طول: تشيل اتهامات، تسرق يد لاعب، تخليه يفوّت دوره…</li>
+        <li><b>الزرقاء</b> تنحط قدام اللاعب وتبقى: «حصن» ما ينلعب عليه اتهام، «السلاح» ما ينقتل بالليل، «ارتباط» يربط لاعبين يموتون مع بعض.</li>
+        <li>ما تذكر وش تسوي ورقة؟ <b>اضغطها</b> وتطلع لك شرحها.</li></ul>`,
+    },
+    {
+      k: 'CON', t: 'الأوراق السوداء: الليل والمؤامرة',
+      vis: `<div class="tv-row">${TV.card('NIG', 'ينزل الليل')}${TV.card('CON', 'تتبادلون أوراق')}</div>`,
+      body: `<ul class="tv-list">
+        <li>هذي ما تنلعب، <b>تنسحب من الكومة وتنفّذ على طول</b>.</li>
+        <li><b>المؤامرة</b>: اللي قدامه القطة تنكشف له ورقة. بعدها <b>كل لاعب ياخذ ورقة مقلوبة من جاره</b>، وتشوفون الأوراق تطير على الشاشة.</li>
+        <li>انتبه: لو جتك ورقة «خائن» بالمؤامرة، <b>صرت من الخونة</b> لين آخر اللعبة!</li>
+        <li><b>الليل</b>: آخر ورقة بالكومة (أو بنصها باللعبة السريعة). الشريحة الجاية تشرحه.</li></ul>`,
+    },
+    {
+      k: 'moon', t: 'الليل خطوة بخطوة',
+      vis: `<ol class="tv-steps">${TV.step(1, 'الخونة يختارون ضحية', 'والباقين يلعبون على الشاشة عشان محد يعرف مين صاحي.')}${TV.step(2, 'الشايب يحط الدرع', 'يحمي لاعب غيره من القتل.')}${TV.step(3, 'تعترف أو تخاطر؟', 'اللي يعترف يكشف ورقة من أوراقه بنفسه، وينجو أكيد.')}${TV.step(4, 'تنكشف الضحية', 'تموت، إلا إذا معها الدرع أو اعترفت أو قدامها «السلاح».')}</ol>`,
+      body: `<p class="tv-tip">${ic('dice')} الاعتراف يحميك، بس يكشف ورقة من أوراقك. إذا كنت خاين وكشفت «خائن» بنفسك… تموت!</p>`,
+    },
+    {
+      k: 'skull', t: 'متى يموت اللاعب؟',
+      vis: `<div class="tv-row">${TV.tr('W', 'انكشفت «خائن»')}${TV.item(`<span class="tv-moon red">${ic('knife')}</span>`, 'انقتل بالليل')}${TV.item(`<span class="tv-trs">${trialFace('I', true)}${trialFace('I', true)}${trialFace('C', true)}</span>`, 'انكشفت كل أوراقه')}</div>`,
+      body: `<ul class="tv-list">
+        <li>إذا مات أحد <b>ينقال للكل هو خاين ولا مسالم</b>، وتنكشف أوراقه.</li>
+        <li>الميت يتفرج، وله <b>ثلاث كلمات أخيرة</b> بالسوالف.</li>
+        <li>الشخص ما يطلع من اللعبة: يقدر يتابع لين النهاية.</li></ul>`,
+    },
+    {
+      k: 'eye', t: 'الشاشة: وين ألقى كل شي؟',
+      vis: `<div class="tv-map"><div class="tv-m a">${ic('users')}<b>فوق: كل اللاعبين بترتيب الدور</b><span>اسمه، شخصيته، أوراقه المقلوبة، وكم اتهام عليه</span></div><div class="tv-m b">${ic('cards')}<b>بالنص: الكومة وآخر حركة</b><span>كم باقي ورقة، ومين لعب وش على مين</span></div><div class="tv-m c">${ic('user')}<b>تحت: مساحتك أنت</b><span>شخصيتك وقدرتها، أوراق محاكمتك، أزرار دورك، ويدك</span></div></div>`,
+      body: `<ul class="tv-list">
+        <li>أي شي ما فهمته؟ <b>اضغطه</b>: لاعب، ورقة، أو شخصية، وتطلع لك تفاصيله.</li>
+        <li><b>السجل</b> فيه كل اللي صار، و<b>السوالف</b> فيها ردود سريعة للكلام.</li>
+        <li>زر ${ic('question')} فوق يرجّعك لهالشرح بأي وقت.</li></ul>`,
+    },
+    {
+      k: 'school', t: 'نصايح لأول لعبة',
+      vis: `<div class="tv-tips">
+        <p>${ic('eyeoff')}<span><b>لا تكشف أوراقك</b> لأحد، حتى لو كنت مسالم. الخونة يستفيدون من أي معلومة.</span></p>
+        <p>${ic('scroll')}<span><b>راقب مين يتهم مين</b>: الخاين عادةً يدافع عن ربعه ويتهم الأبرياء.</span></p>
+        <p>${ic('scales')}<span><b>وزّع الاتهامات بعقل</b>: كشف ورقة واحد مشكوك فيه أنفع من رشها على الكل.</span></p>
+        <p>${ic('shield')}<span><b>إذا حسيت إنك مستهدف بالليل</b>، الاعتراف ينجّيك.</span></p></div>`,
+      body: `<p class="tv-end">جاهز؟ أحسن طريقة تتعلم فيها: <b>العب</b>. أول لعبة تطلع لك نصايح صغيرة في وقتها.</p>`,
+      last: true,
+    },
+  ];
+}
+/* which tour is on screen: the room's (host decides the slide) or my own */
+function tourState() {
+  const pub = S.pub;
+  if (S.mode === 'lobby' && pub && pub.op && typeof pub.op.tour === 'number' && pub.op.tour >= 0) {
+    if (S.ui.tourHide === pub.op.tourId) return S.ui.tour ? { k: S.ui.tour.k, room: false } : null;
+    return { k: pub.op.tour, room: true, host: amHost() };
+  }
+  if (S.mode === 'lobby' && S.ui.tourHide != null && !(pub && pub.op && pub.op.tour >= 0)) S.ui.tourHide = null;
+  return S.ui.tour ? { k: S.ui.tour.k, room: false } : null;
+}
+function tourHTML() {
+  const st = tourState();
+  if (!st) return '';
+  const sl = tourSlides();
+  const k = Math.max(0, Math.min(sl.length - 1, st.k | 0));
+  const s = sl[k];
+  const canNav = !st.room || st.host;
+  const dots = sl.map((_, i) => `<button class="tdot ${i === k ? 'on' : ''}" ${canNav ? `data-act="tourto" data-i="${i}"` : 'disabled'} aria-label="الشريحة ${i + 1}"></button>`).join('');
+  const head = st.room
+    ? `<span class="tr-room">${ic('users')} ${st.host ? 'جولة تعريفية للغرفة: الكل يشوف هالشريحة معك' : 'جولة تعريفية: المضيف يقلّب الشرح للكل'}</span>`
+    : `<span class="tr-room">${ic('school')} شرح اللعبة</span>`;
+  let foot;
+  if (st.room && !st.host) foot = `<p class="tr-wait">${ic('eye')} المضيف هو اللي ينقلكم للشريحة الجاية</p><button class="btn ghost" data-act="tourhide">اقفل الشرح عندي</button>`;
+  else {
+    const prev = k > 0 ? `<button class="btn ghost" data-act="tourgo" data-d="-1">${'→'} السابق</button>` : '<span></span>';
+    let next;
+    if (!s.last) next = `<button class="btn pri" data-act="tourgo" data-d="1">التالي ${'←'}</button>`;
+    else if (st.room) next = `<button class="btn gold" data-act="tourx">خلّصنا الجولة</button>`;
+    else next = `<button class="btn gold" data-act="tourx">${S.mode === 'game' ? 'رجوع للعبة' : 'تمام، فهمت'}</button>`;
+    foot = `<div class="tr-nav">${prev}${next}</div>`;
+    if (s.last && !st.room && S.mode === 'home') foot += `<button class="btn" data-act="learn">${ic('school')} جرّب لعبة تعليمية مع البوتات</button>`;
+  }
+  return `<div class="tour" role="dialog" aria-modal="true" aria-label="شرح اللعبة: ${esc(s.t)}"><div class="tour-in" data-swipe="tour">
+    <header class="tr-head">${head}<button class="linkbtn tr-rules" data-act="tourrules">${ic('scroll')} القوانين كاملة</button>${st.room ? '' : `<button class="tr-x" data-act="tourx" aria-label="اقفل الشرح">${ic('x')}</button>`}</header>
+    <div class="tr-prog"><span class="num">${AR(k + 1)} / ${AR(sl.length)}</span><div class="tdots">${dots}</div></div>
+    <div class="tr-body" key="${k}">
+      <h2><span class="tr-ic">${ic(s.k)}</span>${s.t}</h2>
+      <div class="tv">${s.vis}</div>
+      <div class="tr-txt">${s.body}</div>
+    </div>
+    <footer class="tr-foot">${foot}</footer>
+  </div></div>`;
+}
+/* moving between slides: my own tour moves here, the room's tour moves for everybody */
+function tourMove(k) {
+  const st = tourState();
+  if (!st) return;
+  const n = tourSlides().length;
+  k = Math.max(0, Math.min(n - 1, k));
+  if (st.room) { if (st.host) roomOpt({ tour: k }); return; }
+  S.ui.tour = { k };
+  render();
+  const b = document.querySelector('.tr-body'); if (b) b.scrollTop = 0;
+}
+function roomOpt(o) {
+  if (lobbyDo('opts', { opts: o })) return;
+  Object.assign(H.opts, o);
+  hostChanged();
+}
+function tourClose() {
+  const st = tourState();
+  if (st && st.room && st.host) { roomOpt({ tour: -1 }); return; }
+  S.ui.tour = null; render();
+}
+/* swipe between slides with a finger; arrows on a keyboard */
+(function tourInput() {
+  if (typeof document === 'undefined') return;
+  let sx = null, sy = null;
+  document.addEventListener('pointerdown', (e) => { if (e.pointerType === 'mouse' || !e.target.closest('[data-swipe="tour"]')) { sx = null; return; } sx = e.clientX; sy = e.clientY; }, true);
+  document.addEventListener('pointerup', (e) => {
+    if (sx == null) return;
+    const dx = e.clientX - sx, dy = e.clientY - sy; sx = null;
+    if (Math.abs(dx) < 60 || Math.abs(dx) < Math.abs(dy) * 1.5) return;
+    const st = tourState(); if (!st) return;
+    tourMove(st.k + (dx > 0 ? 1 : -1));
+  }, true);
+  document.addEventListener('keydown', (e) => {
+    const st = tourState(); if (!st) return;
+    if (e.key === 'ArrowLeft') { tourMove(st.k + 1); e.preventDefault(); }
+    else if (e.key === 'ArrowRight') { tourMove(st.k - 1); e.preventDefault(); }
+    else if (e.key === 'Escape' && !st.room) { tourClose(); e.stopPropagation(); }
+  }, true);
+})();
+/* the room's tour as a choice in the lobby (host) */
+function lobbyTourHTML(host, op) {
+  const tips = !!op.tips;
+  if (!host) return `<section class="panel tourp"><h2>${ic('school')} أول مرة تلعب؟</h2><p class="note">${tips ? 'المضيف شغّل <b>نصايح المبتدئين</b>: تطلع لك نصيحة كل ما مريت بموقف جديد.' : 'شوف الشرح قبل لا تبدأ اللعبة.'}</p><button class="btn" data-act="tour">${ic('question')} شرح اللعبة</button></section>`;
+  return `<section class="panel tourp"><h2>${ic('school')} فيه أحد ما يعرف اللعبة؟</h2>
+    <p class="note">ابدأ <b>جولة تعريفية</b>: الشرح يطلع على جوال كل واحد بالغرفة بنفس الوقت، وأنت تقلّب الشرائح وتشرح لهم خطوة بخطوة.</p>
+    <button class="btn gold" data-act="roomtour">${ic('users')} ابدأ الجولة التعريفية للكل</button>
+    <button class="tgl ${tips ? 'on' : ''}" data-act="roomtips" role="switch" aria-checked="${tips}"><span class="tgl-k" aria-hidden="true"></span><span><b>نصايح المبتدئين أثناء اللعبة</b><small>كل لاعب تطلع له نصيحة أول ما يمر بموقف جديد، وتبقى لين يضغط «فهمت».${tips ? '' : ' ونرفع المهلة لدقيقة ونص.'}</small></span></button>
+  </section>`;
+}
 
 </script>
 </body></html>
